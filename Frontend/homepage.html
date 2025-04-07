@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Degree Planning Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="Screen">
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <img src="Logo_Horz_Colour.png" alt="University Logo" class="logo">
+      </div>
+      <a href="homepage.html">Home</a>
+      <a href="planner.html">Build Semester Plan</a>
+      <a href="requirements.html">Academic Requirements</a>
+    </div>
+
+    <!-- Main Body -->
+    <div class="main-body">
+    
+      <!-- Header -->
+      <div class="header">
+        <!-- Logo -->
+        <div class="header-left">
+        </div>
+        <!-- Search Container -->
+        <div class="header-right"></div>
+        <div class="search-container">
+          <input type="text" class="search-bar" placeholder="Search...">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+        <!-- Logout button -->
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <div id="logout-popup" class="logout-popup">
+          <div class="logout-popup-content">
+            <h2>Logout Successful!</h2>
+            <p><strong><button class="login-btn" onclick="login()">Login</button></strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Combined Section: Profile and Degree Progress -->
+      <div class="main-content">
+        <div class="profile-degree-container">
+          <!-- User Profile -->
+          <div class="profile-section">
+            <img src="user image.png" alt="Profile Photo" class="profile-photo">
+            <div class="profile-info">
+              <h2>John Doe</h2>
+              <p>B.Sc. in Computer Science</p>
+              <button class="gpa-btn" onclick="showGPA()">My GPA</button>
+            </div>
+          </div>
+          <!-- GPA Popup -->
+          <div id="gpa-popup" class="gpa-popup">
+            <div class="gpa-popup-content">
+              <button class="gpa-close-btn" onclick="hideGPA()">✖</button>
+              <h2>Your GPA</h2>
+              <p><strong>3.75</strong></p>
+            </div>
+          </div>
+      
+          <!-- Degree Progress -->
+          <div class="degree-progress-section">
+            <h3>Degree Progress</h3>
+            <div class="progress-container">
+              <div class="pie-chart"></div>
+              <div class="progress-key">
+                <p><span class="color-box completed"></span>Completed: 48</p>
+                <p><span class="color-box in-progress"></span> In Progress: 9</p>
+                <p><span class="color-box incomplete"></span> Incomplete: 63</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Completed Courses -->
+      <div class="section-2">
+        <h3>Completed Courses</h3>
+        <!-- Year 1 Dropdown -->
+        <div class="requirements-section">
+          <h2 onclick="toggleDropdown('year1')">
+            <span class="arrow">▶</span> Year 1
+          </h2>
+          <div id="year1" class="section-content">
+            <div class="sorting-container">
+              <div class="sort-box">
+                <select id="sort-options" onchange="sortTableDropdown()">
+                  <option value="" disabled selected>Sort by:</option>
+                  <option value="course">Course (A - Z)</option>
+                  <option value="term">Term</option>
+                  <option value="year">Year</option>
+                  <option value="grade">Grade</option>
+                  <option value="status">Status</option>
+                </select>
+              </div>
+            </div>
+            <table class="requirements-table">
+              <tr>
+                <th>Course</th>
+                <th>Units</th>
+                <th>Term</th>
+                <th>Year</th>
+                <th>Grade</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>CPSC 101</td>
+                <td>3.00</td>
+                <td>Fall</td>
+                <td>2021</td>
+                <td>A</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
+              <tr>
+                <td>MATH 101</td>
+                <td>3.00</td>
+                <td>Fall</td>
+                <td>2021</td>
+                <td>A-</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
+              <!-- Add more courses here -->
+            </table>
+          </div>
+        </div>
+        <!-- Year 2 Dropdown -->
+        <div class="requirements-section">
+          <h2 onclick="toggleDropdown('year2')">
+            <span class="arrow">▶</span> Year 2
+          </h2>
+          <div id="year2" class="section-content">
+            <div class="sorting-container">
+              <div class="sort-box">
+                <select id="sort-options" onchange="sortTableDropdown()">
+                  <option value="" disabled selected>Sort by:</option>
+                  <option value="course">Course (A - Z)</option>
+                  <option value="term">Term</option>
+                  <option value="year">Year</option>
+                  <option value="grade">Grade</option>
+                  <option value="status">Status</option>
+                </select>
+              </div>
+            </div>
+            <table class="requirements-table">
+              <tr>
+                <th>Course</th>
+                <th>Units</th>
+                <th>Term</th>
+                <th>Year</th>
+                <th>Grade</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>CPSC 201</td>
+                <td>3.00</td>
+                <td>Fall</td>
+                <td>2022</td>
+                <td>A</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
+              <tr>
+                <td>MATH 211</td>
+                <td>3.00</td>
+                <td>Winter</td>
+                <td>2023</td>
+                <td>B-</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
+              <!-- Add more courses here -->
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+<script src="script.js"></script>
+</html>
