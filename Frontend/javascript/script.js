@@ -7,12 +7,20 @@ function hideGPA() {
   document.getElementById("gpa-popup").style.display = "none";
 }
 
+/******************************************** Logout Button ******************************************/
 function logout() {
-  document.getElementById("logout-popup").style.display = "flex";
+  // Show the popup
+  const popup = document.getElementById("logout-popup");
+  popup.style.display = "block";
+
+  // Redirect to login page after 1.5 seconds (optional)
+  setTimeout(() => {
+    window.location.href = "login.html"; // adjust path if needed
+  }, 1500);
 }
 
 function login() {
-  document.getElementById("logout-popup").style.display = "none";
+  window.location.href = "login.html"; // go back to login when 'Login' button is clicked
 }
 
 

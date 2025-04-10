@@ -1,0 +1,165 @@
+body {
+    margin: 0;
+    font-family: museo-slab, "Proxima Nova", Arial, Helvetica, sans-serif;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-wrapper {
+    display: flex;
+    max-width: 960px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.login-left {
+    background-color: #d6001c;
+    color: white;
+    padding: 40px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.uc-logo {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.welcome-text {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.uc-lockup {
+    width: 350px;
+}
+
+.login-right {
+    flex: 1;
+    padding: 50px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.login-button-group {
+    margin-bottom: 30px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+    background-color: #fff;
+    border: 2px solid #d6001c;
+    color: #d6001c;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #d6001c;
+    color: white;
+}
+
+.login-help-text {
+    font-size: 14px;
+    margin-top: 8px;
+    color: #555;
+}
+
+.footer {
+    margin-top: auto;
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.footer a {
+    color: #d6001c;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer .copyright {
+    margin-top: 10px;
+}
+
+#loginFormContainer {
+    max-width: 100%;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#loginForm label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #444;
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#loginForm input[type="text"]:focus,
+#loginForm input[type="password"]:focus {
+    border-color: #d6001c;
+    box-shadow: 0 0 5px rgba(214, 0, 28, 0.3);
+}
+
+#loginForm button[type="submit"] {
+    padding: 12px;
+    background-color: #d6001c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#loginForm button[type="submit"]:hover {
+    background-color: #b00018;
+}
+
+#loginMessage {
+    font-size: 14px;
+    margin-top: 10px;
+    min-height: 18px;
+}

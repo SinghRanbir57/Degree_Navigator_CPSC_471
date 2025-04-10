@@ -1,0 +1,28 @@
+/******************************** Sidebar Styling **************************************/
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10%;
+    height: 100vh;
+    background-color: #d6001c;
+    color: #4CC9FE;
+    z-index: 9999;
+}
+
+.sidebar a {
+    padding: 15px 15px 10px 15px;
+    margin: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #ffffff;
+    border-radius: 5px;
+    color: #d6001c;
+}

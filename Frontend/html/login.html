@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+    <div class="login-wrapper">
+        <div class="login-left">
+            <img src="../images/UC_Spark_Primary_Gold_RGB_300.png" alt="UCalgary Logo" class="uc-logo" />
+            <p class="welcome-text">Welcome to my.ucalgary.ca</p>
+            <img src="../images/UC-White-horz-StartSomething-rgb300.png" alt="UCalgary Lockup" class="uc-lockup" />
+        </div>
+    
+        <div class="login-right">
+            <h2 class="login-title">Log in</h2>
+    
+            <div class="login-button-group">
+                <button onclick="showLoginForm('student')" class="login-button">
+                    Continue with your Student account
+                </button>
+                <p class="login-help-text">For current students and alumni.</p>
+            </div>
+    
+            <div class="login-button-group">
+                <button onclick="showLoginForm('advisor')" class="login-button">
+                    Continue with your Advisor account
+                </button>
+                <p class="login-help-text">For advisors, staff and guests.</p>
+            </div>
+    
+            <div id="loginFormContainer"></div>
+    
+            <footer class="footer">
+                <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d"
+                    target="_blank">Account FAQs</a>
+                <a href="https://ucalgary.service-now.com/it?id=contact_and_help" target="_blank">Contact Support</a>
+                <div class="copyright">
+                    ©
+                    <script>document.write(new Date().getFullYear());</script> University of Calgary
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        let currentLoginType = "";
+
+        function showLoginForm(type) {
+            currentLoginType = type;
+
+            // Hide login buttons
+            const groups = document.querySelectorAll(".login-button-group");
+            groups.forEach(group => group.style.display = "none");
+
+            // Show login form
+            const container = document.getElementById("loginFormContainer");
+            container.innerHTML = `
+                <form id="loginForm">
+                    <label for="username">Username:</label><br>
+                    <input type="text" id="username" required><br><br>
+    
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" required><br><br>
+    
+                    <button type="submit">Login</button>
+                    <p id="loginMessage"></p>
+                </form>
+            `;
+
+            // Attach login logic
+            document.getElementById("loginForm").addEventListener("submit", handleLogin);
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const loginMessage = document.getElementById("loginMessage");
+
+            const credentials = {
+                student: { username: "student", password: "student123", redirect: "../html/student-dashboard.html" },
+                advisor: { username: "advisor", password: "advisor123", redirect: "../html/advisor-dashboard.html" }
+            };
+
+            const validCreds = credentials[currentLoginType];
+
+            if (username === validCreds.username && password === validCreds.password) {
+                loginMessage.style.color = "green";
+                loginMessage.textContent = `✅ Welcome, ${username}! Redirecting...`;
+                setTimeout(() => {
+                    window.location.href = validCreds.redirect;
+                }, 1000);
+            } else {
+                loginMessage.style.color = "red";
+                loginMessage.textContent = "❌ Invalid username or password.";
+            }
+        }
+
+        function reloadWithParameter(param, value) {
+            // Instead of reloading, just call showLoginForm directly
+            showLoginForm(param === "MFA" ? "student" : "advisor");
+        }
+    </script>
+</body>
+</html>

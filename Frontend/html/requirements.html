@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Academic Requirements</title>
+  <link rel="stylesheet" href="../css/requirements.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
+</head>
+
+<body>
+  <div class="Screen">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <img src="../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
+      </div>
+      <a href="student-dashboard.html">Home</a>
+      <a href="planner.html">Build Semester Plan</a>
+      <a href="requirements.html">Academic Requirements</a>
+    </div>
+
+    <div class="header">
+      <!-- Logo -->
+      <div class="header-left">
+      </div>
+      <!-- Search Container -->
+      <div class="header-right"></div>
+      <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search...">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+      <!-- Logout button -->
+      <button class="logout-btn" onclick="logout()">Logout</button>
+      <div id="logout-popup" class="logout-popup" style="display: none;">
+        <script>
+          function logout() {
+            window.location.href = "../html/login.html";
+          }
+        </script>
+      </div>
+    </div>
+  
+    <!-- Main Body -->
+    <div class="main-body">
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="requirements-content">
+          <h1>Academic Requirements</h1>
+          <p><strong>My GPA: 3.40 | Min: 2.00</strong></p>
+          <p class="progress-label">
+            <span class="progress-circle completed"></span> Completed: <span id="completed-units">48&nbsp</span> |&nbsp
+            <span class="progress-circle in-progress"></span> In-progress: <span id="in-progress-units">9&nbsp</span> |&nbsp
+            <span class="progress-circle incomplete"></span> Incomplete: <span id="incomplete-units">63</span>
+          </p>
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress-completed"></div>
+              <div class="progress-in-progress"></div>
+              <div class="progress-incomplete"></div>
+            </div>
+          </div>
+          <!-- Required courses section -->
+          <div class="requirements-section">
+            <h2 onclick="toggleSection(this)">
+              <span class="arrow">▶</span> Required Courses
+            </h2>
+            <div class="section-content">
+              <div class="sorting-container">
+                <div class="sort-box">
+                  <select id="sort-options" onchange="sortTableDropdown()">
+                    <option value="" disabled selected>Sort by:</option>
+                    <option value="course">Course (A - Z)</option>
+                    <option value="term">Term</option>
+                    <option value="year">Year</option>
+                    <option value="grade">Grade</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+              </div>
+              <table class="requirements-table">
+                <thead>
+                  <tr>
+                    <th>Course</th>
+                    <th>Units</th>
+                    <th>Term</th>
+                    <th>Year</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="course-table-body">
+                  <tr>
+                    <td>CPSC 231</td>
+                    <td>3.00</td>
+                    <td>Fall</td>
+                    <td>2022</td>
+                    <td>A</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>CPSC 233</td>
+                    <td>3.00</td>
+                    <td>Fall</td>
+                    <td>2022</td>
+                    <td>A</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>CPSC 251</td>
+                    <td>3.00</td>
+                    <td>Fall</td>
+                    <td>2022</td>
+                    <td>B+</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>MATH 211</td>
+                    <td>3.00</td>
+                    <td>Winter</td>
+                    <td>2023</td>
+                    <td>B-</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>MATH 249</td>
+                    <td>3.00</td>
+                    <td>Winter</td>
+                    <td>2023</td>
+                    <td>A</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>PHIL 279</td>
+                    <td>3.00</td>
+                    <td>Winter</td>
+                    <td>2023</td>
+                    <td>B</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>CPSC 331</td>
+                    <td>3.00</td>
+                    <td>Fall</td>
+                    <td>2023</td>
+                    <td>A</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>CPSC 351</td>
+                    <td>3.00</td>
+                    <td>Fall</td>
+                    <td>2023</td>
+                    <td>A</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>CPSC 355</td>
+                    <td>3.00</td>
+                    <td>Fall</td>
+                    <td>2023</td>
+                    <td>A-</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>SENG 300</td>
+                    <td>3.00</td>
+                    <td>Winter</td>
+                    <td>2024</td>
+                    <td>A</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>PHIL 314</td>
+                    <td>3.00</td>
+                    <td>Winter</td>
+                    <td>2024</td>
+                    <td>A+</td>
+                    <td><span class="completed">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>CPSC 413</td>
+                    <td>3.00</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><span class="incomplete">Incomplete</span></td>
+                  </tr>
+                  <tr>
+                    <td>CPSC 449</td>
+                    <td>3.00</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><span class="incomplete">Incomplete</span></td>
+                  </tr>
+                  <tr>
+                    <td>CPSC 457</td>
+                    <td>3.00</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><span class="incomplete">Incomplete</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        
+          <!-- 300 Level Required courses section -->
+          <div class="requirements-section">
+            <h2 onclick="toggleSection(this)">
+              <span class="arrow">▶</span> Min 9 Units at 300+ Level
+            </h2>
+            <div class="section-content">
+              <div class="sorting-container">
+                <div class="sort-box">
+                  <select id="sort-options" onchange="sortTableDropdown()">
+                    <option value="" disabled selected>Sort by:</option>
+                    <option value="course">Course (A - Z)</option>
+                    <option value="term">Term</option>
+                    <option value="year">Year</option>
+                    <option value="grade">Grade</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+              </div>
+              <table class="requirements-table">
+                <tr>
+                  <th>Course</th>
+                  <th>Units</th>
+                  <th>Term</th>
+                  <th>Year</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                </tr>
+                <tr>
+                  <td>CPSC 329</td>
+                  <td>3.00</td>
+                  <td>Spring</td>
+                  <td>2023</td>
+                  <td>A</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
+                <tr>
+                  <td>CPSC 393</td>
+                  <td>3.00</td>
+                  <td>Summer</td>
+                  <td>2023</td>
+                  <td>A+</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        
+          <!-- 400 Level Required courses section -->
+          <div class="requirements-section">
+            <h2 onclick="toggleSection(this)">
+              <span class="arrow">▶</span> Min 12 Units at 400+ Level
+            </h2>
+            <div class="section-content">
+              <div class="sorting-container">
+                <div class="sort-box">
+                  <select id="sort-options" onchange="sortTableDropdown()">
+                    <option value="" disabled selected>Sort by:</option>
+                    <option value="course">Course (A - Z)</option>
+                    <option value="term">Term</option>
+                    <option value="year">Year</option>
+                    <option value="grade">Grade</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+              </div>
+              <table class="requirements-table">
+                <tr>
+                  <th>Course</th>
+                  <th>Units</th>
+                  <th>Term</th>
+                  <th>Year</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                </tr>
+                <tr>
+                  <td>CPSC 471</td>
+                  <td>3.00</td>
+                  <td>Winter</td>
+                  <td>2025</td>
+                  <td>-</td>
+                  <td><span class="in-progress">In-Progress</span></td>
+                </tr>
+                <tr>
+                  <td>CPSC 481</td>
+                  <td>3.00</td>
+                  <td>Winter</td>
+                  <td>2025</td>
+                  <td>-</td>
+                  <td><span class="in-progress">In-Progress</span></td>
+                </tr>
+                <tr>
+                  <td>CPSC 411</td>
+                  <td>3.00</td>
+                  <td>Winter</td>
+                  <td>2025</td>
+                  <td>-</td>
+                  <td><span class="in-progress">In-Progress</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        
+          <!-- 500 Level Required courses section -->
+          <div class="requirements-section">
+            <h2 onclick="toggleSection(this)">
+              <span class="arrow">▶</span> Min 9 Units at 500+ Level
+            </h2>
+            <div class="section-content">
+              <div class="sorting-container">
+                <div class="sort-box">
+                  <select id="sort-options" onchange="sortTableDropdown()">
+                    <option value="" disabled selected>Sort by:</option>
+                    <option value="course">Course (A - Z)</option>
+                    <option value="term">Term</option>
+                    <option value="year">Year</option>
+                    <option value="grade">Grade</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+              </div>
+              <table class="requirements-table">
+                <tr>
+                  <th>Course</th>
+                  <th>Units</th>
+                  <th>Term</th>
+                  <th>Year</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        
+          <!-- Non-Science Options -->
+          <div class="requirements-section">
+            <h2 onclick="toggleSection(this)">
+              <span class="arrow">▶</span> Non-Science Options
+            </h2>
+            <div class="section-content">
+              <div class="sorting-container">
+                <div class="sort-box">
+                  <select id="sort-options" onchange="sortTableDropdown()">
+                    <option value="" disabled selected>Sort by:</option>
+                    <option value="course">Course (A - Z)</option>
+                    <option value="term">Term</option>
+                    <option value="year">Year</option>
+                    <option value="grade">Grade</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+              </div>
+              <table class="requirements-table">
+                <tr>
+                  <th>Course</th>
+                  <th>Units</th>
+                  <th>Term</th>
+                  <th>Year</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                </tr>
+                <tr>
+                  <td>LWSO 201</td>
+                  <td>3.00</td>
+                  <td>Spring</td>
+                  <td>2023</td>
+                  <td>A</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
+                <tr>
+                  <td>GEOG 204</td>
+                  <td>3.00</td>
+                  <td>Spring</td>
+                  <td>2024</td>
+                  <td>A</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
+                <tr>
+                  <td>HTST 202</td>
+                  <td>3.00</td>
+                  <td>Winter</td>
+                  <td>2024</td>
+                  <td>A</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        
+          <!-- Non-Major Field Options -->
+          <div class="requirements-section">
+            <h2 onclick="toggleSection(this)">
+              <span class="arrow">▶</span> Non-Major Field Options
+            </h2>
+            <div class="section-content">
+              <div class="sorting-container">
+                <div class="sort-box">
+                  <select id="sort-options" onchange="sortTableDropdown()">
+                    <option value="" disabled selected>Sort by:</option>
+                    <option value="course">Course (A - Z)</option>
+                    <option value="term">Term</option>
+                    <option value="year">Year</option>
+                    <option value="grade">Grade</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+              </div>
+              <table class="requirements-table">
+                <tr>
+                  <th>Course</th>
+                  <th>Units</th>
+                  <th>Term</th>
+                  <th>Year</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        
+          <!-- Open Option -->
+          <div class="requirements-section">
+            <h2 onclick="toggleSection(this)">
+              <span class="arrow">▶</span> Open Options
+            </h2>
+            <div class="section-content">
+              <div class="sorting-container">
+                <div class="sort-box">
+                  <select id="sort-options" onchange="sortTableDropdown()">
+                    <option value="" disabled selected>Sort by:</option>
+                    <option value="course">Course (A - Z)</option>
+                    <option value="term">Term</option>
+                    <option value="year">Year</option>
+                    <option value="grade">Grade</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+              </div>
+              <table class="requirements-table">
+                <tr>
+                  <th>Course</th>
+                  <th>Units</th>
+                  <th>Term</th>
+                  <th>Year</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                </tr>
+                <tr class="incomplete-row">
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+                <tr class="incomplete-row">
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="incomplete">Incomplete</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+  <script src="../javascript/script.js"></script>
+</html>

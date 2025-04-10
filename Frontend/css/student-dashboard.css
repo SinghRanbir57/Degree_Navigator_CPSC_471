@@ -1,0 +1,377 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+html,
+body {
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    font-size: 18px;
+    background-color: #F8F8F8;
+}
+
+.screen {
+    display: flex;
+    border: 10px solid #000000;
+}
+
+/********************************* Main Body *********************************/
+
+.main-body {
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    display: flex;
+    overflow-x: hidden;
+    margin-left: 193px;
+}
+
+/* Combined Section: Profile and Degree Progress */
+.main-content {
+    margin: 80px 10px 10px 10px;
+    flex-direction: column;
+    overflow-x: hidden;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-degree-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.profile-section {
+    margin: 15px 7px 15px 15px;
+    width: 50%;
+    margin-right: 10px;
+    padding: 1px 0px 20px 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.degree-progress-section {
+    margin: 15px 15px 15px 7px;
+    width: 50%;
+    padding-left: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/************************************ Section 2: Completed Courses ***************************************/
+.section-2 {
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 1px 20px 20px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+.section-2:hover {
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.075);
+}
+
+/*********************************** Main Content*********************************************/
+
+.profile {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    align-items: center;
+    object-fit: cover;
+    display: block;
+    margin-left: -20px;
+    margin-bottom: -20px;
+}
+
+.profile-info h2 {
+    margin: 10px 0 0 0;
+}
+
+.profile-info p {
+    margin: 5px;
+}
+
+.profile-section:hover,
+.degree-progress-section:hover {
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.075);
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+}
+
+.progress-key p {
+    display: flex;
+    align-items: center;
+    margin: 10px 10 0 10px;
+}
+
+.gpa-btn {
+    padding: 10px 20px;
+    background-color: #d6001c;
+    color: white;
+    margin-top: 20px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.gpa-btn:hover {
+    background-color: #b5161b;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.075);
+}
+
+.gpa-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.gpa-popup-content {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    height: 120px;
+    position: relative;
+    z-index: 10000;
+}
+
+.gpa-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: #d6001c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.gpa-close-btn:hover {
+    background-color: #b5161b;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.075);
+}
+
+.pie-chart {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: conic-gradient(#2ecc71 0% 40%,
+            #ffc107 40% 50%,
+            #d6001c 50% 50%);
+    margin-right: 25px;
+    margin-left: 5px;
+}
+
+.color-box {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+.completed {
+    background-color: #2ecc71;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.in-progress {
+    background-color: #ffc107;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.incomplete {
+    background-color: #d6001c;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/******************************* Academic Requirements Section **************************************/
+.requirements-section {
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.requirements-section h2 {
+    padding: 5px 5px 5px 0px;
+}
+
+.requirements-content {
+    margin: 10px 10px 10px 15px;
+    padding: 15px;
+    flex-direction: column;
+    overflow-x: hidden;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section-content {
+    padding: 5px;
+    margin-top: 5px;
+    display: none;
+}
+
+.requirements-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0px;
+    table-layout: fixed;
+}
+
+.requirements-section:hover {
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.075);
+}
+
+.requirements-table th,
+.requirements-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+.requirements-table th {
+    font-size: 17px;
+    height: 14px;
+    background-color: #d6001c;
+    color: white;
+    text-transform: uppercase;
+}
+
+.requirements-table tr:nth-child(even) {
+    background-color: #F2F2F2;
+}
+
+.requirements-table tr:first-child th {
+    min-height: 10px;
+    line-height: 10px;
+}
+
+.incomplete-row {
+    background-color: #f8f9fa;
+}
+
+.home-main-content h1 {
+    margin-top: 70px;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Reduce Section Tab Height */
+.requirements-section h2 {
+    cursor: pointer;
+    align-items: center;
+    font-size: 18px;
+    background-color: #F2F2F2;
+    color: #222;
+    border-radius: 5px;
+    margin: 4px 0;
+    transition: background 0.5s ease;
+}
+
+.arrow {
+    font-size: 14px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* General styling for all progress circles */
+.progress-circle {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 20%;
+    vertical-align: middle;
+}
+
+/* Completed: Green */
+.completed {
+    margin-bottom: 3px;
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #2ecc71;
+}
+
+/* In-progress: Yellow */
+.in-progress {
+    margin-bottom: 3px;
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #ffc107;
+}
+
+/* Incomplete: Red */
+.incomplete {
+    margin-bottom: 3px;
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #d6001c;
+}
+
+.sorting-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: -10px 0px 5px 0px;
+}
+
+#sort-options {
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 141px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}

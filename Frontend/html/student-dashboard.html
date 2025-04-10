@@ -3,54 +3,58 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Degree Planning Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="../css/student-dashboard.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 
 <body>
   <div class="Screen">
-
     <!-- Sidebar Navigation -->
     <div class="sidebar">
       <div class="sidebar-logo">
-        <img src="Logo_Horz_Colour.png" alt="University Logo" class="logo">
+        <img src="../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
       </div>
-      <a href="homepage.html">Home</a>
+      <a href="student-dashboard.html">Home</a>
       <a href="planner.html">Build Semester Plan</a>
       <a href="requirements.html">Academic Requirements</a>
     </div>
 
+    <div class="header">
+      <!-- Logo -->
+      <div class="header-left">
+      </div>
+      <!-- Search Container -->
+      <div class="header-right"></div>
+      <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search...">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+      <!-- Logout button -->
+      <button class="logout-btn" onclick="logout()">Logout</button>
+      <div id="logout-popup" class="logout-popup" style="display: none;">
+        <script>
+          function logout() {
+            window.location.href = "../html/login.html";
+          }
+        </script>
+      </div>
+    </div>
+
     <!-- Main Body -->
     <div class="main-body">
-    
-      <!-- Header -->
-      <div class="header">
-        <!-- Logo -->
-        <div class="header-left">
-        </div>
-        <!-- Search Container -->
-        <div class="header-right"></div>
-        <div class="search-container">
-          <input type="text" class="search-bar" placeholder="Search...">
-          <i class="fas fa-search search-icon"></i>
-        </div>
-        <!-- Logout button -->
-        <button class="logout-btn" onclick="logout()">Logout</button>
-        <div id="logout-popup" class="logout-popup">
-          <div class="logout-popup-content">
-            <h2>Logout Successful!</h2>
-            <p><strong><button class="login-btn" onclick="login()">Login</button></strong></p>
-          </div>
-        </div>
-      </div>
-
       <!-- Combined Section: Profile and Degree Progress -->
       <div class="main-content">
         <div class="profile-degree-container">
           <!-- User Profile -->
           <div class="profile-section">
-            <img src="user image.png" alt="Profile Photo" class="profile-photo">
+            <img src="../images/user image.png" alt="Profile Photo" class="profile-photo">
             <div class="profile-info">
               <h2>John Doe</h2>
               <p>B.Sc. in Computer Science</p>
@@ -183,5 +187,5 @@
   </div>
   
 </body>
-<script src="script.js"></script>
+<script src="../javascript/script.js"></script>
 </html>

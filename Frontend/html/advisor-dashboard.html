@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Advisor Dashboard</title>
+    <link rel="stylesheet" href="../css/advisor-dashboard.css">
+    <link rel="stylesheet" href="../css/header.css">
+</head>
+
+<body>
+    <div class="screen">
+        <div class="header">
+            <!-- Logo -->
+            <div class="header-left">
+                <img src="../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
+            </div>
+            <!-- Search Container -->
+            <div class="header-right"></div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <!-- Logout button -->
+            <button class="logout-btn" onclick="logout()">Logout</button>
+            <div id="logout-popup" class="logout-popup" style="display: none;">
+                <script>
+                    function logout() {
+                        window.location.href = "../html/login.html";
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="main-body">
+            <div class="section">
+                <h2>Student Overview</h2>
+                <p>Access a summary of student progress, GPA, and upcoming advising appointments.</p>
+                <button class="dashboard-action">View Students</button>
+            </div>
+
+            <div class="section">
+                <h2>Schedule</h2>
+                <p>Manage your advising calendar and upcoming meetings.</p>
+                <button class="dashboard-action">Manage Schedule</button>
+            </div>
+
+            <div class="section">
+                <h2>Reports & Analytics</h2>
+                <p>Generate performance reports or review advising impact metrics.</p>
+                <button class="dashboard-action">View Reports</button>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

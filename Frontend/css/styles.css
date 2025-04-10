@@ -7,41 +7,12 @@ body {
   padding: 0;
   overflow-x: hidden;
   font-size: 18px;
-  background-color: #F2F2F2;
+  background-color: #F8F8F8;
 }
 
 .screen {
   display: flex;
   border: 10px solid #000000;
-}
-
-/******************************** Sidebar Styling **************************************/
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 10%;
-  height: 100vh;
-  background-color: #d6001c;
-  color: #4CC9FE;
-  z-index: 999;
-}
-
-.sidebar a {
-  padding: 15px 15px 15px 15px;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  background-color: #ffffff;
-  margin: 0px 5px 0px 5px;
-  border-radius: 5px;
-  color: #d6001c;
 }
 
 /********************************* Main Body *********************************/
@@ -111,28 +82,6 @@ body {
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.075);
 }
 
-/********************************** Header Bar Styling **********************************/
-.header {
-  display: flex;
-  height: 65px;
-  justify-content: space-between;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-  height: 65px;
-  padding-left: 15px;
-  background-color: #ffffff;
-}
-
-.header-left,
-.header-right {
-  display: flex;
-  align-items: center;
-  width: 50%;
-}
-
 /*********************************** Search Bar Container ***********************************/
 .search-container {
   position: relative;
@@ -146,7 +95,7 @@ body {
   padding-right: 30px;
   padding: 10px;
   font-size: 15px;
-  background-color: #f8f9fa;
+  background-color: #F8F8F8;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -164,49 +113,6 @@ body {
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
   margin: 13px 20px 10px 20px;
   border: none;
-}
-
-.logout-popup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-}
-
-.logout-popup-content {
-  background-color: #F2F2F2;
-  border-radius: 10px;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.logout-popup-content h2 {
-  padding-top: 250px;
-  padding-bottom: 20px;
-  font-size: 30px;
-}
-
-.login-btn {
-  width: 100px;
-  height: 38px;
-  background-color: #d6001c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 /*********************************** Main Content*********************************************/
@@ -307,7 +213,7 @@ body {
 }
 
 .gpa-popup-content {
-  background-color: #f8f9fa;
+  background-color: #F8F8F8;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -425,7 +331,7 @@ body {
 .requirements-table td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #F8F8F8;
   white-space: nowrap;
 }
 
@@ -438,7 +344,7 @@ body {
 }
 
 .requirements-table tr:nth-child(even) {
-  background-color: #F2F2F2;
+  background-color: #F8F8F8;
 }
 
 .requirements-table tr:first-child th {
@@ -447,7 +353,7 @@ body {
 }
 
 .incomplete-row {
-  background-color: #f8f9fa;
+  background-color: #F8F8F8;
 }
 
 .home-main-content h1 {
@@ -562,7 +468,7 @@ body {
 #sort-options {
   padding: 5px;
   font-size: 16px;
-  border: 2px solid #ccc;
+  border: 2px solid #F8F8F8;
   border-radius: 5px;
   width: 141px;
   cursor: pointer;

@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: museo-slab, "Proxima Nova", Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-body {
+    margin: 80px 40px 50px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    flex: 1;
+}
+
+.section {
+    background-color: white;
+    height: 250px;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.section h2 {
+    margin-top: 0;
+    color: #d6001c;
+}
+
+.dashboard-action {
+    margin-top: auto;
+    padding: 10px 14px;
+    background-color: #d6001c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard-action:hover {
+    background-color: #b00018;
+}
