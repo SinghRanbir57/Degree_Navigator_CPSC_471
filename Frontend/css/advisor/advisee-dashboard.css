@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+* body {
+    color: #333;
+}
+
+html,
+body {
+    margin: 0;
+    font-family: museo-slab, "Proxima Nova", Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-body {
+    margin: 75px 10px 10px 200px;
+    gap: 24px;
+    padding: 15px;
+    background-color: white;
+    height: 100vh;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: auto; /* Prevent content from spilling */
+}
+
+.table-container,
+.overview {
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background: #f1f1f1;
+}
+
+a.button-link {
+    background-color: #b00;
+    color: #fff;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.hidden {
+    display: none;
+}
+
+.overview textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.overview h3 {
+    margin-bottom: 0;
+}
+
+.overview button {
+    margin-top: 12px;
+    padding: 10px 16px;
+    background: #b00;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}

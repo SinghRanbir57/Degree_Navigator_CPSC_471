@@ -37,21 +37,6 @@ Database: MySQL
 
 _____________________________________________________________________________________________________________________________
 
-📁 Project Structure
-bash
-Copy code
-Degree_Navigator_CPSC_471/
-│
-├── assets/             # Images, icons, fonts
-├── css/                # Stylesheets
-├── js/                 # Client-side JavaScript
-├── php/                # Backend logic (login, queries, etc.)
-├── sql/                # Database schema and seed data
-├── index.html          # Entry point
-└── README.md
-
-_____________________________________________________________________________________________________________________________
-
 📦 Installation & Setup
 Clone the repository using the following link:
 https://github.com/SinghRanbir57/Degree_Navigator_CPSC_471.git
