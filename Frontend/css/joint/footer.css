@@ -5,6 +5,7 @@
     padding: 10px 0px 10px 0px;
     font-size: 14px;
     background-color: #d6001c;
+    overflow-x: hidden;
 }
 
 .footer {

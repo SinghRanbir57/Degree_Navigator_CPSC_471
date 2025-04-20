@@ -8,6 +8,7 @@
     background-color: #d6001c;
     color: #4CC9FE;
     z-index: 9999;
+    min-width: 183px;
 }
 
 .sidebar a {

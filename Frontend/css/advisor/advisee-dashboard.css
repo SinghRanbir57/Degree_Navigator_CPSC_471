@@ -10,6 +10,7 @@ body {
     font-family: museo-slab, "Proxima Nova", Arial, sans-serif;
     background-color: #f2f2f2;
     color: #333;
+    overflow-x: hidden;
 }
 
 .screen {

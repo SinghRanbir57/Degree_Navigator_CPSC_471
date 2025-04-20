@@ -11,6 +11,7 @@ body {
     margin: 0;
     font-size: 18px;
     background-color: #F8F8F8;
+    overflow-x: hidden;
 }
 
 .screen {
@@ -26,7 +27,7 @@ body {
     width: 90%;
     display: flex;
     overflow-x: hidden;
-    margin-left: 193px;
+    margin-left: 190px;
 }
 
 /********* Main Content *********/
