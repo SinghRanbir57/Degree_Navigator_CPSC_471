@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Advisor Dashboard</title>
+    <link rel="stylesheet" href="../../css/advisor/advisor-dashboard.css">
+    <link rel="stylesheet" href="../../css/joint/header.css">
+    <link rel="stylesheet" href="../../css/joint/sidebar.css">
+    <link rel="stylesheet" href="../../css/joint/footer.css">
+    <link rel="stylesheet" href="../../css/joint/logout.css">
+</head>
+
+<body>
+    <div class="screen">
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="header-left"></div>
+        
+            <!-- Search -->
+            <div class="header-right"></div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search...">
+            </div>
+        
+            <div>
+                <button class="logout-btn" onclick="openLogoutModal()">Logout</button>
+            </div>
+        
+            <div id="logoutModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeLogoutModal()">&times;</span>
+                    <h2>Are you sure you want to logout?</h2>
+                    <div class="logout-actions">
+                        <button onclick="confirmLogout()" class="confirm-btn">Yes, Logout</button>
+                        <button onclick="closeLogoutModal()" class="cancel-btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        
+            <script>
+                function openLogoutModal() {
+                    document.getElementById("logoutModal").style.display = "flex";
+                }
+
+                function closeLogoutModal() {
+                    document.getElementById("logoutModal").style.display = "none";
+                }
+
+                function confirmLogout() {
+                    window.location.href = "../../html/joint/login.html";
+                }
+            </script>
+        </div>
+
+        <footer class="footer">
+            <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d"
+                target="_blank">Account FAQs</a>
+            <a href="https://ucalgary.service-now.com/it?id=contact_and_help" target="_blank">Contact Support</a>
+            <div class="copyright">
+                ©
+                <script>document.write(new Date().getFullYear());</script> University of Calgary
+            </div>
+        </footer>
+
+        <div class="main-body">
+            <div class="section">
+                <h2>My Information</h2>
+                <div class="advisor-info">
+                    <p><strong>Name:</strong> Dr. Alex Johnson</p>
+                    <p><strong>Department:</strong> Computer Science</p>
+                    <p><strong>Notes:</strong> Available Tuesdays and Thursdays, 1–4 PM</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>My Advisees</h2>
+                <table class="advisor-student-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Degree</th>
+                            <th>GPA</th>
+                            <th>Profile</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Emma Li</td>
+                            <td>BSc in Computer Science</td>
+                            <td>3.87</td>
+                            <td><a href="student-profile.html?student_id=1001">View Profile</a></td>
+                        </tr>
+                        <tr>
+                            <td>Raj Kumar</td>
+                            <td>BA in Economics</td>
+                            <td>3.65</td>
+                            <td><a href="student-profile.html?student_id=1002">View Profile</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    fetch('../components/advisor-footer.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        });
+</script>
+</html>

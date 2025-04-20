@@ -1,53 +1,72 @@
 <!-- build a semester plan -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Build Semester Plan</title>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/sidebar.css">
-  <link rel="stylesheet" href="../css/planner.css" />
+  <link rel="stylesheet" href="../../css/joint/styles.css">
+  <link rel="stylesheet" href="../../css/joint/header.css">
+  <link rel="stylesheet" href="../../css/joint/sidebar.css">
+  <link rel="stylesheet" href="../../css/student/semester-builder.css" />
+  <link rel="stylesheet" href="../../css/joint/logout.css">
+  <title>Semester Builder</title>
 </head>
 
 <body>
   <div class="Screen">
-    <!-- Sidebar Navigation -->
     <div class="sidebar">
       <div class="sidebar-logo">
-        <img src="../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
+        <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
       </div>
-      <a href="student-dashboard.html">Home</a>
-      <a href="planner.html">Build Semester Plan</a>
-      <a href="requirements.html">Academic Requirements</a>
+      <a href="../student/student-dashboard.html">Home</a>
+      <a href="../student/semester-builder.html">Semester Builder</a>
+      <a href="../student/requirements.html">Academic Report</a>
+      <a href="../joint/calendar.html">View Calendar</a>
+      <a href="../joint/program-guide.html">Program Guide</a>
+      <a href="../student/student-profile.html">Profile</a>
     </div>
-
+    
     <div class="header">
-      <!-- Logo -->
-      <div class="header-left">
-      </div>
-      <!-- Search Container -->
+      <div class="header-left"></div>
+    
+      <!-- Search -->
       <div class="header-right"></div>
       <div class="search-container">
         <input type="text" class="search-bar" placeholder="Search...">
-        <i class="fas fa-search search-icon"></i>
       </div>
-      <!-- Logout button -->
-      <button class="logout-btn" onclick="logout()">Logout</button>
-      <div id="logout-popup" class="logout-popup" style="display: none;">
-        <script>
-          function logout() {
-            window.location.href = "../html/login.html";
-          }
-        </script>
+    
+      <div>
+        <button class="logout-btn" onclick="openLogoutModal()">Logout</button>
       </div>
-    </div>
+    
+      <div id="logoutModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeLogoutModal()">&times;</span>
+          <h2>Are you sure you want to logout?</h2>
+          <div class="logout-actions">
+            <button onclick="confirmLogout()" class="confirm-btn">Yes, Logout</button>
+            <button onclick="closeLogoutModal()" class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+      </div>
+    
+      <script>
+        function openLogoutModal() {
+          document.getElementById("logoutModal").style.display = "flex";
+        }
 
+        function closeLogoutModal() {
+          document.getElementById("logoutModal").style.display = "none";
+        }
+
+        function confirmLogout() {
+          window.location.href = "../../html/joint/login.html";
+        }
+      </script>
+    </div>
     <!-- Main Body -->
     <div class="main-body">
       <!-- Main Content -->
@@ -107,6 +126,6 @@
       </div>
     </div>
   </body>
-  <script src="../javascript/script.js"></script>
-  <script src="../javascript/planner.js"></script>
+  <script src="../../javascript/script.js"></script>
+  <script src="../../javascript/planner.js"></script>
   </html>

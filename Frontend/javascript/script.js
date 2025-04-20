@@ -1,4 +1,4 @@
-// Function to show/hide GPA popup
+/****************** Show/hide GPA ************************/
 function showGPA() {
   document.getElementById("gpa-popup").style.display = "flex";
 }
@@ -7,25 +7,13 @@ function hideGPA() {
   document.getElementById("gpa-popup").style.display = "none";
 }
 
-/******************************************** Logout Button ******************************************/
-function logout() {
-  // Show the popup
-  const popup = document.getElementById("logout-popup");
-  popup.style.display = "block";
-
-  // Redirect to login page after 1.5 seconds (optional)
-  setTimeout(() => {
-    window.location.href = "login.html"; // adjust path if needed
-  }, 1500);
-}
-
-function login() {
-  window.location.href = "login.html"; // go back to login when 'Login' button is clicked
-}
+/****************** Feedback on Save Advisor Note Button ************************/
+document.querySelector(".btn").addEventListener("click", () => {
+  alert("Note saved!");
+});
 
 
-
-// Function to toggle dropdowns
+/****************** Function to toggle dropdowns ************************/
 function toggleDropdown(id) {
   const dropdown = document.getElementById(id);
   if (dropdown.style.display === "block") {
@@ -40,7 +28,7 @@ document.querySelector('.sidebar-toggle').addEventListener('click', function() {
     document.querySelector('.main-content').classList.toggle('shift');
 });
 
-// Collapse all sections on page load
+/****************** Collapse all sections on page load ************************/
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".requirements-section").forEach((section) => {
     const content = section.querySelector(".section-content");
@@ -52,8 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Javacsript for Reuirements.html Page
-
+/****************** Javacsript for Requirements.html Page ************************/
 function toggleSection(header) {
   const section = header.parentElement;
   const content = section.querySelector(".section-content");
@@ -69,7 +56,7 @@ function toggleSection(header) {
     arrow.innerHTML = "▼"; // Arrow points down
   }
 }
-/* Ensure Sections Are Collapsed on Page Load */
+/****************** Ensure Sections Are Collapsed on Page Load ************************/
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".requirements-section").forEach((section) => {
     const content = section.querySelector(".section-content");
@@ -107,14 +94,14 @@ document.addEventListener("DOMContentLoaded", function () {
         incompleteBar.style.left = (completedWidth + inProgressWidth) + "%"; // Start after in-progress
     }
 });
-
+/****************** header ************************/
 function loadHeader() {
   fetch('header.html')
     .then(response => response.text())
     .then(data => document.getElementById('header-container').innerHTML = data);
 }
 
-// Call the function to load the header on page load
+/****************** Call the function to load the header on page load ************************/
 document.addEventListener("DOMContentLoaded", function () {
   loadHeader();
 });

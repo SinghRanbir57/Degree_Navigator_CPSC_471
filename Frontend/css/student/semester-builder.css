@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
+* body {
+    color: #333;
+}
+
 html,
 body {
     font-family: 'Inter', sans-serif;
@@ -12,7 +16,7 @@ body {
 
 .screen {
     display: flex;
-    border: 10px solid #000000;
+    border: 10px solid #333;
 }
 
 /********************************* Main Body *********************************/
@@ -39,8 +43,8 @@ body {
 }
 
 .main-content h1 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: 25px;
+    padding: 0px;
     color: #333;
 }
 
@@ -104,7 +108,7 @@ h3 {
 .save-btn {
     padding: 8px 15px;
     background-color: #d6001c;
-    height: 39px;
+    height: 30px;
     font-size: 17px;
     font-weight: bold;
     color: white;

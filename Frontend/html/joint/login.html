@@ -8,15 +8,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../../css/joint/login.css">
 </head>
 
 <body>
     <div class="login-wrapper">
         <div class="login-left">
-            <img src="../images/UC_Spark_Primary_Gold_RGB_300.png" alt="UCalgary Logo" class="uc-logo" />
+            <img src="../../images/UC_Spark_Primary_Gold_RGB_300.png" alt="UCalgary Logo" class="uc-logo" />
             <p class="welcome-text">Welcome to my.ucalgary.ca</p>
-            <img src="../images/UC-White-horz-StartSomething-rgb300.png" alt="UCalgary Lockup" class="uc-lockup" />
+            <img src="../../images/UC-White-horz-StartSomething-rgb300.png" alt="UCalgary Lockup" class="uc-lockup" />
         </div>
     
         <div class="login-right">
@@ -87,8 +87,8 @@
             const loginMessage = document.getElementById("loginMessage");
 
             const credentials = {
-                student: { username: "student", password: "student123", redirect: "../html/student-dashboard.html" },
-                advisor: { username: "advisor", password: "advisor123", redirect: "../html/advisor-dashboard.html" }
+                student: { username: "student", password: "student123", redirect: "../../html/student/student-dashboard.html" },
+                advisor: { username: "advisor", password: "advisor123", redirect: "../../html/advisor/advisor-dashboard.html" }
             };
 
             const validCreds = credentials[currentLoginType];

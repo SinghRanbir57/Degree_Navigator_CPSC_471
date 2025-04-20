@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-body {
+* body {
+    color: #333;
+}
+
+html, body {
     margin: 0;
     font-family: museo-slab, "Proxima Nova", Arial, sans-serif;
     background-color: #f2f2f2;
@@ -14,7 +18,7 @@ body {
 }
 
 .main-body {
-    margin: 80px 40px 50px 40px;
+    margin: 80px 20px 50px 210px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
@@ -37,18 +41,28 @@ body {
     color: #d6001c;
 }
 
-.dashboard-action {
-    margin-top: auto;
-    padding: 10px 14px;
-    background-color: #d6001c;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.advisor-info p {
+    margin: 0.3rem 0;
 }
 
-.dashboard-action:hover {
-    background-color: #b00018;
+.advisor-student-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.advisor-student-table th,
+.advisor-student-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.advisor-student-table th {
+    background-color: #f5f5f5;
+}
+
+.advisor-student-table td a {
+    color: #0056b3;
+    text-decoration: underline;
 }

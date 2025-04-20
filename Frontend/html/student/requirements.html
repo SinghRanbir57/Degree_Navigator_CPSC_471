@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -7,51 +8,72 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>Academic Requirements</title>
-  <link rel="stylesheet" href="../css/requirements.css">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/sidebar.css">
+  <link rel="stylesheet" href="../../css/student/requirements.css">
+  <link rel="stylesheet" href="../../css/joint/header.css">
+  <link rel="stylesheet" href="../../css/joint/sidebar.css">
+  <link rel="stylesheet" href="../../css/joint/logout.css">
+  <title>Academic Report</title>
 </head>
 
 <body>
   <div class="Screen">
-    <!-- Sidebar Navigation -->
     <div class="sidebar">
       <div class="sidebar-logo">
-        <img src="../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
+        <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
       </div>
-      <a href="student-dashboard.html">Home</a>
-      <a href="planner.html">Build Semester Plan</a>
-      <a href="requirements.html">Academic Requirements</a>
+      <a href="../student/student-dashboard.html">Home</a>
+      <a href="../student/semester-builder.html">Semester Builder</a>
+      <a href="../student/requirements.html">Academic Report</a>
+      <a href="../joint/calendar.html">View Calendar</a>
+      <a href="../joint/program-guide.html">Program Guide</a>
+      <a href="../student/student-profile.html">Profile</a>
     </div>
-
+    
     <div class="header">
-      <!-- Logo -->
-      <div class="header-left">
-      </div>
-      <!-- Search Container -->
+      <div class="header-left"></div>
+    
+      <!-- Search -->
       <div class="header-right"></div>
       <div class="search-container">
         <input type="text" class="search-bar" placeholder="Search...">
-        <i class="fas fa-search search-icon"></i>
       </div>
-      <!-- Logout button -->
-      <button class="logout-btn" onclick="logout()">Logout</button>
-      <div id="logout-popup" class="logout-popup" style="display: none;">
-        <script>
-          function logout() {
-            window.location.href = "../html/login.html";
-          }
-        </script>
+    
+      <div>
+        <button class="logout-btn" onclick="openLogoutModal()">Logout</button>
       </div>
+    
+      <div id="logoutModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeLogoutModal()">&times;</span>
+          <h2>Are you sure you want to logout?</h2>
+          <div class="logout-actions">
+            <button onclick="confirmLogout()" class="confirm-btn">Yes, Logout</button>
+            <button onclick="closeLogoutModal()" class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+      </div>
+    
+      <script>
+        function openLogoutModal() {
+          document.getElementById("logoutModal").style.display = "flex";
+        }
+
+        function closeLogoutModal() {
+          document.getElementById("logoutModal").style.display = "none";
+        }
+
+        function confirmLogout() {
+          window.location.href = "../../html/joint/login.html";
+        }
+      </script>
     </div>
-  
+    
     <!-- Main Body -->
     <div class="main-body">
       <!-- Main Content -->
       <div class="main-content">
         <div class="requirements-content">
-          <h1>Academic Requirements</h1>
+          <h1>Academic Report</h1>
           <p><strong>My GPA: 3.40 | Min: 2.00</strong></p>
           <p class="progress-label">
             <span class="progress-circle completed"></span> Completed: <span id="completed-units">48&nbsp</span> |&nbsp
@@ -68,7 +90,7 @@
           <!-- Required courses section -->
           <div class="requirements-section">
             <h2 onclick="toggleSection(this)">
-              <span class="arrow">▶</span> Required Courses
+              <span class="arrow">▶</span> All Required Courses
             </h2>
             <div class="section-content">
               <div class="sorting-container">
@@ -610,5 +632,5 @@
     </div>
   </div>
 </body>
-  <script src="../javascript/script.js"></script>
+  <script src="../../javascript/script.js"></script>
 </html>
