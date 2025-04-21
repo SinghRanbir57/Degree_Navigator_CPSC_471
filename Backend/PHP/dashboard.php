@@ -23,7 +23,7 @@ if ($role === 'student' ) {
 }
 
 if ($role === 'advisor') {
-    header('Location: /Frontend/html/advisor/advisor-dashboard.html');
+    header('Location: /Frontend/html/advisor/advisor-dashboard.php');
     exit;
 }
 

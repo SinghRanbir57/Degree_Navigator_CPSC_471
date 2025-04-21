@@ -52,30 +52,31 @@
 
     <script>
         function showLoginForm(type) {
-            // Hide login buttons
             const groups = document.querySelectorAll(".login-button-group");
             groups.forEach(group => group.style.display = "none");
-    
-            // Show login form
+
             const container = document.getElementById("loginFormContainer");
             container.innerHTML = `
                 <form id="loginForm" action="/Backend/PHP/login.php" method="POST">
+                    <h3>Logging in as: ${type.charAt(0).toUpperCase() + type.slice(1)}</h3>
+                    
                     <label for="username">Username:</label><br>
                     <input type="text" id="username" name="username" required><br><br>
-    
+
                     <label for="password">Password:</label><br>
                     <input type="password" id="password" name="password" required><br><br>
-    
+
                     <input type="hidden" name="user_type" value="${type}">
                     <button type="submit">Login</button>
+                    <button type="button" onclick="goBack()" style="margin-left: 10px;">Back</button>
                 </form>
             `;
         }
-        
-        //make sure we are updateing everytime,
-        function reloadWithParameter(param, value ) {
-            showLoginForm(param === "MFA" ? "student" : "advisor");
+
+        function goBack() {
+            location.reload(); // Reloads page to show login options again
         }
+
     </script>
     
 </body>

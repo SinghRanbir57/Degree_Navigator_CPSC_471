@@ -1,3 +1,18 @@
+<?php
+// =========================
+// advisor-dashboard.php
+// =========================
+session_start();
+
+// Block access if not logged in or not an advisor
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
+    header("Location: /Frontend/html/joint/login.html");
+    exit;
+}
+
+// You can pull dynamic info here later using $_SESSION['user_id']
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,26 +37,25 @@
             <div class="sidebar-logo">
                 <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
             </div>
-            <a href="../advisor/advisor-dashboard.html">Dashboard</a>
-            <a href="../advisor/advisee-dashboard.html">My Advisees</a>
-            <a href="../advisor/calendar.html">Academic Calendar</a>
-            <a href="../advisor/program-guide.html">Program Guide</a>
-            <a href="../advisor/advisor-profile.html">My Profile</a>
+            <a href="advisor-dashboard.php">Dashboard</a>
+            <a href="advisee-dashboard.html">My Advisees</a>
+            <a href="calendar.html">Academic Calendar</a>
+            <a href="program-guide.html">Program Guide</a>
+            <a href="advisor-profile.html">My Profile</a>
         </div>
 
         <div class="header">
             <div class="header-left"></div>
-        
-            <!-- Search -->
+
             <div class="header-right"></div>
             <div class="search-container">
                 <input type="text" class="search-bar" placeholder="Search...">
             </div>
-        
+
             <div>
                 <button class="logout-btn" onclick="openLogoutModal()">Logout</button>
             </div>
-        
+
             <div id="logoutModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeLogoutModal()">&times;</span>
@@ -52,7 +66,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <script>
                 function openLogoutModal() {
                     document.getElementById("logoutModal").style.display = "flex";
@@ -69,26 +83,22 @@
         </div>
 
         <footer class="footer">
-            <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d"
-                target="_blank">Account FAQs</a>
+            <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d" target="_blank">Account FAQs</a>
             <a href="https://ucalgary.service-now.com/it?id=contact_and_help" target="_blank">Contact Support</a>
             <div class="copyright">
-                ©
-                <script>document.write(new Date().getFullYear());</script> University of Calgary
+                © <script>document.write(new Date().getFullYear());</script> University of Calgary
             </div>
         </footer>
 
         <!-- Main Content -->
         <div class="main-body">
-            <!-- My Information -->
             <div class="section-advisor-info">
                 <h2>My Information</h2>
                 <p><strong>Name:</strong> Alex Johnson</p>
                 <p><strong>Department:</strong> Computer Science</p>
                 <p><strong>Office Hours:</strong> Tues & Thurs, 1 - 4 PM</p>
             </div>
-        
-            <!-- My Advisees -->
+
             <div class="section">
                 <h2>My Advisees</h2>
                 <label for="gpaFilter">GPA Filter:</label>
@@ -97,7 +107,7 @@
                     <option>Above 3.0</option>
                     <option>Below 3.0</option>
                 </select>
-        
+
                 <table class="advisor-student-table">
                     <thead>
                         <tr>
@@ -116,48 +126,26 @@
                             <td><a href="advisee-dashboard.html?student=Emma%20Li&tab=notes" class="button-link">Add/View</a></td>
                             <td><a href="advisee-dashboard.html?student=Emma%20Li&tab=suggest" class="button-link">Suggest</a></td>
                         </tr>
-                        <tr>
-                            <td>Raj Kumar</td>
-                            <td>BSc Computer Science</td>
-                            <td>History</td>
-                            <td><a href="advisee-dashboard.html?student=Raj%20Kumar&tab=notes" class="button-link">Add/View</a></td>
-                            <td><a href="advisee-dashboard.html?student=Raj%20Kumar&tab=suggest" class="button-link">Suggest</a></td>
-                        </tr>
-                        <tr>
-                            <td>Leila Green</td>
-                            <td>BSc Data Science</td>
-                            <td>Economics</td>
-                            <td><a href="advisee-dashboard.html?student=Leila%20Green&tab=notes" class="button-link">Add/View</a></td>
-                            <td><a href="advisee-dashboard.html?student=Leila%20Green&tab=suggest" class="button-link">Suggest</a></td>
-                        </tr>
-                        <tr>
-                            <td>Max Tran</td>
-                            <td>BA Psychology</td>
-                            <td>Philosophy</td>
-                            <td><a href="advisee-dashboard.html?student=Max%20Tran&tab=notes" class="button-link">Add/View</a></td>
-                            <td><a href="advisee-dashboard.html?student=Max%20Tran&tab=suggest" class="button-link">Suggest</a></td>
-                        </tr>
+                        <!-- Repeat more rows or dynamically populate later -->
                     </tbody>
                 </table>
             </div>
-        
-            <!-- Schedule a Meeting -->
+
             <div class="section">
                 <h2>Schedule a Meeting</h2>
                 <form id="meetingForm">
-
-                    <label for="studentId">Student Name:</label>
+                    <label for="studentName">Student Name:</label>
                     <input type="text" id="studentName" name="studentName" required>
 
                     <label for="studentId">Student ID:</label>
                     <input type="text" id="studentId" name="studentId" required>
-        
+
                     <label for="date">Date:</label>
                     <input type="date" id="date" name="date" required>
-        
+
                     <label for="time">Time:</label>
                     <input type="time" id="time" name="time" required>
-        
+
                     <button type="submit">Schedule</button>
                 </form>
                 <h2 id="Upcoming-meetings">Upcoming Meetings</h2>
@@ -165,7 +153,8 @@
             </div>
         </div>
     </div>
-<script src="../../javascript/advisor-dashboard.js"></script>
+
+    <script src="../../javascript/advisor-dashboard.js"></script>
 </body>
 
 </html>
