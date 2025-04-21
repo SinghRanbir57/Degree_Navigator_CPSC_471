@@ -152,18 +152,6 @@ body {
     margin-bottom: 15px;
 }
 
-.profile-right .btn {
-    display: inline-block;
-    background-color: #d6001c;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
 /********************************* Update Card *********************************/
 
 .update-card {
@@ -175,15 +163,14 @@ body {
 
 .update-card button {
     background-color: #d6001c;
-    color: #fff;
-    padding: 10px 16px;
-    margin-top: 0px;
-    font-size: 14px;
     font-weight: bold;
+    color: white;
     border: none;
+    padding: 10px 16px;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    text-decoration: none;
+    transition: background 0.2s;
 }
 
 /********************************* Dynamic List *********************************/

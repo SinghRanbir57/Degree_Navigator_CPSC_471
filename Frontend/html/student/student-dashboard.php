@@ -92,13 +92,23 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
       <!-- Combined Section: Profile and Degree Progress -->
       <div class="profile-degree-container">
         <!-- User Profile -->
-        <div class="profile-section">
-          <img src="../../images/user image.png" alt="Profile Photo" class="profile-photo">
-          <div class="profile-info">
-            <h3>James Gosling</h3>
-            <p>B.Sc. in Computer Science</p>
-            <button class="gpa-btn" onclick="showGPA()">GPA</button>
-          </div>
+        <div class="profile-info">
+          <h2>Hello James!</h2>
+          <p><strong>Student ID:</strong> 34567128</p>
+          <p><strong>Program:</strong> B.Sc. in Computer Science</p>
+          <p><strong>Major:</strong> Computer Science</p>
+          <p><strong>Minor:</strong> Mathematics</p>
+          <p><strong>Year:</strong> 3rd Year</p>
+          <p><strong>Semester:</strong> Winter 2025</p>
+        </div>
+        <div class="academic-standing">
+          <h2>Academic Standing Summary</h2>
+          <ul>
+            <p><strong>- Total Credits Earned:</strong> 60.00</p>
+            <p><strong>- Status:</strong> Good Standing</p>
+            <p><strong>- Expected Graduation:</strong> Fall 2026</p>
+          </ul>
+          <button class="gpa-btn" onclick="showGPA()">View GPA</button>
         </div>
         <!-- GPA Popup -->
         <div id="gpa-popup" class="gpa-popup">
@@ -111,13 +121,13 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
     
         <!-- Degree Progress -->
         <div class="degree-progress-section">
-          <h4>Degree Progress</h4>
+          <h2>Degree Progress</h2>
           <div class="progress-container">
             <div class="pie-chart"></div>
             <div class="progress-key">
-              <p><span class="color-box completed"></span>Completed: 48</p>
-              <p><span class="color-box in-progress"></span> In Progress: 9</p>
-              <p><span class="color-box incomplete"></span> Incomplete: 63</p>
+              <p><span class="color-box completed"></span><strong>Completed:</strong>&nbsp;48</p>
+              <p><span class="color-box in-progress"></span><strong>In-Progress:</strong>&nbsp;9</p>
+              <p><span class="color-box incomplete"></span><strong>Incomplete:</strong>&nbsp;63</p>
             </div>
           </div>
         </div>
@@ -125,36 +135,72 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
 
       <div class="academic-content">
         <!-- Academic Standing Summary -->
-        <div class="section-4">
-          <h4>Academic Standing Summary</h4>
-          <ul>
-            <li><strong>Total Credits Earned:</strong> 60.00</li>
-            <li><strong>Current GPA:</strong> 3.75</li>
-            <li><strong>Status:</strong> Good Standing</li>
-            <li><strong>Expected Graduation:</strong> Spring 2026</li>
-          </ul>
+        <div class="book-meeting">
+          <h2>Schedule a Meeting with Advisor</h2>
+          <form id="meetingForm">
+          
+            <label for="advisorName"><strong>Advisor Name:</strong></label>
+            <input type="text" id="advisorName" name="advisorName" required>
+          
+            <label for="date"><strong>Date:</strong></label>
+            <input type="date" id="date" name="date" required>
+          
+            <label for="time"><strong>Time:</strong></label>
+            <input type="time" id="time" name="time" required>
+          
+            <button type="submit">Schedule</button>
+          </form>
+          <h2 id="Upcoming-meetings">Upcoming Meetings</h2>
+          <ul id="meetingList"></ul>
         </div>
         <!-- Academic Advisor -->
         <div class="section-5">
-          <h4>Course History Timeline</h4>
-          <div class="timeline">
-            <div class="timeline-item">
-              <span class="term">Fall 2021</span>
-              <p>CPSC 101 - A</p>
-              <p>MATH 101 - A-</p>
+          <h2>Course History Timeline</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+            <!-- Year 1 Timeline -->
+            <div class="timeline" style="flex: 1;">
+              <h3>Year 1</h3>
+              <div class="timeline-item">
+                <span class="term">Fall 2021</span>
+                <p>CPSC 101 - A</p>
+                <p>MATH 101 - A-</p>
+              </div>
+              <div class="timeline-item">
+                <span class="term">Winter 2022</span>
+                <p>CPSC 219 - A</p>
+                <p>CPSC 233 - A</p>
+              </div>
             </div>
-            <div class="timeline-item">
-              <span class="term">Fall 2022</span>
-              <p>CPSC 201 - A</p>
+        
+            <!-- Year 2 Timeline -->
+            <div class="timeline" style="flex: 1;">
+              <h3>Year 2</h3>
+              <div class="timeline-item">
+                <span class="term">Fall 2022</span>
+                <p>CPSC 331 - A-</p>
+                <p>CPSC 359 - A</p>
+              </div>
+              <div class="timeline-item">
+                <span class="term">Winter 2023</span>
+                <p>CPSC 319 - B+</p>
+                <p>CPSC 457 - A-</p>
+              </div>
+              <div class="timeline-item">
+                <span class="term">Fall 2023</span>
+                <p>CPSC 449 - A-</p>
+                <p>CPSC 441 - B+</p>
+                <p>CPSC 351 - B+</p>
+                <p>CPSC 457 - A-</p>
+                <p>ANTH 203 - A</p>
+              </div>
             </div>
-            <!-- Add more items -->
           </div>
         </div>
       </div>
 
       <!-- Section 2: Completed Courses -->
       <div class="section-2">
-        <h4>Completed Courses</h4>
+        <h2>Completed Courses</h2>
         <!-- Year 1 Dropdown -->
         <div class="requirements-section">
           <h2 onclick="toggleDropdown('year1')">
@@ -175,29 +221,54 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
             </div>
             <table class="requirements-table">
               <tr>
-                <th>Course</th>
-                <th>Units</th>
-                <th>Term</th>
-                <th>Year</th>
-                <th>Grade</th>
-                <th>Status</th>
-              </tr>
-              <tr>
-                <td>CPSC 101</td>
-                <td>3.00</td>
-                <td>Fall</td>
-                <td>2021</td>
-                <td>A</td>
-                <td><span class="completed">Complete</span></td>
-              </tr>
-              <tr>
-                <td>MATH 101</td>
-                <td>3.00</td>
-                <td>Fall</td>
-                <td>2021</td>
-                <td>A-</td>
-                <td><span class="completed">Complete</span></td>
-              </tr>
+                <tr>
+                  <th>Course</th>
+                  <th>Units</th>
+                  <th>Term</th>
+                  <th>Year</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                </tr>
+                <tr>
+                  <td>CPSC 101</td>
+                  <td>3.00</td>
+                  <td>Fall</td>
+                  <td>2021</td>
+                  <td>A</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
+                <tr>
+                  <td>MATH 101</td>
+                  <td>3.00</td>
+                  <td>Fall</td>
+                  <td>2021</td>
+                  <td>A-</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
+                <tr>
+                  <td>CPSC 219</td>
+                  <td>3.00</td>
+                  <td>Winter</td>
+                  <td>2022</td>
+                  <td>A</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
+                <tr>
+                  <td>CPSC 233</td>
+                  <td>3.00</td>
+                  <td>Winter</td>
+                  <td>2022</td>
+                  <td>A</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
+                <tr>
+                  <td>ANTH 203</td>
+                  <td>3.00</td>
+                  <td>Fall</td>
+                  <td>2023</td>
+                  <td>A</td>
+                  <td><span class="completed">Complete</span></td>
+                </tr>
               <!-- Add more courses here -->
             </table>
           </div>
@@ -230,7 +301,15 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
                 <th>Status</th>
               </tr>
               <tr>
-                <td>CPSC 201</td>
+                <td>CPSC 331</td>
+                <td>3.00</td>
+                <td>Fall</td>
+                <td>2022</td>
+                <td>A-</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
+              <tr>
+                <td>CPSC 359</td>
                 <td>3.00</td>
                 <td>Fall</td>
                 <td>2022</td>
@@ -238,21 +317,60 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
                 <td><span class="completed">Complete</span></td>
               </tr>
               <tr>
-                <td>MATH 211</td>
+                <td>CPSC 319</td>
                 <td>3.00</td>
                 <td>Winter</td>
                 <td>2023</td>
-                <td>B-</td>
+                <td>B+</td>
                 <td><span class="completed">Complete</span></td>
               </tr>
-              <!-- Add more courses here -->
+              <tr>
+                <td>CPSC 457</td>
+                <td>3.00</td>
+                <td>Winter</td>
+                <td>2023</td>
+                <td>A-</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
+              <tr>
+                <td>CPSC 449</td>
+                <td>3.00</td>
+                <td>Fall</td>
+                <td>2023</td>
+                <td>A-</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
+              <tr>
+                <td>CPSC 441</td>
+                <td>3.00</td>
+                <td>Fall</td>
+                <td>2023</td>
+                <td>B+</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
+              <tr>
+                <td>CPSC 351</td>
+                <td>3.00</td>
+                <td>Fall</td>
+                <td>2023</td>
+                <td>B+</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
+              <tr>
+                <td>CPSC 457</td>
+                <td>3.00</td>
+                <td>Fall</td>
+                <td>2023</td>
+                <td>A-</td>
+                <td><span class="completed">Complete</span></td>
+              </tr>
             </table>
           </div>
         </div>
       </div>
 
       <div class="section-3">
-        <h4>Upcoming Courses</h4>
+        <h2>In-progress Courses</h2>
         <!-- Year 1 Dropdown -->
         <div class="requirements-section">
           <h2 onclick="toggleDropdown('Upcoming Courses')">
@@ -277,21 +395,32 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
                 <th>Units</th>
                 <th>Term</th>
                 <th>Year</th>
+                <th>Grade</th>
                 <th>Status</th>
               </tr>
               <tr>
-                <td>CPSC 331</td>
+                <td>CPSC 471</td>
                 <td>3.00</td>
-                <td>Fall</td>
+                <td>Winter</td>
                 <td>2025</td>
-                <td><span class="in-progress">Planned</span></td>
+                <td>—</td>
+                <td><span class="in-progress">In Progress</span></td>
               </tr>
               <tr>
-                <td>PHIL 279</td>
+                <td>CPSC 481</td>
                 <td>3.00</td>
-                <td>Fall</td>
+                <td>Winter</td>
                 <td>2025</td>
-                <td><span class="in-progress">Planned</span></td>
+                <td>—</td>
+                <td><span class="in-progress">In Progress</span></td>
+              </tr>
+              <tr>
+                <td>CPSC 411</td>
+                <td>3.00</td>
+                <td>Winter</td>
+                <td>2025</td>
+                <td>—</td>
+                <td><span class="in-progress">In Progress</span></td>
               </tr>
             </table>
           </div>
@@ -302,5 +431,6 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
 <div id="logout-popup" style="display: none;"></div>
 <script src="../../javascript/script.js"></script>
 <script src="../../javascript/login.js"></script>
+<script src="../../javascript/student-dashboard.js"></script>
 </body>
 </html>

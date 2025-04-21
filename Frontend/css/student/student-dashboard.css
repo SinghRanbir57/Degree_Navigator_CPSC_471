@@ -40,26 +40,72 @@ body {
     margin: 70px 0px 0px 0px;
 }
 
-.profile-section {
-    margin: 15px 7px 15px 15px;
+.profile-info {
+    margin: 10px 15px 15px 15px;
     width: 50%;
-    margin-right: 10px;
-    padding: 0px 0px 15px 30px;
+    padding: 10px 15px 15px 15px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
     background-color: #ffffff;
     border-radius: 8px;
-    border: 1px solid #ddd;
+}
+
+.profile-info h2 {
+    color: #333;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e0e0e0;
+    font-size: 18px;
+}
+
+.profile-info p {
+    color: #333;
+    font-size: 15px;
+    margin: 5px;
+}
+
+.academic-standing {
+    margin: 10px 15px 15px 0px;
+    width: 50%;
+    padding: 10px 20px 20px 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+.academic-standing h2 {
+    color: #333;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e0e0e0;
+    font-size: 18px;
+}
+
+.academic-standing ul {
+    color: #333;
+    font-size: 15px;
 }
 
 .degree-progress-section {
-    margin: 15px 15px 15px 7px;
+    margin: 10px 15px 15px 0px;
     width: 50%;
-    padding: 0px 0px 15px 30px;
+    padding: 10px 20px 20px 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
     background-color: #ffffff;
     border-radius: 8px;
-    border: 1px solid #ddd;
+}
+
+.degree-progress-section h2 {
+    color: #333;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e0e0e0;
+    font-size: 18px;
+}
+
+.degree-progress-section p {
+    color: #333;
+    font-size: 15px;
+    margin: 15px;
 }
 
 /********* 2nd Row *********/
@@ -69,58 +115,85 @@ body {
     align-items: stretch;
 }
 
-.section-4 {
-    margin: 5px 7px 15px 15px;
+.book-meeting {
+    display: flex;
+    margin: 0px 15px 15px 15px;
     width: 50%;
-    margin-right: 10px;
-    padding: 5px 5px 5px 30px;
+    padding: 10px 20px 20px 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
     background-color: #ffffff;
     border-radius: 8px;
-    border: 1px solid #ddd;
 }
 
 .section-5 {
-    margin: 5px 15px 15px 7px;
-    font-size: 18px;
-    width: 50%;
-    padding: 5px 5px 5px 30px;
+    margin: 0px 15px 15px 0px;
+    width: 100%;
+    padding: 10px 20px 20px 20px;
+    font-size: 13px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.section-5 h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.section-5 h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: #333333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
 }
 
 .timeline {
-    position: relative;
-    margin: 20px 0;
-    padding-left: 40px;
-    border-left: 3px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .timeline-item {
-    margin-bottom: 20px;
-    position: relative;
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    border-left: 5px solid #2ecc71;
+    border-radius: 4px;
 }
 
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -8px;
-    top: 5px;
-    width: 15px;
-    height: 15px;
-    background-color: #2e86de;
-    border-radius: 50%;
-}
-
-.term {
-    padding: 0px 0px 0px 15px;
+.timeline-item .term {
+    font-size: 18px;
     font-weight: bold;
-    color: #2e86de;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
 }
 
+.timeline-item p {
+    margin: 2px 0;
+}
+
+/* Layout for two columns */
+.section-5>div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.section-5 .timeline {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Responsive fallback for smaller screens */
+@media (max-width: 768px) {
+    .section-5>div {
+        flex-direction: column;
+    }
+}
 /************************************ Section 2 & 3 ***************************************/
 .section-2 {
     background-color: white;
@@ -131,6 +204,19 @@ body {
     border: 1px solid #ddd;
 }
 
+.section-2 .section-content{
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.section-2 h2 {
+    color: #333;
+    padding-bottom: 5px;
+    font-size: 18px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
 .section-3 {
     background-color: white;
     margin: 5px 15px 15px 15px;
@@ -138,6 +224,19 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #ddd;
+}
+
+.section-3 .section-content {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.section-3 h2 {
+    color: #333;
+    padding-bottom: 5px;
+    font-size: 18px;
+    border-bottom: 2px solid #e0e0e0;
 }
 
 .section-2:hover, .section-3:hover {
@@ -163,18 +262,8 @@ body {
     margin-bottom: -20px;
 }
 
-.profile-info h3 {
-    margin: 10px 0px 10px 0px;
-}
-
-.profile-info p {
-    margin: 0px;
-}
-
 .profile-section:hover,
-.degree-progress-section:hover
-.section-4:hover
-.section-5:hover {
+.degree-progress-section:hover {
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.075);
 }
 
@@ -190,20 +279,18 @@ body {
 }
 
 .gpa-btn {
-    padding: 8px 15px;
     background-color: #d6001c;
-    color: white;
-    margin-top: 10px;
-    border: none;
-    font-size: 13px;
     font-weight: bold;
-    border-radius: 5px;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    text-decoration: none;
+    transition: background 0.2s;
 }
 
 .gpa-btn:hover {
-    background-color: #b5161b;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.075);
 }
 
@@ -307,6 +394,7 @@ body {
 }
 
 .requirements-section h2 {
+    color: #333;
     padding: 5px 5px 5px 0px;
 }
 
@@ -347,7 +435,7 @@ body {
 }
 
 .requirements-table th {
-    font-size: 17px;
+    font-size: 14px;
     height: 14px;
     background-color: #d6001c;
     color: white;
@@ -374,11 +462,11 @@ body {
 
 /* Reduce Section Tab Height */
 .requirements-section h2 {
+    color: #333;
     cursor: pointer;
     align-items: center;
-    font-size: 18px;
+    font-size: 16px;
     background-color: #F2F2F2;
-    color: #222;
     border-radius: 5px;
     margin: 4px 0;
     transition: background 0.5s ease;
@@ -432,13 +520,77 @@ body {
 }
 
 #sort-options {
-    padding: 5px;
-    font-size: 16px;
+    font-size: 13px;
     border: 2px solid #ccc;
     border-radius: 5px;
-    width: 141px;
+    width: 120px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
-/****************** Academic Standing **********************/
+/****************** Book a Meeting **********************/
+
+.book-meeting {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, .15);
+    display: flex;
+    flex-direction: column;
+}
+
+.book-meeting:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+.book-meeting h2 {
+    color: #333;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e0e0e0;
+    font-size: 18px;
+    margin: 0px 0px 15px 0px;
+}
+
+#meetingList {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 20px;
+}
+
+#meetingList li {
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+#Upcoming-meetings {
+    padding-top: 30px;
+}
+
+form {
+    display: flex;
+    font-size: 14px;
+    flex-direction: column;
+    gap: 12px;
+}
+
+form input,
+form select {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #d6001c;
+    font-weight: bold;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+}

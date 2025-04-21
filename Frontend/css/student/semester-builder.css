@@ -106,18 +106,17 @@ h3 {
 }
 
 .save-btn {
-    padding: 8px 15px;
     background-color: #d6001c;
-    height: 30px;
-    font-size: 17px;
     font-weight: bold;
     color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
     border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
 }
 
 .save-btn:hover {
-    background-color: #b5161b;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.075);
 }

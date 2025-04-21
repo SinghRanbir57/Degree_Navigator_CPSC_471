@@ -83,13 +83,13 @@ body {
 
 .progress-label {
     padding: 10px 0px 10px 0px;
-}
-
-.requirements-section h2 {
-    padding: 5px 5px 5px 0px;
+    border-bottom: 2px solid #e0e0e0;
 }
 
 .requirements-content {
+    color: #333;
+    font-size: 15px;
+    font-weight: bold;
     margin: 10px 10px 10px 15px;
     padding: 10px 15px 15px 16px;
     flex-direction: column;
@@ -153,9 +153,10 @@ body {
 
 /* Reduce Section Tab Height */
 .requirements-section h2 {
+    padding: 5px 5px 5px 0px;
     cursor: pointer;
     align-items: center;
-    font-size: 18px;
+    font-size: 16px;
     background-color: #F2F2F2;
     color: #222;
     border-radius: 5px;
