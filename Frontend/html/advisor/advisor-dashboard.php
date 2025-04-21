@@ -77,8 +77,15 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
                 }
 
                 function confirmLogout() {
-                    window.location.href = "../../html/joint/login.html";
+                    fetch("/Backend/PHP/logout.php")
+                        .then(() => {
+                            window.location.href = "/Frontend/html/joint/login.html";
+                        })
+                        .catch(() => {
+                            alert("Logout failed. Try again.");
+                        });
                 }
+
             </script>
         </div>
 
