@@ -88,3 +88,7 @@ a.button-link {
     border-radius: 6px;
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}

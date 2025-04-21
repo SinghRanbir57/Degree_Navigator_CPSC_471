@@ -22,11 +22,11 @@
             <div class="sidebar-logo">
                 <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
             </div>
-            <a href="../advisor/advisor-dashboard.html">Advisor Dashboard</a>
-            <a href="../advisor/advisee-dashboard.html">Advisee Dashboard</a>
-            <a href="../advisor/calendar.html">University Calendar</a>
+            <a href="../advisor/advisor-dashboard.html">Dashboard</a>
+            <a href="../advisor/advisee-dashboard.html">My Advisees</a>
+            <a href="../advisor/calendar.html">Academic Calendar</a>
             <a href="../advisor/program-guide.html">Program Guide</a>
-            <a href="../advisor/advisor-profile.html">Advisor Profile</a>
+            <a href="../advisor/advisor-profile.html">My Profile</a>
         </div>
 
         <div class="header">
@@ -81,21 +81,23 @@
         <!-- Main Content -->
         <div class="main-body">
             <div class="table-container" id="mainTable">
-            <h2>My Advisees</h2>
+                <h2>My Advisees</h2>
                 <table>
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Student ID</th>
                             <th>Major</th>
                             <th>Minor</th>
                             <th>GPA</th>
                             <th>Notes</th>
-                            <th>Suggest</th>
+                            <th>Suggest Courses</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Emma Li</td>
+                            <td>34567128</td>
                             <td>BSc Computer Science</td>
                             <td>Music</td>
                             <td>3.87</td>
@@ -104,6 +106,7 @@
                         </tr>
                         <tr>
                             <td>Raj Kumar</td>
+                            <td>34467129</td>
                             <td>BSc Computer Science</td>
                             <td>History</td>
                             <td>2.45</td>
@@ -112,6 +115,7 @@
                         </tr>
                         <tr>
                             <td>Leila Green</td>
+                            <td>33785561</td>
                             <td>BSc Data Science</td>
                             <td>Economics</td>
                             <td>3.51</td>
@@ -120,6 +124,7 @@
                         </tr>
                         <tr>
                             <td>Max Tran</td>
+                            <td>39817128</td>
                             <td>BA Psychology</td>
                             <td>Philosophy</td>
                             <td>3.2</td>
@@ -131,11 +136,18 @@
             </div>
             <div class="overview hidden" id="studentOverview">
                 <h2 id="studentName">Student Overview</h2>
-                <h3>Notes</h3>
-                <textarea id="notesArea" rows="4" placeholder="Write your notes here..."></textarea>
             
-                <h3>Suggested Courses</h3>
-                <textarea id="suggestionArea" rows="3" placeholder="Suggest courses here..."></textarea>
+                <!-- Notes Section -->
+                <div id="notesSection" class="hidden">
+                    <h3>Notes</h3>
+                    <textarea id="notesArea" rows="4" placeholder="Write your notes here..."></textarea>
+                </div>
+            
+                <!-- Suggested Courses Section -->
+                <div id="suggestSection" class="hidden">
+                    <h3>Suggested Courses</h3>
+                    <textarea id="suggestionArea" rows="3" placeholder="Suggest courses here..."></textarea>
+                </div>
             
                 <button onclick="saveChanges()">Save</button>
                 <button onclick="goBack()" style="margin-left: 10px; background:#555;">Back</button>
@@ -143,31 +155,7 @@
         </div>
     </div>
 
-<script>
-    let currentStudent = '';
-
-    function viewStudent(name) {
-        currentStudent = name;
-        document.getElementById('mainTable').classList.add('hidden');
-        document.getElementById('studentOverview').classList.remove('hidden');
-        document.getElementById('studentName').innerText = name + " - Overview";
-        document.getElementById('notesArea').value = localStorage.getItem(name + '_notes') || '';
-        document.getElementById('suggestionArea').value = localStorage.getItem(name + '_suggestions') || '';
-    }
-
-    function saveChanges() {
-        const notes = document.getElementById('notesArea').value;
-        const suggestions = document.getElementById('suggestionArea').value;
-        localStorage.setItem(currentStudent + '_notes', notes);
-        localStorage.setItem(currentStudent + '_suggestions', suggestions);
-        alert('Saved!');
-    }
-
-    function goBack() {
-        document.getElementById('studentOverview').classList.add('hidden');
-        document.getElementById('mainTable').classList.remove('hidden');
-    }
-</script>
+<script src="../../javascript/advisee-dashboard.js"></script>
 </body>
 
 </html>
