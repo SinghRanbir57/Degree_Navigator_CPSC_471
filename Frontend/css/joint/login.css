@@ -155,7 +155,7 @@ body {
 }
 
 #loginForm button[type="submit"]:hover {
-    background-color: #b00018;
+    background-color: #d6001c;
 }
 
 #loginMessage {

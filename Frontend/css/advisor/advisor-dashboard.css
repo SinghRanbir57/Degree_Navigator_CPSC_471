@@ -67,7 +67,7 @@ html, body {
     border-bottom: 2px solid #e0e0e0;
     font-size: 1.3rem;
     margin: 0px 0px 15px 0px;
-    color: #b00;
+    color: #d6001c;
 }
 
 /* Advisor Info */
@@ -82,6 +82,10 @@ html, body {
     border-collapse: collapse;
     margin-top: 10px;
     font-size: 14px;
+}
+
+th {
+    background: #f1f1f1;
 }
 
 .advisor-student-table th,
@@ -107,7 +111,7 @@ form select {
 }
 
 button {
-    background-color: #b00;
+    background-color: #d6001c;
     font-weight: bold;
     color: white;
     border: none;
