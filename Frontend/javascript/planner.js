@@ -31,23 +31,22 @@ document.addEventListener("DOMContentLoaded", () => {
         courses: selectedCourses
       })
     })
-    //parse the json response from the server
-      .then(response => response.json())
-      .then(data => {
+      .then(async response => {
+        const data = await response.json().catch(() => ({ error: "Invalid JSON response" }));
+        if (!response.ok) {
+          throw new Error(data.error || "Unknown server error");
+        }
         if (data.success) {
-          //notify user success
           alert("Semester plan saved successfully!");
         } else {
-          //notify user failure
           alert("Failed to save plan: " + (data.error || "Unknown error"));
         }
       })
-
-      // just logging any errors to console
       .catch(error => {
-        console.error("Error:", error);
-        alert("An error occurred.");
+        console.error("Error:", error);  // <== this will help you see the real issue
+        alert("An error occurred: " + error.message);
       });
+    
   });
 });  
 
