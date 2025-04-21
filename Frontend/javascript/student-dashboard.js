@@ -71,8 +71,27 @@ function loadMeetings() {
                 const deleteBtn = document.createElement("button");
                 deleteBtn.textContent = "Delete";
                 deleteBtn.style.marginLeft = "10px";
-                deleteBtn.onclick = () => alert("Delete not implemented yet");
-
+                deleteBtn.onclick = () => {
+                    fetch("/Backend/PHP/schedule-meeting.php", {
+                        method: "DELETE",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ id: meeting.id, date: meeting.date })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Meeting deleted!");
+                            loadMeetings(); // refresh list
+                        } else {
+                            alert("Delete failed: " + (data.error || "Unknown error"));
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Delete error:", err);
+                        alert("Network error while deleting meeting.");
+                    });
+                };
+                
                 buttonGroup.appendChild(editBtn);
                 buttonGroup.appendChild(deleteBtn);
                 li.appendChild(buttonGroup);
