@@ -154,7 +154,7 @@ body {
 
 .profile-right .btn {
     display: inline-block;
-    background-color: #d10000;
+    background-color: #d6001c;
     color: #fff;
     border: none;
     padding: 12px 20px;
@@ -205,7 +205,7 @@ body {
 }
 
 .dynamic-list li button {
-    background-color: #e60000;
+    background-color: #d6001c;
     color: #fff;
     border: none;
     padding: 6px 10px;

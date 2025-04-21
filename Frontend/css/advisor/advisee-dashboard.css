@@ -33,7 +33,7 @@ body {
 .table-container,
 .overview {
     background: #fff;
-    padding: 24px;
+    padding: 0px 24px 24px 24px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -55,7 +55,8 @@ th {
 }
 
 a.button-link {
-    background-color: #b00;
+    font-weight: bold;
+    background-color: #d6001c;
     color: #fff;
     padding: 8px 12px;
     text-decoration: none;
@@ -82,7 +83,7 @@ a.button-link {
 .overview button {
     margin-top: 12px;
     padding: 10px 16px;
-    background: #b00;
+    background: #d6001c;
     color: #fff;
     border: none;
     border-radius: 6px;
