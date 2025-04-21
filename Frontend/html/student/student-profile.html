@@ -23,7 +23,7 @@
             <div class="sidebar-logo">
                 <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
             </div>
-            <a href="../student/student-dashboard.html">Home</a>
+            <a href="../student/student-dashboard.php">Home</a>
             <a href="../student/semester-builder.html">Semester Builder</a>
             <a href="../student/requirements.html">Academic Report</a>
             <a href="../student/calendar.html">View Calendar</a>
@@ -65,9 +65,16 @@
                 }
 
                 function confirmLogout() {
-                    window.location.href = "../../html/joint/login.html";
+                    fetch("/Backend/PHP/logout.php")
+                    .then(() => {
+                        window.location.href = "/Frontend/html/joint/login.html";
+                    })
+                    .catch(() => {
+                        alert("Logout failed. Try again.");
+                    });
                 }
             </script>
+          
         </div>
 
         <footer class="footer">

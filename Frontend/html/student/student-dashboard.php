@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
+    header('Location: /Frontend/html/joint/login.html');
+    exit;
+}
+?>
+<!-- created into php folder. -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +32,7 @@
       <div class="sidebar-logo">
         <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
       </div>
-      <a href="../student/student-dashboard.html">Home</a>
+      <a href="../student/student-dashboard.php">Home</a>
       <a href="../student/semester-builder.html">Semester Builder</a>
       <a href="../student/requirements.html">Academic Report</a>
       <a href="../student/calendar.html">View Calendar</a>
@@ -64,9 +75,16 @@
         }
 
         function confirmLogout() {
-          window.location.href = "../../html/joint/login.html";
+          fetch("/Backend/PHP/logout.php")
+            .then(() => {
+              window.location.href = "/Frontend/html/joint/login.html";
+            })
+            .catch(() => {
+              alert("Logout failed. Try again.");
+            });
         }
       </script>
+
     </div>
     
     <!-- Main Body -->
@@ -281,7 +299,8 @@
       </div>
     </div>
   </div>
-</body>
+<div id="logout-popup" style="display: none;"></div>
 <script src="../../javascript/script.js"></script>
 <script src="../../javascript/login.js"></script>
+</body>
 </html>

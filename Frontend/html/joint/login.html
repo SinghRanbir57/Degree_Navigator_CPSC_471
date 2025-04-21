@@ -51,64 +51,32 @@
     </div>
 
     <script>
-        let currentLoginType = "";
-
         function showLoginForm(type) {
-            currentLoginType = type;
-
             // Hide login buttons
             const groups = document.querySelectorAll(".login-button-group");
             groups.forEach(group => group.style.display = "none");
-
+    
             // Show login form
             const container = document.getElementById("loginFormContainer");
             container.innerHTML = `
-                <form id="loginForm">
+                <form id="loginForm" action="/Backend/PHP/login.php" method="POST">
                     <label for="username">Username:</label><br>
-                    <input type="text" id="username" required><br><br>
+                    <input type="text" id="username" name="username" required><br><br>
     
                     <label for="password">Password:</label><br>
-                    <input type="password" id="password" required><br><br>
+                    <input type="password" id="password" name="password" required><br><br>
     
+                    <input type="hidden" name="user_type" value="${type}">
                     <button type="submit">Login</button>
-                    <p id="loginMessage"></p>
                 </form>
             `;
-
-            // Attach login logic
-            document.getElementById("loginForm").addEventListener("submit", handleLogin);
         }
-
-        function handleLogin(e) {
-            e.preventDefault();
-
-            const username = document.getElementById("username").value.trim();
-            const password = document.getElementById("password").value.trim();
-            const loginMessage = document.getElementById("loginMessage");
-
-            const credentials = {
-                student: { username: "student", password: "student123", redirect: "../../html/student/student-dashboard.html" },
-                advisor: { username: "advisor", password: "advisor123", redirect: "../../html/advisor/advisor-dashboard.html" }
-            };
-
-            const validCreds = credentials[currentLoginType];
-
-            if (username === validCreds.username && password === validCreds.password) {
-                loginMessage.style.color = "green";
-                loginMessage.textContent = `✅ Welcome, ${username}! Redirecting...`;
-                setTimeout(() => {
-                    window.location.href = validCreds.redirect;
-                }, 1000);
-            } else {
-                loginMessage.style.color = "red";
-                loginMessage.textContent = "❌ Invalid username or password.";
-            }
-        }
-
-        function reloadWithParameter(param, value) {
-            // Instead of reloading, just call showLoginForm directly
+        
+        //make sure we are updateing everytime,
+        function reloadWithParameter(param, value ) {
             showLoginForm(param === "MFA" ? "student" : "advisor");
         }
     </script>
+    
 </body>
 </html>

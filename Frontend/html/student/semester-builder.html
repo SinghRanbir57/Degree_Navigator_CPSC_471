@@ -1,6 +1,7 @@
 <!-- build a semester plan -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,38 +11,40 @@
   <link rel="stylesheet" href="../../css/joint/styles.css">
   <link rel="stylesheet" href="../../css/joint/header.css">
   <link rel="stylesheet" href="../../css/joint/sidebar.css">
-  <link rel="stylesheet" href="../../css/student/semester-builder.css" />
+  <link rel="stylesheet" href="../../css/student/semester-builder.css">
   <link rel="stylesheet" href="../../css/joint/logout.css">
   <title>Semester Builder</title>
 </head>
 
 <body>
   <div class="Screen">
+    <!-- Sidebar -->
     <div class="sidebar">
       <div class="sidebar-logo">
         <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
       </div>
-      <a href="../student/student-dashboard.html">Home</a>
-      <a href="../student/semester-builder.html">Semester Builder</a>
-      <a href="../student/requirements.html">Academic Report</a>
-      <a href="../student/calendar.html">View Calendar</a>
-      <a href="../student/program-guide.html">Program Guide</a>
-      <a href="../student/student-profile.html">Profile</a>
+      <a href="student-dashboard.php">Home</a>
+      <a href="semester-builder.html">Semester Builder</a>
+      <a href="requirements.html">Academic Report</a>
+      <a href="calendar.html">View Calendar</a>
+      <a href="program-guide.html">Program Guide</a>
+      <a href="student-profile.html">Profile</a>
     </div>
-    
+
+    <!-- Header -->
     <div class="header">
       <div class="header-left"></div>
-    
-      <!-- Search -->
+
       <div class="header-right"></div>
       <div class="search-container">
         <input type="text" class="search-bar" placeholder="Search...">
       </div>
-    
+
       <div>
         <button class="logout-btn" onclick="openLogoutModal()">Logout</button>
       </div>
-    
+
+      <!-- Logout Modal -->
       <div id="logoutModal" class="modal">
         <div class="modal-content">
           <span class="close" onclick="closeLogoutModal()">&times;</span>
@@ -52,7 +55,7 @@
           </div>
         </div>
       </div>
-    
+
       <script>
         function openLogoutModal() {
           document.getElementById("logoutModal").style.display = "flex";
@@ -67,27 +70,29 @@
         }
       </script>
     </div>
+
     <!-- Main Body -->
     <div class="main-body">
-      <!-- Main Content -->
       <div class="main-content">
         <h1>Build Your Semester Plan</h1>
-      
+
         <form id="plan-form">
           <label for="semester">Semester:</label>
-          <select id="semester" name="semester">
-            <option value="fall">Fall</option>
-            <option value="winter">Winter</option>
-            <option value="spring">Spring</option>
-            <option value="spring">Summer</option>
+          <select id="semester" name="semester" required>
+            <option value="">Select Semester</option>
+            <option value="Fall">Fall</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
           </select>
-      
+
           <label for="year">Year:</label>
-          <select id="year" name="year">
+          <select id="year" name="year" required>
+            <option value="">Select Year</option>
             <option value="2025">2025</option>
-            <option value="2024">2026</option>
+            <option value="2026">2026</option>
           </select>
-      
+
           <h3>Select Courses:</h3>
           <table class="course-table">
             <thead>
@@ -117,15 +122,17 @@
                 <td>Operating Systems</td>
                 <td>3</td>
               </tr>
-              <!-- Add more rows as needed -->
             </tbody>
           </table>
-      
+
           <button type="submit" class="save-btn">Save Plan</button>
         </form>
       </div>
     </div>
-  </body>
+  </div>
+
+  <!-- Scripts -->
   <script src="../../javascript/script.js"></script>
   <script src="../../javascript/planner.js"></script>
-  </html>
+</body>
+</html>

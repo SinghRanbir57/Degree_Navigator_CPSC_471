@@ -1,12 +1,30 @@
 <?php
-$servername = "localhost"; // or your DB host
-$db_username = "your_mysql_user";
-$db_password = "your_mysql_password";
-$db_name = "your_database_name";
+/**
+ * This is the Centralised PDO connection.
+ * ------------------------------------------------------------
+ * Edit the $user and $pass values to match your local database
+ * credentials.
+ */
 
-$conn = new mysqli($servername, $db_username, $db_password, $db_name);
+$host = 'localhost';
+$db   = 'DegreeNavigator';
+$user = 'root';          //  your MySQL username
+$pass = '';              // your MySQL password
+$charset = 'utf8mb4';
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,  // throw any exceptions
+
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,        // associativve arrays
+
+    PDO::ATTR_EMULATE_PREPARES   => false,                   // native prepares
+];
+
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (PDOException $e) {
+    exit('Database connection failed: ' . $e->getMessage());
 }
 ?>
