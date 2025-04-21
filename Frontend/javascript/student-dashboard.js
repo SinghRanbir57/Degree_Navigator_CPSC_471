@@ -1,10 +1,10 @@
 const meetingForm = document.getElementById("meetingForm");
 const meetingList = document.getElementById("meetingList");
 
-let editingIndex = null; // for tracking if editing an entry
+let editingIndex = null;
 
 window.addEventListener("DOMContentLoaded", () => {
-    loadMeetings();
+    loadMeetings(); // 🔄 pulls from backend instead of localStorage
 });
 
 meetingForm.addEventListener("submit", function (event) {
@@ -19,68 +19,74 @@ meetingForm.addEventListener("submit", function (event) {
         return;
     }
 
-    const meeting = { name, date, time };
-    const storedMeetings = JSON.parse(localStorage.getItem("meetings")) || [];
-
-    if (editingIndex !== null) {
-        storedMeetings[editingIndex] = meeting;
-        editingIndex = null;
-    } else {
-        storedMeetings.push(meeting);
-    }
-
-    localStorage.setItem("meetings", JSON.stringify(storedMeetings));
-    meetingForm.reset();
-    loadMeetings();
+    fetch("/Backend/PHP/schedule-meeting.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            name,
+            id: "placeholder-student-id", // ideally get real ID from session
+            date,
+            time
+        })
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.success) {
+            alert("Meeting scheduled!");
+            meetingForm.reset();
+            loadMeetings();
+        } else {
+            alert("Error: " + (data.error || "Unknown error"));
+        }
+    })
+    .catch((err) => {
+        console.error("Fetch error:", err);
+        alert("Network error while saving meeting.");
+    });
 });
 
 function loadMeetings() {
     meetingList.innerHTML = "";
-    const meetings = JSON.parse(localStorage.getItem("meetings")) || [];
 
-    meetings.forEach((meeting, index) => {
-        const li = document.createElement("li");
+    fetch("/Backend/PHP/schedule-meeting.php") // ✅ updated path
+        .then((res) => res.json())
+        .then((meetings) => {
+            if (!Array.isArray(meetings)) {
+                throw new Error("Invalid data");
+            }
 
-        // Create main meeting text
-        const meetingText = document.createElement("p");
-        meetingText.textContent = `${meeting.name} | ${meeting.date} | ${meeting.time}`;
-        li.appendChild(meetingText);
+            meetings.forEach((meeting, index) => {
+                const li = document.createElement("li");
+                const meetingText = document.createElement("p");
+                meetingText.textContent = `${meeting.name} | ${meeting.date} | ${meeting.time}`;
+                li.appendChild(meetingText);
 
-        // Create a div for buttons (to appear below)
-        const buttonGroup = document.createElement("div");
-        buttonGroup.style.marginTop = "5px";
+                const buttonGroup = document.createElement("div");
+                buttonGroup.style.marginTop = "5px";
 
-        const editBtn = document.createElement("button");
-        editBtn.textContent = "Edit";
-        editBtn.onclick = () => editMeeting(index);
+                const editBtn = document.createElement("button");
+                editBtn.textContent = "Edit";
+                editBtn.onclick = () => editMeeting(meeting);
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
-        deleteBtn.style.marginLeft = "10px";
-        deleteBtn.onclick = () => deleteMeeting(index);
+                const deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "Delete";
+                deleteBtn.style.marginLeft = "10px";
+                deleteBtn.onclick = () => alert("Delete not implemented yet");
 
-        buttonGroup.appendChild(editBtn);
-        buttonGroup.appendChild(deleteBtn);
-        li.appendChild(buttonGroup);
+                buttonGroup.appendChild(editBtn);
+                buttonGroup.appendChild(deleteBtn);
+                li.appendChild(buttonGroup);
 
-        meetingList.appendChild(li);
-    });
+                meetingList.appendChild(li);
+            });
+        })
+        .catch((err) => {
+            console.error("Failed to load meetings:", err);
+        });
 }
 
-function deleteMeeting(index) {
-    const meetings = JSON.parse(localStorage.getItem("meetings")) || [];
-    meetings.splice(index, 1);
-    localStorage.setItem("meetings", JSON.stringify(meetings));
-    loadMeetings();
-}
-
-function editMeeting(index) {
-    const meetings = JSON.parse(localStorage.getItem("meetings")) || [];
-    const meeting = meetings[index];
-
+function editMeeting(meeting) {
     document.getElementById("advisorName").value = meeting.name;
     document.getElementById("date").value = meeting.date;
     document.getElementById("time").value = meeting.time;
-
-    editingIndex = index;
 }

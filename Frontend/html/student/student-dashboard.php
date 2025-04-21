@@ -137,7 +137,7 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
         <!-- Academic Standing Summary -->
         <div class="book-meeting">
           <h2>Schedule a Meeting with Advisor</h2>
-          <form id="meetingForm">
+          <form id="meetingForm" action="/Backend/PHP/schedule-meeting.php" method="POST">
           
             <label for="advisorName"><strong>Advisor Name:</strong></label>
             <input type="text" id="advisorName" name="advisorName" required>
