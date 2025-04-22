@@ -102,6 +102,15 @@ CREATE TABLE DegreePlan (
     FOREIGN KEY (SemesterID) REFERENCES Semesters(SemesterID) ON DELETE CASCADE
 );
 
+
+CREATE TABLE DegreePlanCourses (
+    PlanCourseID INT AUTO_INCREMENT PRIMARY KEY,
+    PlanID       INT NOT NULL,
+    CourseID     INT NOT NULL,
+    FOREIGN KEY (PlanID)   REFERENCES DegreePlan(PlanID)   ON DELETE CASCADE,
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)     ON DELETE RESTRICT
+);
+
 -- ========================
 -- SEED DATA
 -- ========================
