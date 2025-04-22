@@ -1,88 +1,80 @@
-const meetingForm = document.getElementById("meetingForm");
-const meetingList = document.getElementById("meetingList");
+const form        = document.getElementById("meetingForm");
+const listMeet    = document.getElementById("meetingList");
+const listReq     = document.getElementById("requestList");
 
-let editingIndex = null; // for tracking if editing an entry
+window.addEventListener("DOMContentLoaded", loadEverything);
 
-window.addEventListener("DOMContentLoaded", () => {
-    loadMeetings();
-});
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("studentName").value.trim();
+  const id   = document.getElementById("studentId").value.trim();
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+  if (!name || !id || !date || !time) return alert("Fill every field");
 
-meetingForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const name = document.getElementById("studentName").value.trim();
-    const id = document.getElementById("studentId").value.trim();
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
-
-    if (!name || !id || !date || !time) {
-        alert("Please fill out all fields.");
-        return;
-    }
-
-    const meeting = { name, id, date, time };
-    const storedMeetings = JSON.parse(localStorage.getItem("meetings")) || [];
-
-    if (editingIndex !== null) {
-        storedMeetings[editingIndex] = meeting;
-        editingIndex = null;
+  fetch("/Backend/PHP/schedule-meeting.php", {
+    method : "POST",
+    headers: {"Content-Type":"application/json"},
+    body   : JSON.stringify({
+        advisorId,             // <─ this now exists because of PHP injection
+        studentName: name,
+        studentId  : id,
+        date, time
+      })
+      
+  })
+  .then(r => r.json()).then(d => {
+    if (d.success) {
+      alert("✅ Meeting successfully scheduled!");
+      form.reset();
+      loadEverything();
     } else {
-        storedMeetings.push(meeting);
+      alert(d.error || "Server error");
     }
-
-    localStorage.setItem("meetings", JSON.stringify(storedMeetings));
-    meetingForm.reset();
-    loadMeetings();
+  });  
 });
 
-function loadMeetings() {
-    meetingList.innerHTML = "";
-    const meetings = JSON.parse(localStorage.getItem("meetings")) || [];
+function loadEverything(){
+  listMeet.innerHTML = listReq.innerHTML = "Loading…";
 
-    meetings.forEach((meeting, index) => {
-        const li = document.createElement("li");
-
-        // Create main meeting text
-        const meetingText = document.createElement("p");
-        meetingText.textContent = `${meeting.name} (ID: ${meeting.id}) - ${meeting.date} at ${meeting.time}`;
-        li.appendChild(meetingText);
-
-        // Create a div for buttons (to appear below)
-        const buttonGroup = document.createElement("div");
-        buttonGroup.style.marginTop = "5px";
-
-        const editBtn = document.createElement("button");
-        editBtn.textContent = "Edit";
-        editBtn.onclick = () => editMeeting(index);
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
-        deleteBtn.style.marginLeft = "10px";
-        deleteBtn.onclick = () => deleteMeeting(index);
-
-        buttonGroup.appendChild(editBtn);
-        buttonGroup.appendChild(deleteBtn);
-        li.appendChild(buttonGroup);
-
-        meetingList.appendChild(li);
-    });
+  fetch("/Backend/PHP/schedule-meeting.php")          // GET = everything relevant
+     .then(r=>r.json())
+     .then(({own,requests})=>{
+        render(listMeet,  own,       false);   // editable/delete
+        render(listReq,   requests,  true );   // accept/decline
+     })
+     .catch(err=>console.error(err));
 }
 
-function deleteMeeting(index) {
-    const meetings = JSON.parse(localStorage.getItem("meetings")) || [];
-    meetings.splice(index, 1);
-    localStorage.setItem("meetings", JSON.stringify(meetings));
-    loadMeetings();
+function render(target, arr, isRequest){
+  target.innerHTML = "";
+  arr.forEach(m=>{
+      const li   = document.createElement("li");
+      li.textContent = `${m.studentName} – ${m.date} @ ${m.time}`;
+      // buttons
+      const btnBox = document.createElement("span");
+      if(isRequest){
+         makeBtn(btnBox,"✔ Accept", ()=>decision(m.id,"accepted"));
+         makeBtn(btnBox,"✖ Decline",()=>decision(m.id,"declined"));
+      }else{
+         makeBtn(btnBox,"✎ Edit",   ()=>alert("Implement edit UI"));
+         makeBtn(btnBox,"🗑 Del",   ()=>decision(m.id,"delete"));
+      }
+      li.appendChild(btnBox);
+      target.appendChild(li);
+  });
 }
 
-function editMeeting(index) {
-    const meetings = JSON.parse(localStorage.getItem("meetings")) || [];
-    const meeting = meetings[index];
+function makeBtn(parent,text,cb){
+  const b = document.createElement("button"); b.textContent=text; b.onclick=cb;
+  b.style.marginLeft="8px"; parent.appendChild(b);
+}
 
-    document.getElementById("studentName").value = meeting.name;
-    document.getElementById("studentId").value = meeting.id;
-    document.getElementById("date").value = meeting.date;
-    document.getElementById("time").value = meeting.time;
-
-    editingIndex = index;
+function decision(meetingId,action){
+   const method = action==="delete" ? "DELETE" : "PUT";
+   const body   = { id:meetingId, status:action };
+   fetch("/Backend/PHP/schedule-meeting.php",{ method,
+           headers:{"Content-Type":"application/json"},
+           body:JSON.stringify(body)})
+     .then(r=>r.json()).then(()=>loadEverything());
 }

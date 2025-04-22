@@ -136,7 +136,7 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
       <div class="academic-content">
         <!-- Academic Standing Summary -->
         <div class="book-meeting">
-          <h2>Schedule a Meeting with Advisor</h2>
+          <h2>Request a Meeting with Advisor</h2>
           <form id="meetingForm" action="/Backend/PHP/schedule-meeting.php" method="POST">
           
             <label for="advisorName"><strong>Advisor Name:</strong></label>
@@ -148,7 +148,7 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
             <label for="time"><strong>Time:</strong></label>
             <input type="time" id="time" name="time" required>
           
-            <button type="submit">Schedule</button>
+            <button type="submit">Request</button>
           </form>
           <h2 id="Upcoming-meetings">Upcoming Meetings</h2>
           <ul id="meetingList"></ul>

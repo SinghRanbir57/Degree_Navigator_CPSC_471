@@ -156,10 +156,17 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
                     <button type="submit">Schedule</button>
                 </form>
                 <h2 id="Upcoming-meetings">Upcoming Meetings</h2>
-                <ul id="meetingList"></ul>
+                <ul id="meetingList" style="margin-bottom: 30px;"></ul>
+
+                <h2>Meeting Requests</h2>
+                <ul id="requestList" style="margin-bottom: 30px;"></ul>
+
             </div>
         </div>
     </div>
+    <script>
+        const advisorId = <?php echo (int)$_SESSION['user_id']; ?>;
+    </script>
 
     <script src="../../javascript/advisor-dashboard.js"></script>
 </body>
