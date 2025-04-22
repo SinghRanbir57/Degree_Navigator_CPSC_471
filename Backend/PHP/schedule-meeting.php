@@ -16,8 +16,7 @@ session_start();
 header('Content-Type: application/json');
 require_once __DIR__ . '/db.php';  // Defines $pdo as PDO
 
-if (!isset($_SESSION['user_id'], $_SESSION['role'])
-    || !in_array($_SESSION['role'], ['student', 'advisor'], true)) {
+if (!isset($_SESSION['user_id'], $_SESSION['role']) || !in_array($_SESSION['role'], ['student', 'advisor'], true)) {
     http_response_code(401);
     exit(json_encode(['error' => 'Not authenticated']));
 }
@@ -29,7 +28,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
   case 'GET':
     if ($userRole === 'advisor') {
-        // advisor sees their non-pending and pending requests separately
         $ownStmt = $pdo->prepare(
             "SELECT * FROM Meetings 
              WHERE advisorId = ? AND status <> 'pending'"
@@ -45,7 +43,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
             'requests' => $reqStmt->fetchAll(PDO::FETCH_ASSOC)
         ]);
     } else {
-        // student sees all their meetings
         $stmt = $pdo->prepare(
             "SELECT * FROM Meetings WHERE studentId = ?"
         );
@@ -56,22 +53,43 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
   case 'POST':
     $data = json_decode(file_get_contents('php://input'), true);
-    if (!isset($data['advisorId'], $data['studentId'], $data['date'], $data['time'])) {
+    file_put_contents("debug.json", json_encode($data, JSON_PRETTY_PRINT));
+
+    if (!isset($data['advisorId'], $data['studentId'], $data['studentName'], $data['date'], $data['time'])) {
         http_response_code(400);
         exit(json_encode(['error' => 'Missing required fields']));
     }
 
+    // Validate student ID and name match
+    $verify = $pdo->prepare(
+        "SELECT FirstName, LastName FROM Users WHERE UserID = ? AND Role = 'student'"
+    );
+    $verify->execute([(int)$data['studentId']]);
+    $user = $verify->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        http_response_code(404);
+        exit(json_encode(['error' => 'Student not found']));
+    }
+
+    $fullName = $user['FirstName'] . ' ' . $user['LastName'];
+    if (trim($data['studentName']) !== $fullName) {
+        http_response_code(400);
+        exit(json_encode(['error' => 'Student name does not match ID']));
+    }
+
+    // Insert meeting as accepted right away
     $stmt = $pdo->prepare(
         "INSERT INTO Meetings
          (id, advisorId, studentId, studentName, date, time, status)
-         VALUES (?, ?, ?, ?, ?, ?, 'pending')"
+         VALUES (?, ?, ?, ?, ?, ?, 'accepted')"
     );
     $id = bin2hex(random_bytes(8));
     $stmt->execute([
         $id,
         (int)$data['advisorId'],
         (int)$data['studentId'],
-        $data['studentName'] ?? '',
+        $data['studentName'],
         $data['date'],
         $data['time']
     ]);
@@ -80,35 +98,31 @@ switch ($_SERVER['REQUEST_METHOD']) {
     break;
 
   case 'PATCH':
-    $data = json_decode(file_get_contents('php://input'), true);
-    if (empty($data['id'])) {
-        http_response_code(400);
-        exit(json_encode(['error' => 'Missing meeting id']));
-    }
-
-    // advisor-only
     if ($userRole !== 'advisor') {
         http_response_code(403);
         exit(json_encode(['error' => 'Forbidden']));
     }
 
+    $data = json_decode(file_get_contents('php://input'), true);
     $fields = [];
     $params = [];
-    foreach (['status','date','time'] as $f) {
+
+    foreach (['status', 'date', 'time'] as $f) {
         if (isset($data[$f])) {
-            $fields[]   = "{$f} = ?";
-            $params[]   = $data[$f];
+            $fields[] = "{$f} = ?";
+            $params[] = $data[$f];
         }
     }
-    if (!$fields) {
+
+    if (!$fields || !isset($data['id'])) {
         http_response_code(400);
-        exit(json_encode(['error' => 'No fields to update']));
+        exit(json_encode(['error' => 'Missing fields to update']));
     }
+
     $params[] = $data['id'];
+    $params[] = $userId;
 
     $sql = "UPDATE Meetings SET " . implode(', ', $fields) . " WHERE id = ? AND advisorId = ?";
-    // enforce that only this advisor can update
-    $params[] = $userId;
     $stmt = $pdo->prepare($sql);
     $updated = $stmt->execute($params);
 

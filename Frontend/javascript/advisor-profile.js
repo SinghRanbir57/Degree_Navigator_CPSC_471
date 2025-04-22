@@ -2,29 +2,33 @@ let addressExists = false;
 let phoneNumbers = [];
 let personalEmail = "";
 
-// Fetch and display student profile info
+// Fetch and display advisor profile info
 window.addEventListener("DOMContentLoaded", () => {
-    fetch("/Backend/PHP/student-info.php")
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) return console.error(data.error);
+    fetch("/Backend/PHP/advisor-info.php")
+    .then(res => res.json())
+    .then(data => {
+        console.log(data); // 🔍 Add this line
+        if (data.error) return console.error(data.error);
+
 
             const p = data.profile;
-            const container = document.querySelector(".profile-info");
+            const container = document.getElementById("advisorProfileInfo");
 
             container.innerHTML = `
                 <h3>${p.FirstName} ${p.LastName}</h3>
-                <p><strong>Student ID:</strong> ${p.StudentID}</p>
+                <p><strong>Advisor ID:</strong> ${p.AdvisorID}</p>
+                <p><strong>Department:</strong> ${p.Department}</p>
+                <p><strong>Sex:</strong> ${p.Sex || "Not specified"}</p>
                 <p><strong>Birth-date:</strong> ${p.BirthDate}</p>
                 <p><strong>SIN:</strong> ***-***-${p.SIN.slice(-3)}</p>
-                <p><strong>Nationality:</strong> Canadian</p>
+                <p><strong>Nationality:</strong> ${p.Nationality || "Canadian"}</p>
                 <p><strong>Permanent Address:</strong> ${p.Address}</p>
                 <p><strong>Phone Number:</strong> ${p.PhoneNumber}</p>
             `;
 
             document.getElementById("uofcEmail").textContent = p.Email;
         })
-        .catch(err => console.error("Failed to load profile", err));
+        .catch(err => console.error("Failed to load advisor profile", err));
 });
 
 // --- Address Logic ---
