@@ -206,3 +206,83 @@ h3 {
     border-radius: 4px;
     cursor: pointer;
 }
+
+/******************************* saved plan ***************************/
+
+.saved-plan {
+    margin: 0px 15px 0px 10px;
+    padding: 10px 20px 20px 20px;
+    flex-direction: column;
+    overflow-x: hidden;
+    background-color: white;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.saved-plan h2 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.saved-plan {
+    margin-top: 0px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.saved-plan h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.saved-plan-item {
+    background-color: #ffffff;
+    padding: 15px 15px 5px 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #dc3545;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+.saved-plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.saved-plan-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.saved-courses {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.saved-courses li {
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}

@@ -3,28 +3,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!form) {
     console.warn("No form with id='plan-form' found.");
-    return; // stop here inorder to prevent null error
+    return;
   }
 
-  // handle form submission
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    
-    // get the vals from the semster and year dropdowns
+
     const semester = document.getElementById("semester").value;
-    const year = document.getElementById("year" ).value;
-  
-    //get all selected courses
+    const year = document.getElementById("year").value;
+
     const selectedCourses = Array.from(
       form.querySelectorAll("input[name='courses[]']:checked")
     ).map((checkbox) => checkbox.value);
-  
-    // Send to backend via fetch
+
+    const courseRows = document.querySelectorAll(".course-table tbody tr");
+    const fullCourseDetails = [];
+
+    courseRows.forEach(row => {
+      const cells = row.querySelectorAll("td");
+      const code = cells[1].textContent;
+      const name = cells[2].textContent;
+      const credits = cells[3].textContent;
+
+      if (selectedCourses.includes(code)) {
+        fullCourseDetails.push({ code, name, credits });
+      }
+    });
+
+    if (!semester || !year || fullCourseDetails.length === 0) {
+      alert("Please select semester, year, and at least one course.");
+      return;
+    }
+
+    const plan = { semester, year, courses: fullCourseDetails };
+
+    // Save to localStorage
+    let savedPlans = JSON.parse(localStorage.getItem("savedPlans")) || [];
+    savedPlans.push(plan);
+    localStorage.setItem("savedPlans", JSON.stringify(savedPlans));
+    
+    /**
+    // Send to backend
     fetch("/Backend/PHP/save-plan.php", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         semester,
         year,
@@ -33,9 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then(async response => {
         const data = await response.json().catch(() => ({ error: "Invalid JSON response" }));
-        if (!response.ok) {
-          throw new Error(data.error || "Unknown server error");
-        }
+        if (!response.ok) throw new Error(data.error || "Unknown server error");
         if (data.success) {
           alert("Semester plan saved successfully!");
         } else {
@@ -43,11 +63,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
       .catch(error => {
-      console.error("Fetch Error:", error);
-      alert("An error occurred: " + error.message);
-    });
+        console.error("Fetch Error:", error);
+        alert("An error occurred: " + error.message);
+      });*/
+
+    renderSavedPlans();
   });
-});  
+});
 
 //logout and login handling moved from inline
 function logout() {
@@ -145,26 +167,27 @@ function displaySearchResults(results) {
   });
 }
 
-function addCourseToPlan(code, name, credits) {
+function addCourseToPlan(code, name, credits, manual = false) {
   const course = courses.find(c => c.code === code);
   const tableBody = document.querySelector(".course-table tbody");
 
   // Prevent duplicates
   if ([...tableBody.querySelectorAll("td:nth-child(2)")].some(td => td.textContent === code)) {
-    alert(`${code} is already in the plan.`);
+    if (manual) alert(`${code} is already in the plan.`);
     return;
   }
 
-  // Prerequisite check
+  // Prerequisite check (only if manually added)
   const prereq = course?.prerequisite;
-  if (prereq && ![...tableBody.querySelectorAll("td:nth-child(2)")].some(td => td.textContent === prereq)) {
+  if (manual && prereq && ![...tableBody.querySelectorAll("td:nth-child(2)")].some(td => td.textContent === prereq)) {
     const proceed = confirm(`${code} has a prerequisite: ${prereq}. Add it first?\nPress OK to continue anyway.`);
     if (!proceed) return;
   }
 
+  // Add course row to the table
   const row = document.createElement("tr");
   row.innerHTML = `
-    <td><input type="checkbox" name="courses[]" value="${code}"></td>
+    <td><input type="checkbox" name="courses[]" value="${code}" checked></td>
     <td>${code}</td>
     <td>${name}</td>
     <td>${credits}</td>
@@ -179,6 +202,44 @@ function addCourseToPlan(code, name, credits) {
   // Save to localStorage
   savePlanToLocalStorage();
 }
+
+// Function to display saved plans in the DOM
+function renderSavedPlans() {
+  const container = document.getElementById("savedPlansContainer");
+  container.innerHTML = "";
+
+  const plans = JSON.parse(localStorage.getItem("savedPlans")) || [];
+
+  if (plans.length === 0) {
+    container.innerHTML = "<p>No plans saved yet.</p>";
+    return;
+  }
+
+  plans.forEach((plan, index) => {
+    const div = document.createElement("div");
+    div.className = "saved-plan-item";
+    div.innerHTML = `
+      <div class="saved-plan-header">
+        <h4>Plan ${index + 1}: ${plan.semester} ${plan.year}</h4>
+        <button class="delete-btn" onclick="deletePlan(${index})">🗑️ Delete</button>
+      </div>
+      <ul class="saved-courses">
+        ${plan.courses.map(c => `<li>${c.code} - ${c.name} (${c.credits} credits)</li>`).join("")}
+      </ul>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function deletePlan(index) {
+  const plans = JSON.parse(localStorage.getItem("savedPlans")) || [];
+  plans.splice(index, 1);
+  localStorage.setItem("savedPlans", JSON.stringify(plans));
+  renderSavedPlans();
+}
+
+// Load saved plans on page load
+window.addEventListener("DOMContentLoaded", renderSavedPlans);
 
 function savePlanToLocalStorage() {
   const tableBody = document.querySelector(".course-table tbody");
@@ -214,3 +275,5 @@ function removeCourseRow(button) {
   row.remove();
   savePlanToLocalStorage(); // optional: keep localStorage updated
 }
+
+window.addEventListener("DOMContentLoaded", renderSavedPlans);

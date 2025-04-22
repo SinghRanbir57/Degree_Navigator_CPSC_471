@@ -252,16 +252,20 @@ VALUES
 
 -- Enrollments
 INSERT IGNORE INTO Enrollment (StudentID, CourseID, Status)
-VALUES 
-(1, 1, 'In Progress'),
-(2, 2, 'Completed'),
-(2, 3, 'In Progress');
+VALUES (1, 1, 'In Progress');
 
--- Progress records
-INSERT INTO Progress (StudentID, CompletedCourses, InProgressCourses, RemainingCourses)
-VALUES 
-(1, 0, 1, 2),
-(2, 1, 1, 1);
+-- ========================
+-- SAMPLE QUERIES & UPDATES
+-- ========================
+SELECT u.FirstName, u.LastName, p.CompletedCourses, p.InProgressCourses, p.RemainingCourses
+FROM Users u
+JOIN Progress p ON u.UserID = p.StudentID
+WHERE u.UserID = 1;
+
+SELECT c.CourseName, c.CourseCode, r.RequirementType
+FROM Requirements r
+JOIN Courses c ON r.CourseID = c.CourseID
+WHERE r.DegreeID = 1;
 
 
 -- Associate Students with Advisors (using IDs retrieved earlier)
@@ -269,3 +273,16 @@ INSERT INTO Advisees (AdvisorID, StudentID)
 VALUES
 (@advisor_id, 1),       -- Alex Johnson advises Jane Smith
 (@advisor_id_2, 2);     -- Emily Wong advises David Nguyen
+
+-- Update GPA
+UPDATE Students SET GPA = 3.9 WHERE StudentID = 1;
+
+-- Update enrollment
+UPDATE Enrollment
+SET Status = 'Completed', Grade = 'B+'
+WHERE EnrollmentID = 2;
+
+-- Clean-up test data
+DELETE FROM Enrollment WHERE StudentID = 1 AND CourseID = 1;
+DELETE FROM Users WHERE UserID = 10;
+>>>>>>> 24e895226b7384ab4b1e605df3aeb3d8a7d2369e

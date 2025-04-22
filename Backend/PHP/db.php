@@ -10,6 +10,9 @@ $host = 'localhost';
 $db   = 'DegreeNavigator';
 $user = 'root';          //  your MySQL username
 $pass = '';              // your MySQL password
+
+$pass = '471';              // your MySQL password
+
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
