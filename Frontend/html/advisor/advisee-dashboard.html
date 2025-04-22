@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <title>Advisee Dashboard</title>
-    <link rel="stylesheet" href="../../css/advisor/advisee-dashboard.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Advisor Profile</title>
+    <link rel="stylesheet" href="../../css/joint/profile.css">
     <link rel="stylesheet" href="../../css/joint/header.css">
     <link rel="stylesheet" href="../../css/joint/sidebar.css">
     <link rel="stylesheet" href="../../css/joint/footer.css">
@@ -17,7 +12,7 @@
 </head>
 
 <body>
-    <div class="screen">
+    <div class="Screen">
         <div class="sidebar">
             <div class="sidebar-logo">
                 <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
@@ -31,13 +26,10 @@
 
         <div class="header">
             <div class="header-left"></div>
-
-            <!-- Search -->
             <div class="header-right"></div>
             <div class="search-container">
                 <input type="text" class="search-bar" placeholder="Search...">
             </div>
-
             <div>
                 <button class="logout-btn" onclick="openLogoutModal()">Logout</button>
             </div>
@@ -52,110 +44,184 @@
                     </div>
                 </div>
             </div>
-
-            <script>
-                function openLogoutModal() {
-                    document.getElementById("logoutModal").style.display = "flex";
-                }
-
-                function closeLogoutModal() {
-                    document.getElementById("logoutModal").style.display = "none";
-                }
-
-                function confirmLogout() {
-                    window.location.href = "../../html/joint/login.html";
-                }
-            </script>
         </div>
 
         <footer class="footer">
-            <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d"
-                target="_blank">Account FAQs</a>
+            <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d" target="_blank">Account FAQs</a>
             <a href="https://ucalgary.service-now.com/it?id=contact_and_help" target="_blank">Contact Support</a>
             <div class="copyright">
-                ©
-                <script>document.write(new Date().getFullYear());</script> University of Calgary
+                © <script>document.write(new Date().getFullYear());</script> University of Calgary
             </div>
         </footer>
-        
-        <!-- Main Content -->
+
         <div class="main-body">
-            <div class="table-container" id="mainTable">
-                <h2>My Advisees</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Student ID</th>
-                            <th>Major</th>
-                            <th>Minor</th>
-                            <th>GPA</th>
-                            <th>Notes</th>
-                            <th>Suggest Courses</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Emma Li</td>
-                            <td>34567128</td>
-                            <td>BSc Computer Science</td>
-                            <td>Music</td>
-                            <td>3.87</td>
-                            <td><a href="#" class="button-link" onclick="viewStudent('Emma Li')">Add/View Notes</a></td>
-                            <td><a href="#" class="button-link" onclick="viewStudent('Emma Li')">Suggest</a></td>
-                        </tr>
-                        <tr>
-                            <td>Raj Kumar</td>
-                            <td>34467129</td>
-                            <td>BSc Computer Science</td>
-                            <td>History</td>
-                            <td>2.45</td>
-                            <td><a href="#" class="button-link" onclick="viewStudent('Raj Kumar')">Add/View Notes</a></td>
-                            <td><a href="#" class="button-link" onclick="viewStudent('Raj Kumar')">Suggest</a></td>
-                        </tr>
-                        <tr>
-                            <td>Leila Green</td>
-                            <td>33785561</td>
-                            <td>BSc Data Science</td>
-                            <td>Economics</td>
-                            <td>3.51</td>
-                            <td><a href="#" class="button-link" onclick="viewStudent('Leila Green')">Add/View Notes</a></td>
-                            <td><a href="#" class="button-link" onclick="viewStudent('Leila Green')">Suggest</a></td>
-                        </tr>
-                        <tr>
-                            <td>Max Tran</td>
-                            <td>39817128</td>
-                            <td>BA Psychology</td>
-                            <td>Philosophy</td>
-                            <td>3.2</td>
-                            <td><a href="#" class="button-link" onclick="viewStudent('Max Tran')">Add/View Notes</a></td>
-                            <td><a href="#" class="button-link" onclick="viewStudent('Max Tran')">Suggest</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="overview hidden" id="studentOverview">
-                <h2 id="studentName">Student Overview</h2>
-            
-                <!-- Notes Section -->
-                <div id="notesSection" class="hidden">
-                    <h3>Notes</h3>
-                    <textarea id="notesArea" rows="4" placeholder="Write your notes here..."></textarea>
+            <div class="main-content">
+                <h1>Advisor Profile</h1>
+                <div class="info-note">
+                    📌 <strong>You can view and update your contact details such as address, phone number, and personal email.</strong>
                 </div>
-            
-                <!-- Suggested Courses Section -->
-                <div id="suggestSection" class="hidden">
-                    <h3>Suggested Courses</h3>
-                    <textarea id="suggestionArea" rows="3" placeholder="Suggest courses here..."></textarea>
+
+                <div class="profile-section">
+                    <div class="profile-left">
+                        <div class="profile-primary">
+                            <div class="profile-image">
+                                <img src="../../images/user image.png" alt="Profile Photo" class="profile-photo">
+                            </div>
+
+                            <div class="profile-info" id="advisorProfileInfo">
+                                <h3>Loading...</h3>
+                            </div>
+                        </div>
+
+                        <div class="profile-secondary">
+                            <p><strong>UofC Email:</strong> <span id="uofcEmail">-</span></p>
+                            <p><strong>Personal Email:</strong> <span id="personalEmail">-</span></p>
+                            <p><strong>Phone(s):</strong>
+                                <ul id="phoneList" class="dynamic-list"></ul>
+                            </p>
+                            <p><strong>Address:</strong>
+                                <span id="addressDisplay">-</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="profile-right">
+                        <div class="update-card">
+                            <label for="address">Add/Update Address</label>
+                            <textarea id="addressInput" rows="2"></textarea>
+                            <button onclick="addAddress()">Add Address</button>
+                        </div>
+                        <div class="update-card">
+                            <label for="phone">Add/Update Phone Number</label>
+                            <input type="tel" id="phoneInput">
+                            <button onclick="addPhone()">Add Phone</button>
+                        </div>
+                        <div class="update-card">
+                            <label for="email">Add/Update Personal Email</label>
+                            <input type="email" id="emailInput">
+                            <button onclick="updateEmail()">Update Email</button>
+                        </div>
+                    </div>
                 </div>
-            
-                <button onclick="saveChanges()">Save</button>
-                <button onclick="goBack()" style="margin-left: 10px; background:#555;">Back</button>
             </div>
         </div>
     </div>
 
-<script src="../../javascript/advisee-dashboard.js"></script>
-</body>
+    <script>
+    let addressExists = false;
+    let phoneNumbers = [];
+    let personalEmail = "";
 
+    window.addEventListener("DOMContentLoaded", () => {
+        fetch("/Backend/PHP/advisor-info.php")
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) return console.error(data.error);
+                const p = data.profile;
+
+                const container = document.getElementById("advisorProfileInfo");
+                container.innerHTML = `
+                    <h3>${p.FirstName} ${p.LastName}</h3>
+                    <p><strong>Advisor ID:</strong> ${p.AdvisorID}</p>
+                    <p><strong>Department:</strong> ${p.Department}</p>
+                    <p><strong>Sex:</strong> ${p.Sex || "Not specified"}</p>
+                    <p><strong>Birth-date:</strong> ${p.BirthDate}</p>
+                    <p><strong>SIN:</strong> ***-***-${p.SIN.slice(-3)}</p>
+                    <p><strong>Nationality:</strong> ${p.Nationality || "Canadian"}</p>
+                    <p><strong>Permanent Address:</strong> ${p.Address}</p>
+                    <p><strong>Phone Number:</strong> ${p.PhoneNumber}</p>
+                `;
+
+                document.getElementById("uofcEmail").textContent = p.Email;
+            })
+            .catch(err => console.error("Failed to load profile", err));
+    });
+
+    function addAddress() {
+        const input = document.getElementById('addressInput');
+        const display = document.getElementById('addressDisplay');
+        if (addressExists) {
+            alert("You already have an address. Delete it first to add a new one.");
+            return;
+        }
+        if (input.value.trim() === "") {
+            alert("Please enter a valid address.");
+            return;
+        }
+        display.innerText = input.value;
+        addressExists = true;
+        display.innerHTML += ` <button onclick="deleteAddress()">Delete</button>`;
+        input.value = "";
+    }
+
+    function deleteAddress() {
+        document.getElementById('addressDisplay').innerText = "-";
+        addressExists = false;
+    }
+
+    function addPhone() {
+        const input = document.getElementById('phoneInput');
+        const phone = input.value.trim();
+        const list = document.getElementById('phoneList');
+
+        if (!phone) {
+            alert("Enter a valid phone number.");
+            return;
+        }
+        if (phoneNumbers.length >= 1) {
+            alert("Maximum 1 alternative phone number is allowed.");
+            return;
+        }
+
+        phoneNumbers.push(phone);
+        const li = document.createElement('li');
+        li.innerHTML = `${phone} <button onclick="removePhone(this, '${phone}')">Delete</button>`;
+        list.appendChild(li);
+        input.value = "";
+    }
+
+    function removePhone(btn, phone) {
+        phoneNumbers = phoneNumbers.filter(p => p !== phone);
+        btn.parentElement.remove();
+    }
+
+    function updateEmail() {
+        const input = document.getElementById('emailInput');
+        const email = input.value.trim();
+        const span = document.getElementById('personalEmail');
+
+        if (!email || !email.includes('@') || email.endsWith('@ucalgary.ca')) {
+            alert("Enter a valid personal (non-UofC) email.");
+            return;
+        }
+
+        personalEmail = email;
+        span.innerHTML = `${email} <button onclick="clearPersonalEmail()">Delete</button>`;
+        input.value = "";
+    }
+
+    function clearPersonalEmail() {
+        personalEmail = "";
+        document.getElementById('personalEmail').innerText = "-";
+    }
+
+    function openLogoutModal() {
+        document.getElementById("logoutModal").style.display = "flex";
+    }
+
+    function closeLogoutModal() {
+        document.getElementById("logoutModal").style.display = "none";
+    }
+
+    function confirmLogout() {
+        fetch("/Backend/PHP/logout.php")
+            .then(() => {
+                window.location.href = "/Frontend/html/joint/login.html";
+            })
+            .catch(() => {
+                alert("Logout failed. Try again.");
+            });
+    }
+    </script>
+</body>
 </html>
