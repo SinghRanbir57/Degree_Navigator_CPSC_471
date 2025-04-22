@@ -2,6 +2,31 @@ let addressExists = false;
 let phoneNumbers = [];
 let personalEmail = "";
 
+// Fetch and display student profile info
+window.addEventListener("DOMContentLoaded", () => {
+    fetch("/Backend/PHP/student-info.php")
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) return console.error(data.error);
+
+            const p = data.profile;
+            const container = document.querySelector(".profile-info");
+
+            container.innerHTML = `
+                <h3>${p.FirstName} ${p.LastName}</h3>
+                <p><strong>Student ID:</strong> ${p.StudentID}</p>
+                <p><strong>Birth-date:</strong> ${p.BirthDate}</p>
+                <p><strong>SIN:</strong> ***-***-${p.SIN.slice(-3)}</p>
+                <p><strong>Nationality:</strong> Canadian</p>
+                <p><strong>Permanent Address:</strong> ${p.Address}</p>
+                <p><strong>Phone Number:</strong> ${p.PhoneNumber}</p>
+            `;
+
+            document.getElementById("uofcEmail").textContent = p.Email;
+        })
+        .catch(err => console.error("Failed to load profile", err));
+});
+
 // --- Address Logic ---
 function addAddress() {
     const addressInput = document.getElementById('addressInput');

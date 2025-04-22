@@ -33,17 +33,13 @@
 
         <div class="header">
             <div class="header-left"></div>
-        
-            <!-- Search -->
             <div class="header-right"></div>
             <div class="search-container">
                 <input type="text" class="search-bar" placeholder="Search...">
             </div>
-        
             <div>
                 <button class="logout-btn" onclick="openLogoutModal()">Logout</button>
             </div>
-        
             <div id="logoutModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeLogoutModal()">&times;</span>
@@ -54,105 +50,73 @@
                     </div>
                 </div>
             </div>
-        
             <script>
                 function openLogoutModal() {
                     document.getElementById("logoutModal").style.display = "flex";
                 }
-
                 function closeLogoutModal() {
                     document.getElementById("logoutModal").style.display = "none";
                 }
-
                 function confirmLogout() {
                     fetch("/Backend/PHP/logout.php")
-                    .then(() => {
-                        window.location.href = "/Frontend/html/joint/login.html";
-                    })
-                    .catch(() => {
-                        alert("Logout failed. Try again.");
-                    });
+                        .then(() => {
+                            window.location.href = "/Frontend/html/joint/login.html";
+                        })
+                        .catch(() => {
+                            alert("Logout failed. Try again.");
+                        });
                 }
             </script>
-          
         </div>
 
         <footer class="footer">
-            <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d"
-                target="_blank">Account FAQs</a>
+            <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d" target="_blank">Account FAQs</a>
             <a href="https://ucalgary.service-now.com/it?id=contact_and_help" target="_blank">Contact Support</a>
             <div class="copyright">
-                ©
-                <script>document.write(new Date().getFullYear());</script> University of Calgary
+                © <script>document.write(new Date().getFullYear());</script> University of Calgary
             </div>
         </footer>
 
-        <!-- Main Body -->
         <div class="main-body">
-            <!-- Main Content -->
             <div class="main-content">
                 <h1>Student Profile</h1>
-                <!-- Profile Section -->
                 <div class="info-note">
-                    📌 <strong>Note: You can view your basic profile information here and update your contact details such as
-                    your address, phone number, and personal email on the right.</strong>
+                    📌 <strong>Note: You can view your basic profile information here and update your contact details such as your address, phone number, and personal email on the right.</strong>
                 </div>
                 <div class="profile-section">
-                    <!-- Left side: Photo + identity -->
                     <div class="profile-left">
-
                         <div class="profile-primary">
-
                             <div class="profile-image">
                                 <img src="../../images/user image.png" alt="Profile Photo" class="profile-photo">
                             </div>
-
-                            <div class="profile-info">
-                                <h3>James Gosling</h3>
-                                <p><strong>Student ID:</strong> 30187921</p>
-                                <p><strong>Sex:</strong> Male</p>
-                                <p><strong>Birth-date:</strong> 14/04/2003</p>
-                                <p><strong>SIN:</strong> ***-***-***</p>
-                                <p><strong>Nationality:</strong> Canadian</p>
-                                <p><strong>Permanent Address:</strong> 123 Johns Road, Calgary, AB, T1Y 5W6</p>
-                                <p><strong>Phone Number:</strong> 403-443-4343</p>
+                            <div class="profile-info" id="studentProfileInfo">
+                                <h3>Loading...</h3>
                             </div>
-                            
                         </div>
 
                         <div class="profile-secondary">
-                            <p><strong>UofC Email:</strong> <span id="uofcEmail">jamesgosling@ucalgary.ca</span></p>
+                            <p><strong>UofC Email:</strong> <span id="uofcEmail"></span></p>
                             <p><strong>Personal Email:</strong> <span id="personalEmail"></span></p>
-                        
                             <p><strong>Phone(s):</strong>
-                            <ul id="phoneList" class="dynamic-list"></ul>
+                                <ul id="phoneList" class="dynamic-list"></ul>
                             </p>
-                        
                             <p><strong>Address:</strong>
                                 <span id="addressDisplay"></span>
                             </p>
                         </div>
-
-                        
                     </div>
-                
-                    <!-- Right side: academic details -->
+
                     <div class="profile-right">
-                        <!-- Address -->
                         <div class="update-card">
                             <label for="address">Add/Update Address</label>
                             <textarea id="addressInput" rows="2"></textarea>
                             <button onclick="addAddress()">Add Address</button>
                         </div>
-                    
-                        <!-- Phone -->
                         <div class="update-card">
                             <label for="phone">Add/Update Phone Number</label>
                             <input type="tel" id="phoneInput">
                             <button onclick="addPhone()">Add Phone</button>
                         </div>
-                    
-                        <!-- Email -->
                         <div class="update-card">
                             <label for="email">Add/Update Personal Email</label>
                             <input type="email" id="emailInput">

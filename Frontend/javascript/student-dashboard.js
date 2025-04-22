@@ -109,3 +109,40 @@ function editMeeting(meeting) {
     document.getElementById("date").value = meeting.date;
     document.getElementById("time").value = meeting.time;
 }
+
+
+window.addEventListener("DOMContentLoaded", () => {
+    loadMeetings();
+
+    fetch("/Backend/PHP/student-info.php")
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) return console.error(data.error);
+
+        const p = data.profile;
+        const target = document.getElementById("studentProfile");
+
+        target.innerHTML = `
+            <h2>Hello ${p.FirstName} ${p.LastName}!</h2>
+            <p><strong>Student ID:</strong> ${p.StudentID}</p>
+            <p><strong>Program:</strong> B.Sc. in ${p.MajorMinor.split(" ")[0] || "Your Program"}</p>
+            <p><strong>Major:</strong> ${p.MajorMinor}</p>
+            <p><strong>Minor:</strong> None</p>
+            <p><strong>Year:</strong> ${ordinal(p.Course_year)} Year</p>
+            <p><strong>Semester:</strong> Winter 2025</p>
+        `;
+
+        function ordinal(n) {
+          const suffixes = ["th", "st", "nd", "rd"];
+          const v = n % 100;
+          return n + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
+        }
+
+        // Optional GPA injection
+        if (data.profile.GPA) {
+          const gpaBox = document.querySelector("#gpa-popup p strong");
+          if (gpaBox) gpaBox.textContent = data.profile.GPA;
+        }
+      })
+      .catch(err => console.error("Failed to load student profile", err));
+});

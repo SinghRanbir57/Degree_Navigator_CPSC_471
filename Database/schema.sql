@@ -1,4 +1,3 @@
-
 -- ========================
 -- USERS & ROLES
 -- ========================
@@ -102,7 +101,6 @@ CREATE TABLE DegreePlan (
     FOREIGN KEY (SemesterID) REFERENCES Semesters(SemesterID) ON DELETE CASCADE
 );
 
-
 CREATE TABLE DegreePlanCourses (
     PlanCourseID INT AUTO_INCREMENT PRIMARY KEY,
     PlanID       INT NOT NULL,
@@ -124,76 +122,63 @@ CREATE TABLE Meetings (
   FOREIGN KEY (studentId)  REFERENCES Users(UserID)
 );
 
-
 -- ========================
 -- SEED DATA
 -- ========================
 
--- Insert Student
-INSERT INTO Users (
-    FirstName, LastName, Email, PhoneNumber, Address,
-    BirthDate, SIN, Username, Password, Role
-) VALUES (
-    'Jane', 'Smith', 'janesmith@email.com',
-    '987-654-3210', '456 Elm St, Calgary', '1985-08-22',
-    '987654321', 'student', 'student123', 'student'
-);
+-- Insert Students
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES 
+('Jane', 'Smith', 'janesmith@email.com', '987-654-3210', '456 Elm St, Calgary', '1985-08-22', '987654321', 'jane2024', 'janepass', 'student');
 SET @student_id = LAST_INSERT_ID();
 
 INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
 VALUES (@student_id, 'Computer Science', 3.8, 3);
 
--- Insert Advisor (✅ with unique SIN to avoid conflict)
-INSERT INTO Users (
-    FirstName, LastName, Email, PhoneNumber, Address,
-    BirthDate, SIN, Username, Password, Role
-) VALUES (
-    'Alex', 'Johnson', 'advisor@email.com',
-    '403-555-1212', '789 Maple St', '1979-06-10',
-    '123456789', 'advisor', 'advisor123', 'advisor'
-);
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES 
+('David', 'Nguyen', 'davidnguyen@email.com', '403-555-2222', '123 Foothills Blvd, Calgary', '2003-02-11', '456789123', 'david2025', 'studentpass', 'student');
+SET @student_id_2 = LAST_INSERT_ID();
+
+INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
+VALUES (@student_id_2, 'Software Engineering', 3.6, 2);
+
+-- Insert Advisors
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES 
+('Alex', 'Johnson', 'advisor@email.com', '403-555-1212', '789 Maple St', '1979-06-10', '123456789', 'advisor', 'advisor123', 'advisor');
 SET @advisor_id = LAST_INSERT_ID();
 
 INSERT INTO Advisors (AdvisorID, Department, Notes)
 VALUES (@advisor_id, 'Computer Science', 'Specializes in AI');
 
--- Insert Degree
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES 
+('Emily', 'Wong', 'ewong@email.com', '403-555-3333', '891 Mountain Ave, Calgary', '1982-01-20', '741852963', 'ewong', 'advisorpass', 'advisor');
+SET @advisor_id_2 = LAST_INSERT_ID();
+
+INSERT INTO Advisors (AdvisorID, Department, Notes)
+VALUES (@advisor_id_2, 'Electrical & Software Engineering', 'Cybersecurity specialist');
+
+-- Insert Degree and Courses
 INSERT INTO Degrees (DegreeName, Faculty, CreditsRequired)
 VALUES ('BSc Computer Science', 'Science', 120);
 
--- Insert Courses
-INSERT INTO Courses (
-    CourseName, CourseCode, Credits, CourseLevel, CourseDesc, Instructor
-) VALUES
-    ('Introduction to Programming', 'CPSC 231', 3, 200, 'Basic programming concepts', 'Dr. Adams'),
-    ('Data Structures', 'CPSC 331', 3, 300, 'Advanced data structures', 'Dr. Brown'),
-    ('Operating Systems', 'CPSC 457', 3, 400, 'OS fundamentals', 'Dr. Green');
+INSERT INTO Courses (CourseName, CourseCode, Credits, CourseLevel, CourseDesc, Instructor)
+VALUES
+('Introduction to Programming', 'CPSC 231', 3, 200, 'Basic programming concepts', 'Dr. Adams'),
+('Data Structures', 'CPSC 331', 3, 300, 'Advanced data structures', 'Dr. Brown'),
+('Operating Systems', 'CPSC 457', 3, 400, 'OS fundamentals', 'Dr. Green');
 
--- Enroll student
+-- Enrollments
 INSERT IGNORE INTO Enrollment (StudentID, CourseID, Status)
-VALUES (1, 1, 'In Progress');
+VALUES 
+(1, 1, 'In Progress'),
+(2, 2, 'Completed'),
+(2, 3, 'In Progress');
 
--- ========================
--- SAMPLE QUERIES & UPDATES
--- ========================
-SELECT u.FirstName, u.LastName, p.CompletedCourses, p.InProgressCourses, p.RemainingCourses
-FROM Users u
-JOIN Progress p ON u.UserID = p.StudentID
-WHERE u.UserID = 1;
-
-SELECT c.CourseName, c.CourseCode, r.RequirementType
-FROM Requirements r
-JOIN Courses c ON r.CourseID = c.CourseID
-WHERE r.DegreeID = 1;
-
--- Update GPA
-UPDATE Students SET GPA = 3.9 WHERE StudentID = 1;
-
--- Update enrollment
-UPDATE Enrollment
-SET Status = 'Completed', Grade = 'B+'
-WHERE EnrollmentID = 2;
-
--- Clean-up test data
-DELETE FROM Enrollment WHERE StudentID = 1 AND CourseID = 1;
-DELETE FROM Users WHERE UserID = 10;
+-- Progress records
+INSERT INTO Progress (StudentID, CompletedCourses, InProgressCourses, RemainingCourses)
+VALUES 
+(1, 0, 1, 2),
+(2, 1, 1, 1);

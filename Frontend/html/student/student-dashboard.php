@@ -92,14 +92,8 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
       <!-- Combined Section: Profile and Degree Progress -->
       <div class="profile-degree-container">
         <!-- User Profile -->
-        <div class="profile-info">
-          <h2>Hello James!</h2>
-          <p><strong>Student ID:</strong> 34567128</p>
-          <p><strong>Program:</strong> B.Sc. in Computer Science</p>
-          <p><strong>Major:</strong> Computer Science</p>
-          <p><strong>Minor:</strong> Mathematics</p>
-          <p><strong>Year:</strong> 3rd Year</p>
-          <p><strong>Semester:</strong> Winter 2025</p>
+        <div class="profile-info" id="studentProfile">
+          <h2>Loading your profile…</h2>
         </div>
         <div class="academic-standing">
           <h2>Academic Standing Summary</h2>
