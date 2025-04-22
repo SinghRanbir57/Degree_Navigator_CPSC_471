@@ -197,3 +197,6 @@ WHERE EnrollmentID = 2;
 -- Clean-up test data
 DELETE FROM Enrollment WHERE StudentID = 1 AND CourseID = 1;
 DELETE FROM Users WHERE UserID = 10;
+
+CREATE DATABASE DegreeNavigator;
+USE DegreeNavigator;

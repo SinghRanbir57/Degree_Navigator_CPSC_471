@@ -11,7 +11,7 @@ $db   = 'DegreeNavigator';
 $user = 'root';          //  your MySQL username
 $pass = '';              // your MySQL password
 
-$pass = '471';              // your MySQL password
+$pass = 'Calgary123!,,,';              // your MySQL password
 
 $charset = 'utf8mb4';
 
