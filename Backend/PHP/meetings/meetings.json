@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
     {
         "ownerRole": "student",
@@ -44,3 +45,6 @@
         "status": "pending"
     }
 ]
+=======
+[]
+>>>>>>> bb938928d4dce711f4dc379ff7c4dede85cfff37
