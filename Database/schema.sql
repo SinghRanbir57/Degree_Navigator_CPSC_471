@@ -285,4 +285,3 @@ WHERE EnrollmentID = 2;
 -- Clean-up test data
 DELETE FROM Enrollment WHERE StudentID = 1 AND CourseID = 1;
 DELETE FROM Users WHERE UserID = 10;
->>>>>>> 24e895226b7384ab4b1e605df3aeb3d8a7d2369e
