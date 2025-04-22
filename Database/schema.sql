@@ -30,6 +30,15 @@ CREATE TABLE Advisors (
     FOREIGN KEY (AdvisorID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
+CREATE TABLE Advisees (
+    AdvisorID INT NOT NULL,
+    StudentID INT NOT NULL,
+    PRIMARY KEY (AdvisorID, StudentID),
+    FOREIGN KEY (AdvisorID) REFERENCES Advisors(AdvisorID) ON DELETE CASCADE,
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID) ON DELETE CASCADE
+);
+
+
 -- ========================
 -- DEGREE, COURSES, ENROLLMENT
 -- ========================
@@ -182,3 +191,9 @@ INSERT INTO Progress (StudentID, CompletedCourses, InProgressCourses, RemainingC
 VALUES 
 (1, 0, 1, 2),
 (2, 1, 1, 1);
+
+
+-- Associate Students with Advisors
+INSERT INTO Advisees (AdvisorID, StudentID) VALUES
+(3, 1),  -- Alex Johnson advises Jane Smith
+(4, 2);  -- Emily Wong advises David Nguyen

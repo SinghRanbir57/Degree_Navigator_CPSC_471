@@ -66,6 +66,10 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
       </div>
 
       <script>
+        const studentId = <?php echo (int)$_SESSION['user_id']; ?>;
+      </script>
+
+      <script>
         function openLogoutModal() {
           document.getElementById("logoutModal").style.display = "flex";
         }
@@ -131,7 +135,7 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
         <!-- Academic Standing Summary -->
         <div class="book-meeting">
           <h2>Request a Meeting with Advisor</h2>
-          <form id="meetingForm" action="/Backend/PHP/schedule-meeting.php" method="POST">
+          <form id="meetingForm" onsubmit="return false;">
           
             <label for="advisorName"><strong>Advisor Name:</strong></label>
             <input type="text" id="advisorName" name="advisorName" required>
@@ -423,8 +427,24 @@ if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
     </div>
   </div>
 <div id="logout-popup" style="display: none;"></div>
+
+<script>
+  const studentId = <?php echo (int)$_SESSION['user_id']; ?>;
+  const studentName = <?php echo json_encode($_SESSION['username']); ?>;
+</script>
+
 <script src="../../javascript/script.js"></script>
 <script src="../../javascript/login.js"></script>
-<script src="../../javascript/student-dashboard.js"></script>
+<script>
+  const studentId = <?php echo (int)$_SESSION['user_id']; ?>;
+  const studentName = <?php echo json_encode($_SESSION['username']); ?>;
+</script>
+
+<script>
+  const studentId = <?php echo (int)$_SESSION['user_id']; ?>;
+</script>
+
+<script src="../../javascript/student-dashboard.js" defer></script>
+<div id="custom-alert" class="custom-alert"></div>
 </body>
 </html>

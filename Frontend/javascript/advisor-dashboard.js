@@ -51,12 +51,11 @@ function loadEverything() {
   fetch("/Backend/PHP/schedule-meeting.php")
     .then(r => r.json())
     .then(({ own, requests }) => {
-      render(listMeet, own, false);     // editable/delete
-      render(listReq, requests, true);  // accept/decline
-    })
-    .catch(err => console.error(err));
-}
-
+        const upcoming = own.filter(m => m.status === 'accepted'); // ✅ only accepted go to upcoming
+        render(listMeet, upcoming, false);
+        render(listReq, requests, true);
+      });
+    }      
 // 4. Render meeting list
 function render(target, arr, isRequest) {
   target.innerHTML = "";
@@ -69,8 +68,53 @@ function render(target, arr, isRequest) {
       makeBtn(btnBox, "✔ Accept", () => decision(m.id, "accepted"));
       makeBtn(btnBox, "✖ Decline", () => decision(m.id, "declined"));
     } else {
-      makeBtn(btnBox, "✎ Edit", () => alert("Implement edit UI"));
-      makeBtn(btnBox, "🗑 Del", () => decision(m.id, "delete"));
+        makeBtn(btnBox, "✎ Edit", () => {
+            li.innerHTML = ""; // clear existing content
+          
+            // Inputs
+            const dateInput = document.createElement("input");
+            dateInput.type = "date";
+            dateInput.value = m.date;
+          
+            const timeInput = document.createElement("input");
+            timeInput.type = "time";
+            timeInput.value = m.time;
+          
+            // Buttons
+            const saveBtn = document.createElement("button");
+            saveBtn.textContent = "✅ Save";
+            saveBtn.onclick = () => {
+              fetch("/Backend/PHP/schedule-meeting.php", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  id: m.id,
+                  date: dateInput.value,
+                  time: timeInput.value
+                })
+              })
+                .then(r => r.json())
+                .then(res => {
+                  if (res.success) loadEverything();
+                  else alert("Update failed.");
+                })
+                .catch(err => {
+                  console.error("Update error:", err);
+                  alert("Network error");
+                });
+            };
+          
+            const cancelBtn = document.createElement("button");
+            cancelBtn.textContent = "❌ Cancel";
+            cancelBtn.onclick = () => loadEverything();
+          
+            // Append all
+            li.appendChild(dateInput);
+            li.appendChild(timeInput);
+            li.appendChild(saveBtn);
+            li.appendChild(cancelBtn);
+          }); 
+        makeBtn(btnBox, "🗑 Del", () => decision(m.id, "delete"));
     }
 
     li.appendChild(btnBox);
@@ -89,17 +133,18 @@ function makeBtn(parent, text, cb) {
 
 // 6. Handle meeting actions
 function decision(meetingId, action) {
-  const method = action === "delete" ? "DELETE" : "PUT";
-  const body = { id: meetingId, status: action };
-
-  fetch("/Backend/PHP/schedule-meeting.php", {
-    method,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body)
-  })
-    .then(r => r.json())
-    .then(() => loadEverything());
-}
+    const method = action === "delete" ? "DELETE" : "PATCH"; // <-- FIX HERE
+    const body = { id: meetingId, status: action };
+  
+    fetch("/Backend/PHP/schedule-meeting.php", {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    })
+      .then(r => r.json())
+      .then(() => loadEverything());
+  }
+  
 
 // 7. Load and inject advisor profile info
 function loadAdvisorProfile() {
