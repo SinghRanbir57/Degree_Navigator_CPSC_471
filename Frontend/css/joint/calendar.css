@@ -45,6 +45,7 @@ body {
 }
 
 .main-content h1 {
+    border-bottom: 2px solid #e0e0e0;
     font-size: 25px;
     padding: 0px;
     color: #333;

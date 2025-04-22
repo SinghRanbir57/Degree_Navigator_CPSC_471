@@ -94,9 +94,9 @@ try {
     file_put_contents("plans/semester_plan_user{$studentId}.txt", $logData, FILE_APPEND);
 
     echo json_encode(["success" => true]);
+    exit;
 
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(["error" => "Server error", "details" => $e->getMessage()]);
 }
-?>
