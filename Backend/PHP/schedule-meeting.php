@@ -1,19 +1,20 @@
 <?php
 /**
- * schedule-meeting.php  (sits in Backend/PHP/)
+ * schedule-meeting.php  (Backend/PHP/)
  * --------------------------------------------------------------
- * Flat‑file meeting API for students & advisors.
+ * MySQL‑backed meeting API for students & advisors.
  *
- *   •  GET      → list meetings relevant to the logged‑in user
- *   •  POST     → create / overwrite (status auto‑set)
- *   •  PATCH    → advisor updates a request  (accept / decline / edit)
- *   •  DELETE   → remove one of your own meetings
+ *   • GET      → list meetings relevant to the logged‑in user
+ *   • POST     → create new meeting request (status auto‑set)
+ *   • PATCH    → advisor updates a request (accept/decline/edit)
+ *   • DELETE   → remove one of your own meetings
  *
- *   Storage : meetings/meetings.json    [{…}, …]
+ *   Storage : MySQL table `Meetings`
  */
 
 session_start();
 header('Content-Type: application/json');
+require_once __DIR__ . '/db.php';  // Defines $pdo as PDO
 
 if (!isset($_SESSION['user_id'], $_SESSION['role'])
     || !in_array($_SESSION['role'], ['student', 'advisor'], true)) {
@@ -24,131 +25,121 @@ if (!isset($_SESSION['user_id'], $_SESSION['role'])
 $userId   = (int)$_SESSION['user_id'];
 $userRole = $_SESSION['role'];  // "student" | "advisor"
 
-$dbFile = __DIR__ . '/meetings/meetings.json';
-if (!file_exists($dbFile)) file_put_contents($dbFile, '[]');
+switch ($_SERVER['REQUEST_METHOD']) {
 
-$read  = fn() => json_decode(file_get_contents($dbFile), true) ?: [];
-$write = fn($data) => file_put_contents($dbFile, json_encode($data, JSON_PRETTY_PRINT));
-
-/* ------------------------------------------------ GET */
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $all = $read();
-
+  case 'GET':
     if ($userRole === 'advisor') {
-        $own = array_filter($all, fn($m) => $m['advisorId'] == $userId && $m['status'] !== 'pending');
-        $requests = array_filter($all, fn($m) => $m['advisorId'] == $userId && $m['status'] === 'pending');
-
-        echo json_encode(['own' => array_values($own), 'requests' => array_values($requests)]);
-        exit;
+        // advisor sees their non-pending and pending requests separately
+        $ownStmt = $pdo->prepare(
+            "SELECT * FROM Meetings 
+             WHERE advisorId = ? AND status <> 'pending'"
+        );
+        $reqStmt = $pdo->prepare(
+            "SELECT * FROM Meetings 
+             WHERE advisorId = ? AND status = 'pending'"
+        );
+        $ownStmt->execute([$userId]);
+        $reqStmt->execute([$userId]);
+        echo json_encode([
+            'own'      => $ownStmt->fetchAll(PDO::FETCH_ASSOC),
+            'requests' => $reqStmt->fetchAll(PDO::FETCH_ASSOC)
+        ]);
+    } else {
+        // student sees all their meetings
+        $stmt = $pdo->prepare(
+            "SELECT * FROM Meetings WHERE studentId = ?"
+        );
+        $stmt->execute([$userId]);
+        echo json_encode(['own' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
     }
+    break;
 
-    if ($userRole === 'student') {
-        $myMeetings = array_filter($all, fn($m) => $m['studentId'] == $userId);
-        echo json_encode(['own' => array_values($myMeetings)]);
-        exit;
-    }
-
-    http_response_code(403);
-    exit(json_encode(['error' => 'Unknown role']));
-}
-
-/* ------------------------------------------------ POST */
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  case 'POST':
     $data = json_decode(file_get_contents('php://input'), true);
     if (!isset($data['advisorId'], $data['studentId'], $data['date'], $data['time'])) {
         http_response_code(400);
         exit(json_encode(['error' => 'Missing required fields']));
     }
 
-    $all = $read();
-    $meeting = [
-        'id'          => uniqid(),
-        'advisorId'   => (int)$data['advisorId'],
-        'studentId'   => (int)$data['studentId'],
-        'studentName' => $data['studentName'] ?? '',
-        'date'        => $data['date'],
-        'time'        => $data['time'],
-        'status'      => 'pending'
-    ];
+    $stmt = $pdo->prepare(
+        "INSERT INTO Meetings
+         (id, advisorId, studentId, studentName, date, time, status)
+         VALUES (?, ?, ?, ?, ?, ?, 'pending')"
+    );
+    $id = bin2hex(random_bytes(8));
+    $stmt->execute([
+        $id,
+        (int)$data['advisorId'],
+        (int)$data['studentId'],
+        $data['studentName'] ?? '',
+        $data['date'],
+        $data['time']
+    ]);
 
-    $all[] = $meeting;
-    $write($all);
-    echo json_encode(['success' => true]);
-    exit;
-}
+    echo json_encode(['success' => true, 'id' => $id]);
+    break;
 
-/* ------------------------------------------------ PATCH */
-if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
+  case 'PATCH':
     $data = json_decode(file_get_contents('php://input'), true);
-    if (!isset($data['id'])) {
+    if (empty($data['id'])) {
         http_response_code(400);
         exit(json_encode(['error' => 'Missing meeting id']));
     }
 
-    $all = $read();
-    $updated = false;
-
-    foreach ($all as &$meeting) {
-        if ($meeting['id'] === $data['id']) {
-            if ($userRole === 'advisor' && $meeting['advisorId'] == $userId) {
-                if (isset($data['status'])) {
-                    $meeting['status'] = $data['status'];
-                }
-                if (isset($data['date'])) {
-                    $meeting['date'] = $data['date'];
-                }
-                if (isset($data['time'])) {
-                    $meeting['time'] = $data['time'];
-                }
-                $updated = true;
-            }
-            break;
-        }
+    // advisor-only
+    if ($userRole !== 'advisor') {
+        http_response_code(403);
+        exit(json_encode(['error' => 'Forbidden']));
     }
 
-    if (!$updated) {
+    $fields = [];
+    $params = [];
+    foreach (['status','date','time'] as $f) {
+        if (isset($data[$f])) {
+            $fields[]   = "{$f} = ?";
+            $params[]   = $data[$f];
+        }
+    }
+    if (!$fields) {
+        http_response_code(400);
+        exit(json_encode(['error' => 'No fields to update']));
+    }
+    $params[] = $data['id'];
+
+    $sql = "UPDATE Meetings SET " . implode(', ', $fields) . " WHERE id = ? AND advisorId = ?";
+    // enforce that only this advisor can update
+    $params[] = $userId;
+    $stmt = $pdo->prepare($sql);
+    $updated = $stmt->execute($params);
+
+    if (!$updated || $stmt->rowCount() === 0) {
         http_response_code(403);
         exit(json_encode(['error' => 'Forbidden or not found']));
     }
 
-    $write($all);
     echo json_encode(['success' => true]);
-    exit;
-}
+    break;
 
-/* ------------------------------------------------ DELETE */
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+  case 'DELETE':
     $data = json_decode(file_get_contents('php://input'), true);
-    if (!isset($data['id'])) {
+    if (empty($data['id'])) {
         http_response_code(400);
         exit(json_encode(['error' => 'Missing meeting id']));
     }
 
-    $all = $read();
-    $new = [];
-    $deleted = false;
+    $sql = "DELETE FROM Meetings WHERE id = ? AND (studentId = ? OR advisorId = ?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$data['id'], $userId, $userId]);
 
-    foreach ($all as $meeting) {
-        if ($meeting['id'] === $data['id']) {
-            if (($userRole === 'student' && $meeting['studentId'] == $userId)
-             || ($userRole === 'advisor' && $meeting['advisorId'] == $userId)) {
-                $deleted = true;
-                continue;
-            }
-        }
-        $new[] = $meeting;
-    }
-
-    if (!$deleted) {
+    if ($stmt->rowCount() === 0) {
         http_response_code(403);
         exit(json_encode(['error' => 'Forbidden or not found']));
     }
 
-    $write($new);
     echo json_encode(['success' => true]);
-    exit;
-}
+    break;
 
-/* ------------------------------------------------ Default */
-http_response_code(405);
-exit(json_encode(['error' => 'Method not allowed']));
+  default:
+    http_response_code(405);
+    exit(json_encode(['error' => 'Method not allowed']));
+}

@@ -111,6 +111,20 @@ CREATE TABLE DegreePlanCourses (
     FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)     ON DELETE RESTRICT
 );
 
+CREATE TABLE Meetings (
+  id           VARCHAR(16)    PRIMARY KEY,
+  advisorId    INT            NOT NULL,
+  studentId    INT            NOT NULL,
+  studentName  VARCHAR(255),
+  date         DATE           NOT NULL,
+  time         TIME           NOT NULL,
+  status       ENUM('pending','accepted','declined')
+                   NOT NULL   DEFAULT 'pending',
+  FOREIGN KEY (advisorId)  REFERENCES Users(UserID),
+  FOREIGN KEY (studentId)  REFERENCES Users(UserID)
+);
+
+
 -- ========================
 -- SEED DATA
 -- ========================
