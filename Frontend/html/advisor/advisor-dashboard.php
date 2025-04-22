@@ -1,4 +1,4 @@
-<?
+<?php
 // =========================
 // advisor-dashboard.php
 // =========================
@@ -47,8 +47,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
         .email-reveal.visible {
             display: inline-block;
         }
-</style>
-
+    </style>
 </head>
 
 <body>
@@ -144,7 +143,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
                 </div>
             </div>
 
-
             <div class="section">
                 <h2>Schedule a Meeting</h2>
                 <form id="meetingForm">
@@ -162,6 +160,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
 
                     <button type="submit">Schedule</button>
                 </form>
+
                 <h2 id="Upcoming-meetings">Upcoming Meetings</h2>
                 <ul id="meetingList" style="margin-bottom: 30px;"></ul>
 
@@ -170,50 +169,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
             </div>
         </div>
     </div>
+
+    <!-- Inject advisorId before loading external JS -->
     <script>
         const advisorId = <?php echo (int)$_SESSION['user_id']; ?>;
-
-        function loadAdvisees() {
-        const tableBody = document.getElementById("adviseeTableBody");
-        tableBody.innerHTML = "<tr><td colspan='5'>Loading…</td></tr>";
-
-        fetch("/Backend/PHP/advisee-info.php")
-            .then(res => res.json())
-            .then(data => {
-            if (!Array.isArray(data)) {
-                tableBody.innerHTML = "<tr><td colspan='5'>Error loading advisees.</td></tr>";
-                return;
-            }
-
-            tableBody.innerHTML = "";
-            data.forEach(student => {
-                const [major, minor] = (student.MajorMinor || "").split(" / ").map(x => x.trim());
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${student.FirstName} ${student.LastName}</td>
-                    <td>${student.StudentID}</td>
-                    <td>${formattedMajor}</td>
-                    <td>${minor || "-"}</td>
-                    <td class="email-cell">
-                        <div class="email-wrapper">
-                            <button class="show-email-btn" onclick="this.nextElementSibling.classList.toggle('visible')">Show Email</button>
-                            <div class="email-reveal">${student.Email}</div>
-                        </div>
-                    </td>
-                `;
-
-
-                tableBody.appendChild(row);
-            });
-            })
-            .catch(err => {
-            console.error("Failed to load advisees:", err);
-            tableBody.innerHTML = "<tr><td colspan='5'>Failed to fetch data.</td></tr>";
-            });
-        }
-
-        // Load advisees after DOM is ready
-        window.addEventListener("DOMContentLoaded", loadAdvisees);
     </script>
 
     <script src="../../javascript/advisor-dashboard.js"></script>
