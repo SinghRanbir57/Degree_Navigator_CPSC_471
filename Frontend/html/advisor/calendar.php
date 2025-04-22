@@ -1,4 +1,6 @@
 <?php
+// main logic for the shown calender, this actively dsiplays the university of calgarys, calender webpage.
+//check if valid user in file.
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
     header("Location: /Frontend/html/joint/login.html");

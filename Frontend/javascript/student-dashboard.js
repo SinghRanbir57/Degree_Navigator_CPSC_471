@@ -1,3 +1,6 @@
+//general dashboard for student,
+// includes all features, such as meeting requests, gpa display, profile info etc.
+
 document.addEventListener("DOMContentLoaded", () => {
     const meetingForm = document.getElementById("meetingForm");
     const meetingList = document.getElementById("meetingList");
@@ -8,10 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Utility for ordinal formatting
     function ordinal(n) {
       const suffixes = ["th", "st", "nd", "rd"];
+
       const v = n % 100;
       return n + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
     }
-  
+    //show google alert that creation was success
     function showAlert(message, type = "success") {
       const alertBox = document.getElementById("custom-alert");
       if (!alertBox) return alert(message); // fallback to native alert
@@ -24,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 3000);
     }
   
-    // Load student profile
+    // load student profile
     fetch("/Backend/PHP/student-info.php")
       .then(res => res.json())
       .then(data => {
@@ -33,7 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const p = data.profile;
         studentId = p.StudentID;
         studentName = `${p.FirstName} ${p.LastName}`;
-  
+        
+        // fetch data from sql
         const target = document.getElementById("studentProfile");
         target.innerHTML = `
           <h2>Hello ${studentName}!</h2>
@@ -44,27 +49,29 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Year:</strong> ${ordinal(p.Course_year)} Year</p>
           <p><strong>Semester:</strong> Winter 2025</p>
         `;
-  
+        
+        //show gpa,
         if (p.GPA) {
           const gpaBox = document.querySelector("#gpa-popup p strong");
           if (gpaBox) gpaBox.textContent = p.GPA;
         }
       });
   
-    // Submit meeting request
+    //submit meeting request
     meetingForm.addEventListener("submit", function (event) {
       event.preventDefault();
   
       const advisorName = document.getElementById("advisorName").value.trim();
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
-  
+      
+      //check for correct input.
       if (!advisorName || !date || !time) {
         showAlert("Please fill out all fields.", "error");
         return;
       }
   
-      // Fetch advisor ID from backend
+      //fetch the advisor ID from backend
       fetch("/Backend/PHP/request-meeting.php?advisorName=" + encodeURIComponent(advisorName))
         .then(res => res.json())
         .then(result => {
@@ -86,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
               time
             })
           })
+          //check if meeting was sent or not
             .then(res => res.json())
             .then(data => {
               if (data.success) {
@@ -108,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
   
-    // Load meetings
+    //load in the meetings
     function loadMeetings() {
       meetingList.innerHTML = "";
   
@@ -120,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
             meetingList.innerHTML = "<li>No upcoming meetings yet.</li>";
             return;
           }
-  
+          //check advisor valid input.
           meetings.forEach((meeting) => {
             const li = document.createElement("li");
             li.textContent = `${meeting.date} ${meeting.time} with Advisor ID ${meeting.advisorId} [${meeting.status}]`;
@@ -132,6 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
   
-    loadMeetings(); // ✅ Run initially
+    loadMeetings(); // Run initially
   });
   

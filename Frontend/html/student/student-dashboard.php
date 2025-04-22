@@ -1,12 +1,13 @@
 <?php
 session_start();
 
+//make sure valid login from student.
 if (!isset($_SESSION['username'] ) || $_SESSION['role'] !== 'student') {
     header('Location: /Frontend/html/joint/login.html');
     exit;
 }
 ?>
-<!-- created into php folder. -->
+<!-- created into php folder.. -->
 
 
 <!DOCTYPE html>

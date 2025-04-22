@@ -1,19 +1,24 @@
+// this javascript file will display the advisor profile from the database,
+// we need to comunicate the backend advisor-info php folder in oder to get up to date information.
+
 let addressExists = false;
 let phoneNumbers = [];
 let personalEmail = "";
 
-// Fetch and display advisor profile info
+//f etch and display advisor profile info
 window.addEventListener("DOMContentLoaded", () => {
     fetch("/Backend/PHP/advisor-info.php")
     .then(res => res.json())
     .then(data => {
-        console.log(data); // 🔍 Add this line
+        console.log(data); 
         if (data.error) return console.error(data.error);
 
 
             const p = data.profile;
             const container = document.getElementById("advisorProfileInfo");
-
+            
+            //retrieve all data for displaying later
+        
             container.innerHTML = `
                 <h3>${p.FirstName} ${p.LastName}</h3>
                 <p><strong>Advisor ID:</strong> ${p.AdvisorID}</p>
@@ -28,19 +33,20 @@ window.addEventListener("DOMContentLoaded", () => {
 
             document.getElementById("uofcEmail").textContent = p.Email;
         })
+        //catch any fails
         .catch(err => console.error("Failed to load advisor profile", err));
 });
 
-// --- Address Logic ---
+//  Address Logic 
 function addAddress() {
     const addressInput = document.getElementById('addressInput');
     const addressDisplay = document.getElementById('addressDisplay');
-
+    //check if you already have an address.
     if (addressExists) {
         alert("You already have an address. Delete it first to add a new one.");
         return;
     }
-
+    //enter valid address.
     if (addressInput.value.trim() === "") {
         alert("Please enter a valid address.");
         return;
@@ -49,7 +55,7 @@ function addAddress() {
     addressDisplay.innerText = addressInput.value;
     addressExists = true;
 
-    // Add delete button
+    //add delete button
     addressDisplay.innerHTML += ` <button onclick="deleteAddress()">Delete</button>`;
     addressInput.value = "";
 }
@@ -59,7 +65,7 @@ function deleteAddress() {
     addressExists = false;
 }
 
-// --- Phone Logic ---
+// same thing but with Phone Logic ---
 function addPhone() {
     const phoneInput = document.getElementById('phoneInput');
     const phoneList = document.getElementById('phoneList');
@@ -89,7 +95,7 @@ function removePhone(btn, phone) {
     btn.parentElement.remove();
 }
 
-// --- Email Logic ---
+// same as above, Email Logic ---
 function updateEmail() {
     const emailInput = document.getElementById('emailInput');
     const email = emailInput.value.trim();

@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+     <!-- Basic meta tags for compatibility and responsive design -->
+
     <title>Login</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -21,7 +23,8 @@
     
         <div class="login-right">
             <h2 class="login-title">Log in</h2>
-    
+            <!-- Left-side branding area -->
+
             <div class="login-button-group">
                 <button onclick="showLoginForm('student')" class="login-button">
                     Continue with your Student account
@@ -37,7 +40,8 @@
             </div>
     
             <div id="loginFormContainer"></div>
-    
+             <!-- Footer with links and copyright -->
+
             <footer class="footer">
                 <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d"
                     target="_blank">Account FAQs</a>
@@ -54,6 +58,7 @@
         function showLoginForm(type) {
             const groups = document.querySelectorAll(".login-button-group");
             groups.forEach(group => group.style.display = "none");
+            // Custom "Back" button to return to initial state
 
             const container = document.getElementById("loginFormContainer");
             container.innerHTML = `
@@ -73,7 +78,9 @@
             `;
         }
 
-        function goBack() {
+
+        function goBack()
+        {
             location.reload(); // Reloads page to show login options again
         }
 

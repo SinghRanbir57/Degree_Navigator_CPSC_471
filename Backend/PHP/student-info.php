@@ -1,17 +1,24 @@
 <?php
+
+// this endpiont returns a detailed profile for the logged in student,
+// includes personal info, academic standing, etc.
 session_start();
 header('Content-Type: application/json');
 require_once 'db.php';
 
+
+//authorization check
 if (!isset($_SESSION['user_id'], $_SESSION['role']) || $_SESSION['role'] !== 'student') {
     http_response_code(401);
+
     exit(json_encode(['error' => 'Unauthorized']));
 }
 
+//we're in
 $userId = $_SESSION['user_id'];
 
 try {
-    // Pull full student profile details with program and year
+    // pull full student profile details with program and year
     $stmt = $pdo->prepare("
         SELECT 
             u.UserID AS StudentID,
@@ -24,19 +31,13 @@ try {
     ");
 
 
-    $stmt->execute([$userId]);
-    $profile = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->execute([$userId] );
 
+    $profile = $stmt->fetch(PDO::FETCH_ASSOC);
+    // check if found.
     if (!$profile) {
         throw new Exception("Student not found");
     }
-
-    // Add derived fields
-    $profile['Program'] = "B.Sc. in Computer Science";  // You can make this dynamic later
-    $profile['Major'] = $profile['MajorMinor'];
-    $profile['Minor'] = "Mathematics"; // You could make this dynamic via schema change
-    $profile['Year'] = $profile['Course_year'];
-    $profile['Semester'] = "Winter 2025"; // You could also pull this from latest DegreePlan
 
     // Fetch enrolled courses
     $stmt = $pdo->prepare("
@@ -52,8 +53,11 @@ try {
         'profile' => $profile,
         'courses' => $courses
     ]);
+    //catch any final errors.
 } catch (Exception $e) {
     http_response_code(500);
+
     echo json_encode(['error' => $e->getMessage()]);
+
 }
 ?>

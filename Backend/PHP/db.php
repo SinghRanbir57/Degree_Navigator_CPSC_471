@@ -1,15 +1,14 @@
 <?php
 /**
- * This is the Centralised PDO connection.
- * ------------------------------------------------------------
+ * This is the Centralised PDO connection,
  * Edit the $user and $pass values to match your local database
  * credentials.
  */
 
 $host = 'localhost';
 $db   = 'DegreeNavigator';
-$user = 'root';          //  your MySQL username
-$pass = '';              // your MySQL password
+$user = 'root';          
+$pass = '';              //----- your MySQL password
 
 $charset = 'utf8mb4';
 
@@ -23,6 +22,7 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES   => false,                   // native prepares
 ];
 
+// error catching if incorrect pass or use was given.
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (PDOException $e) {

@@ -5,6 +5,7 @@ function showGPA() {
 
 // hide the gpa popup
 function hideGPA() {
+
   document.getElementById("gpa-popup").style.display = "none";
 }
 
@@ -23,9 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
 /****************** Function to toggle dropdowns ************************/
 function toggleDropdown(id) {
   const dropdown = document.getElementById(id);
-  if (dropdown.style.display === "block") {
+  if (dropdown.style.display === "block")
+   {
     dropdown.style.display = "none";
-  } else {
+  } else
+   {
     dropdown.style.display = "block";
   }
 }
@@ -35,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.querySelector('.sidebar-toggle');
   if (toggleBtn ) {
     //toggle it
+
     toggleBtn.addEventListener('click', function() {
       document.querySelector('.sidebar').classList.toggle('open');
       document.querySelector('.main-content').classList.toggle('shift');
@@ -45,7 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
 /****************** Collapse all sections on page load ************************/
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".requirements-section").forEach((section) => {
-    const content = section.querySelector(".section-content");
+    const content = section.querySelector(".section-content" );
+
     const arrow = section.querySelector(".arrow");
 
     content.style.display = "none"; // Collapse all sections
@@ -62,6 +67,7 @@ function toggleSection(header) {
 
   if (content.style.display === "block") {
     content.style.display = "none";
+
     // colapse
     section.classList.remove("expanded" );
     arrow.innerHTML = "▶";
@@ -190,6 +196,7 @@ function convertGrade(grade) {
     "D+": 10, "D": 11, "F": 12,
     "-": 13
   };
+
   return gradeScale[grade] || -1;
 }
 
@@ -224,6 +231,7 @@ function updateProgressBar() {
 
   let progressBar = document.getElementById("progress-bar");
   progressBar.style.width = percentage + "%";
+  
   progressBar.innerText = Math.round(percentage) + "% Completed";
 
 }
@@ -244,6 +252,7 @@ function updatePieChart() {
   //create a new pie chart instance
   chartInstance = new Chart(ctx, {
     type: "pie",
+    
     data: {
       // add lables
       labels: ["Completed", "Remaining" ],
@@ -268,8 +277,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelectorAll(".course-status").forEach(select => {
     select.addEventListener("change", function () {
+      
       updateProgressBar();
+      
       updatePieChart();
     });
+
   });
 });

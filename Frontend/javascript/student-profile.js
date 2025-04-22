@@ -1,16 +1,21 @@
+// here we have the general logic for the profile
+//simple desing to display all the given students information
+// name address phone number etc
+
 let addressExists = false;
 let phoneNumbers = [];
 let personalEmail = "";
 
-// Fetch and display student profile info
+//first weetch and display student profile info
 window.addEventListener("DOMContentLoaded", () => {
     fetch("/Backend/PHP/student-info.php")
-        .then(res => res.json())
+        .then(res => res.json() )
         .then(data => {
             if (data.error) return console.error(data.error);
 
             const p = data.profile;
             const container = document.querySelector(".profile-info");
+            //get from data base
 
             container.innerHTML = `
                 <h3>${p.FirstName} ${p.LastName}</h3>
@@ -27,12 +32,13 @@ window.addEventListener("DOMContentLoaded", () => {
         .catch(err => console.error("Failed to load profile", err));
 });
 
-// --- Address Logic ---
+// same as advisor - Address Logic ---
 function addAddress() {
     const addressInput = document.getElementById('addressInput');
     const addressDisplay = document.getElementById('addressDisplay');
 
-    if (addressExists) {
+    if (addressExists)
+     {
         alert("You already have an address. Delete it first to add a new one.");
         return;
     }
@@ -45,7 +51,7 @@ function addAddress() {
     addressDisplay.innerText = addressInput.value;
     addressExists = true;
 
-    // Add delete button
+    //add the delete button
     addressDisplay.innerHTML += ` <button onclick="deleteAddress()">Delete</button>`;
     addressInput.value = "";
 }
@@ -55,7 +61,7 @@ function deleteAddress() {
     addressExists = false;
 }
 
-// --- Phone Logic ---
+// same as above but for Phone Logic ---
 function addPhone() {
     const phoneInput = document.getElementById('phoneInput');
     const phoneList = document.getElementById('phoneList');
@@ -74,7 +80,8 @@ function addPhone() {
     phoneNumbers.push(phone);
 
     const li = document.createElement('li');
-    li.innerHTML = `${phone} <button onclick="removePhone(this, '${phone}')">Delete</button>`;
+    
+    i.innerHTML = `${phone} <button onclick="removePhone(this, '${phone}')">Delete</button>`;
     phoneList.appendChild(li);
 
     phoneInput.value = "";
@@ -85,7 +92,7 @@ function removePhone(btn, phone) {
     btn.parentElement.remove();
 }
 
-// --- Email Logic ---
+// same as aboce but for Email Logic ---
 function updateEmail() {
     const emailInput = document.getElementById('emailInput');
     const email = emailInput.value.trim();
@@ -98,9 +105,11 @@ function updateEmail() {
 
     personalEmail = email;
     personalEmailSpan.innerHTML = `${email} <button onclick="clearPersonalEmail()">Delete</button>`;
+    
     emailInput.value = "";
 }
 
+//clear 
 function clearPersonalEmail() {
     personalEmail = "";
     document.getElementById('personalEmail').innerText = "-";

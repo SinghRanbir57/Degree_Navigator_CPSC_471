@@ -1,3 +1,6 @@
+// here we have the general java script for the planner,
+// we will be able to add and update courses and check requirements and such.
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("plan-form");
 
@@ -6,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // handle form submission
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -14,15 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const selectedCourses = Array.from(
       form.querySelectorAll("input[name='courses[]']:checked")
-    ).map((checkbox) => checkbox.value);
-
+    ).map((checkbox) => checkbox.value );
+    // get all selected courses form checkboxes
     const courseRows = document.querySelectorAll(".course-table tbody tr");
     const fullCourseDetails = [];
-
+      //match selected codes with course rows to build fill course data
     courseRows.forEach(row => {
       const cells = row.querySelectorAll("td");
       const code = cells[1].textContent;
       const name = cells[2].textContent;
+
       const credits = cells[3].textContent;
 
       if (selectedCourses.includes(code)) {
@@ -30,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+
+    //ensure all required inputs are provided.
     if (!semester || !year || fullCourseDetails.length === 0) {
       alert("Please select semester, year, and at least one course.");
       return;
@@ -42,30 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
     savedPlans.push(plan);
     localStorage.setItem("savedPlans", JSON.stringify(savedPlans));
     
-    /**
-    // Send to backend
-    fetch("/Backend/PHP/save-plan.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        semester,
-        year,
-        courses: selectedCourses
-      })
-    })
-      .then(async response => {
-        const data = await response.json().catch(() => ({ error: "Invalid JSON response" }));
-        if (!response.ok) throw new Error(data.error || "Unknown server error");
-        if (data.success) {
-          alert("Semester plan saved successfully!");
-        } else {
-          alert("Failed to save plan: " + (data.error || "Unknown error"));
-        }
-      })
-      .catch(error => {
-        console.error("Fetch Error:", error);
-        alert("An error occurred: " + error.message);
-      });*/
 
     renderSavedPlans();
   });
@@ -95,7 +78,7 @@ function login() {
 }
 
 const courses = [
-  // 🧠 Junior Computer Science Courses
+  // Junior Computer Science Courses
   { code: "CPSC 203", name: "Introduction to Problem Solving using Application Software", credits: 3, prerequisite: null, antirequisite: "CPSC majors" },
   { code: "CPSC 217", name: "Intro to CS for Multidisciplinary Studies I", credits: 3, prerequisite: null, antirequisite: "CPSC 215, CPSC 231" },
   { code: "CPSC 219", name: "Intro to CS for Multidisciplinary Studies II", credits: 3, prerequisite: "CPSC 217 or Data Science 211", antirequisite: "CPSC 233" },
@@ -125,6 +108,7 @@ const courses = [
   { code: "CPSC 441", name: "Computer Networks", credits: 3, prerequisite: null, antirequisite: null }
 ];
 
+// search functionality.
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
 
@@ -132,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.warn("Search input not found.");
     return;
   }
-
+//filter courses based on user input
   searchInput.addEventListener("input", function () {
     const query = this.value.toLowerCase();
     const results = courses.filter(course =>
@@ -143,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     displaySearchResults(results);
   });
 });
+//display filtered search results.
 
 function displaySearchResults(results) {
   const container = document.getElementById("searchResults");
@@ -203,7 +188,7 @@ function addCourseToPlan(code, name, credits, manual = false) {
   savePlanToLocalStorage();
 }
 
-// Function to display saved plans in the DOM
+//function to display saved plans in the DOM
 function renderSavedPlans() {
   const container = document.getElementById("savedPlansContainer");
   container.innerHTML = "";
@@ -213,8 +198,9 @@ function renderSavedPlans() {
   if (plans.length === 0) {
     container.innerHTML = "<p>No plans saved yet.</p>";
     return;
-  }
 
+  }
+//append course row to table
   plans.forEach((plan, index) => {
     const div = document.createElement("div");
     div.className = "saved-plan-item";
@@ -238,7 +224,7 @@ function deletePlan(index) {
   renderSavedPlans();
 }
 
-// Load saved plans on page load
+//load saved plans on page load
 window.addEventListener("DOMContentLoaded", renderSavedPlans);
 
 function savePlanToLocalStorage() {
@@ -265,7 +251,7 @@ function loadPlanFromLocalStorage() {
     addCourseToPlan(course.code, course.name, course.credits);
   });
 }
-
+//check for content.
 document.addEventListener("DOMContentLoaded", () => {
   loadPlanFromLocalStorage();
 });
@@ -273,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function removeCourseRow(button) {
   const row = button.closest('tr');
   row.remove();
-  savePlanToLocalStorage(); // optional: keep localStorage updated
+  savePlanToLocalStorage(); // keep localStorage updated
 }
 
 window.addEventListener("DOMContentLoaded", renderSavedPlans);

@@ -1,6 +1,9 @@
+// on page load, show the correct section based on the url parameters.
+
 window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     const studentName = urlParams.get('student');
+   
     const tab = urlParams.get('tab'); // "notes" or "suggest"
 
     const nameHeader = document.getElementById("studentName");
@@ -13,7 +16,7 @@ window.onload = function () {
     console.log("notesSection exists:", !!notesSection);
     console.log("suggestSection exists:", !!suggestSection);
 
-    // If no student or tab is present, hide everything
+    //if no student or tab is present, hide everything
     if (!studentName || !tab) {
         console.log("Missing parameters. Hiding all.");
         studentOverview.classList.add("hidden");
@@ -22,7 +25,7 @@ window.onload = function () {
         return;
     }
 
-    // Show overview and student name
+    //show overview and student name
     studentOverview.classList.remove("hidden");
     nameHeader.innerText = `${studentName} - Overview`;
 
@@ -36,27 +39,30 @@ window.onload = function () {
         notesSection.classList.add("hidden");
     }
 };
-
+//shared function, navigate back to previous page.
 function goBack() {
     window.history.back();
 }
 
+// save the chagnes.
 function saveChanges() {
     // Implement saving logic if needed
     alert("Changes saved (mock)!");
 }
 
 
-/***********************************************************/
 
+// track currently selected student name
 let currentStudent = '';
 
     function viewStudent(name) {
         currentStudent = name;
         document.getElementById('mainTable').classList.add('hidden');
         document.getElementById('studentOverview').classList.remove('hidden');
+        // update name header.
         document.getElementById('studentName').innerText = name + " - Overview";
         document.getElementById('notesArea').value = localStorage.getItem(name + '_notes') || '';
+        // load saved data from localstorage.
         document.getElementById('suggestionArea').value = localStorage.getItem(name + '_suggestions') || '';
     }
 
@@ -67,7 +73,7 @@ let currentStudent = '';
         localStorage.setItem(currentStudent + '_suggestions', suggestions);
         alert('Saved!');
     }
-
+    //return from student detail.
     function goBack() {
         document.getElementById('studentOverview').classList.add('hidden');
         document.getElementById('mainTable').classList.remove('hidden');

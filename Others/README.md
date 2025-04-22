@@ -5,13 +5,22 @@ ________________________________________________________________________________
 
 ## 🔐 Login Credentials
 
-### Student Login
-- **Username:** `student`
-- **Password:** `student123`
+### Student Login 1
+- **Username:** `ethanz`
+- **Password:** `ethanpass`
 
-### Advisor Login
+### Student Login 2
+- **Username:** `mayas`
+- **Password:** `mayapass`
+
+
+### Advisor Login 1
 - **Username:** `advisor`
 - **Password:** `advisor123`
+
+### Advisor Login 2 - Main
+- **Username:** `ewong`
+- **Password:** `advisorpass`
 
 _____________________________________________________________________________________________________________________________
 

@@ -1,6 +1,7 @@
 -- ========================
 -- USERS & ROLES
--- ========================
+--  below we have all the fields for the users, students, advisors, etc.
+-- this is how we will be storing our data.
 CREATE TABLE Users (
     UserID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(255) NOT NULL,
@@ -29,6 +30,7 @@ CREATE TABLE Advisors (
     Notes TEXT,
     FOREIGN KEY (AdvisorID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
+
 
 CREATE TABLE Advisees (
     AdvisorID INT NOT NULL,
@@ -143,10 +145,13 @@ SET @advisor_id = LAST_INSERT_ID();
 INSERT INTO Advisors (AdvisorID, Department, Notes)
 VALUES (@advisor_id, 'Computer Science', 'Specializes in AI');
 
+
+
 INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
 VALUES 
 ('Emily', 'Wong', 'ewong@email.com', '403-555-3333', '891 Mountain Ave, Calgary', '1982-01-20', '741852963', 'ewong', 'advisorpass', 'advisor');
 SET @advisor_id_2 = LAST_INSERT_ID();
+
 
 INSERT INTO Advisors (AdvisorID, Department, Notes)
 VALUES (@advisor_id_2, 'Electrical & Software Engineering', 'Cybersecurity specialist');
@@ -169,7 +174,7 @@ INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
 VALUES (@student_id_2, 'Software Engineering', 3.6, 2);
 
 
--- === New Students for Alex Johnson (AdvisorID = 3) ===
+-- === New Students for Alex Johnson (AdvisorID = 3) 
 INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
 VALUES 
 ('Liam', 'Turner', 'liamturner@email.com', '403-555-4444', '321 Oak St', '2001-11-05', '159357258', 'liamt', 'liam123', 'student');
@@ -211,6 +216,7 @@ SET @s4 = LAST_INSERT_ID();
 
 INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
 VALUES (@s4, 'Software Engineering / Business', 3.85, 4);
+
 
 INSERT INTO Advisees (AdvisorID, StudentID)
 VALUES (4, @s4);
@@ -268,7 +274,7 @@ JOIN Courses c ON r.CourseID = c.CourseID
 WHERE r.DegreeID = 1;
 
 
--- Associate Students with Advisors (using IDs retrieved earlier)
+-- THIS IS HOW We check: Associate Students with Advisors (using IDs retrieved earlier)
 INSERT INTO Advisees (AdvisorID, StudentID)
 VALUES
 (@advisor_id, 1),       -- Alex Johnson advises Jane Smith

@@ -1,10 +1,11 @@
 <?php
-// =========================
+
 // advisor-dashboard.php
-// =========================
+// this is for advisor dashboard backed looping, will send all the required knowledge to the correct place,
+// filters to header, sidebar, footer, logout
 session_start();
 
-// Block access if not logged in or not an advisor
+//block access if not logged in or not an advisor
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
     header("Location: /Frontend/html/joint/login.html");
     exit;
@@ -49,6 +50,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
         }
     </style>
 </head>
+<!--add main images and content for advisor dashboard -->
 
 <body>
     <div class="screen">
@@ -87,6 +89,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
 
             <script>
                 function openLogoutModal() {
+                    // check logout
                     document.getElementById("logoutModal").style.display = "flex";
                 }
 
@@ -95,6 +98,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'advisor') {
                 }
 
                 function confirmLogout() {
+                    // confirm logout, and logout accross all tabs., filter to the backend login.php
                     fetch("/Backend/PHP/logout.php")
                         .then(() => {
                             window.location.href = "/Frontend/html/joint/login.html";
