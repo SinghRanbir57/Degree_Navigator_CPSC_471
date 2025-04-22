@@ -6,7 +6,51 @@ const listReq  = document.getElementById("requestList");
 window.addEventListener("DOMContentLoaded", () => {
   loadEverything();
   loadAdvisorProfile();
+  loadAdvisees(); 
 });
+
+function loadAdvisees() {
+    const tableBody = document.querySelector(".advisor-student-table tbody");
+    tableBody.innerHTML = "<tr><td colspan='5'>Loading…</td></tr>";
+  
+    fetch("/Backend/PHP/advisee-info.php")
+      .then(res => res.json())
+      .then(data => {
+        if (!Array.isArray(data)) {
+          tableBody.innerHTML = "<tr><td colspan='5'>Error loading advisees.</td></tr>";
+          return;
+        }
+  
+        tableBody.innerHTML = "";
+        data.forEach(student => {
+          const [major, minor] = (student.MajorMinor || "").split(" / ").map(x => x.trim());
+  
+          // Format major and minor with line breaks
+          const formattedMajor = (major || "-").replace(" ", "<br>");
+          const formattedMinor = (minor || "-").replace(" ", "<br>");
+  
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${student.FirstName} ${student.LastName}</td>
+            <td>${student.StudentID}</td>
+            <td>${formattedMajor}</td>
+            <td>${formattedMinor}</td>
+            <td class="email-cell">
+              <div class="email-wrapper">
+                <button class="show-email-btn" onclick="this.nextElementSibling.classList.toggle('visible')">Show Email</button>
+                <div class="email-reveal">${student.Email}</div>
+              </div>
+            </td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(err => {
+        console.error("Failed to load advisees:", err);
+        tableBody.innerHTML = "<tr><td colspan='5'>Failed to fetch data.</td></tr>";
+      });
+  }
+  
 
 // 2. Submit meeting form
 form.addEventListener("submit", e => {
@@ -24,13 +68,7 @@ form.addEventListener("submit", e => {
   fetch("/Backend/PHP/schedule-meeting.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      advisorId, // injected by PHP
-      studentName: name,
-      studentId: id,
-      date,
-      time
-    })
+    body: JSON.stringify({ advisorId, studentName: name, studentId: id, date, time })
   })
     .then(r => r.json())
     .then(d => {
@@ -51,11 +89,12 @@ function loadEverything() {
   fetch("/Backend/PHP/schedule-meeting.php")
     .then(r => r.json())
     .then(({ own, requests }) => {
-        const upcoming = own.filter(m => m.status === 'accepted'); // ✅ only accepted go to upcoming
-        render(listMeet, upcoming, false);
-        render(listReq, requests, true);
-      });
-    }      
+      const upcoming = own.filter(m => m.status === 'accepted');
+      render(listMeet, upcoming, false);
+      render(listReq, requests, true);
+    });
+}
+
 // 4. Render meeting list
 function render(target, arr, isRequest) {
   target.innerHTML = "";
@@ -68,53 +107,40 @@ function render(target, arr, isRequest) {
       makeBtn(btnBox, "✔ Accept", () => decision(m.id, "accepted"));
       makeBtn(btnBox, "✖ Decline", () => decision(m.id, "declined"));
     } else {
-        makeBtn(btnBox, "✎ Edit", () => {
-            li.innerHTML = ""; // clear existing content
-          
-            // Inputs
-            const dateInput = document.createElement("input");
-            dateInput.type = "date";
-            dateInput.value = m.date;
-          
-            const timeInput = document.createElement("input");
-            timeInput.type = "time";
-            timeInput.value = m.time;
-          
-            // Buttons
-            const saveBtn = document.createElement("button");
-            saveBtn.textContent = "✅ Save";
-            saveBtn.onclick = () => {
-              fetch("/Backend/PHP/schedule-meeting.php", {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  id: m.id,
-                  date: dateInput.value,
-                  time: timeInput.value
-                })
-              })
-                .then(r => r.json())
-                .then(res => {
-                  if (res.success) loadEverything();
-                  else alert("Update failed.");
-                })
-                .catch(err => {
-                  console.error("Update error:", err);
-                  alert("Network error");
-                });
-            };
-          
-            const cancelBtn = document.createElement("button");
-            cancelBtn.textContent = "❌ Cancel";
-            cancelBtn.onclick = () => loadEverything();
-          
-            // Append all
-            li.appendChild(dateInput);
-            li.appendChild(timeInput);
-            li.appendChild(saveBtn);
-            li.appendChild(cancelBtn);
-          }); 
-        makeBtn(btnBox, "🗑 Del", () => decision(m.id, "delete"));
+      makeBtn(btnBox, "✎ Edit", () => {
+        li.innerHTML = "";
+        const dateInput = document.createElement("input");
+        dateInput.type = "date";
+        dateInput.value = m.date;
+
+        const timeInput = document.createElement("input");
+        timeInput.type = "time";
+        timeInput.value = m.time;
+
+        const saveBtn = document.createElement("button");
+        saveBtn.textContent = "✅ Save";
+        saveBtn.onclick = () => {
+          fetch("/Backend/PHP/schedule-meeting.php", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: m.id, date: dateInput.value, time: timeInput.value })
+          })
+            .then(r => r.json())
+            .then(res => res.success ? loadEverything() : alert("Update failed."))
+            .catch(err => {
+              console.error("Update error:", err);
+              alert("Network error");
+            });
+        };
+
+        const cancelBtn = document.createElement("button");
+        cancelBtn.textContent = "❌ Cancel";
+        cancelBtn.onclick = () => loadEverything();
+
+        li.append(dateInput, timeInput, saveBtn, cancelBtn);
+      });
+
+      makeBtn(btnBox, "🗑 Del", () => decision(m.id, "delete"));
     }
 
     li.appendChild(btnBox);
@@ -133,18 +159,15 @@ function makeBtn(parent, text, cb) {
 
 // 6. Handle meeting actions
 function decision(meetingId, action) {
-    const method = action === "delete" ? "DELETE" : "PATCH"; // <-- FIX HERE
-    const body = { id: meetingId, status: action };
-  
-    fetch("/Backend/PHP/schedule-meeting.php", {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    })
-      .then(r => r.json())
-      .then(() => loadEverything());
-  }
-  
+  const method = action === "delete" ? "DELETE" : "PATCH";
+  const body = { id: meetingId, status: action };
+
+  fetch("/Backend/PHP/schedule-meeting.php", {
+    method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  }).then(r => r.json()).then(() => loadEverything());
+}
 
 // 7. Load and inject advisor profile info
 function loadAdvisorProfile() {

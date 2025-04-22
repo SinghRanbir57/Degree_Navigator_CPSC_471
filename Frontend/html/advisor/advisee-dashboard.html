@@ -1,227 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Advisor Profile</title>
-    <link rel="stylesheet" href="../../css/joint/profile.css">
-    <link rel="stylesheet" href="../../css/joint/header.css">
-    <link rel="stylesheet" href="../../css/joint/sidebar.css">
-    <link rel="stylesheet" href="../../css/joint/footer.css">
-    <link rel="stylesheet" href="../../css/joint/logout.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>My Advisees</title>
+  <link rel="stylesheet" href="../../css/advisor/advisee-dashboard.css" />
+  <link rel="stylesheet" href="../../css/joint/header.css" />
+  <link rel="stylesheet" href="../../css/joint/sidebar.css" />
+  <link rel="stylesheet" href="../../css/joint/footer.css" />
+  <link rel="stylesheet" href="../../css/joint/logout.css" />
+  <style>
+    .email-reveal {
+      display: none;
+      margin-top: 6px;
+      background-color: #f9f9f9;
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 14px;
+      width: fit-content;
+      white-space: nowrap;
+      cursor: text;
+      user-select: all;
+    }
+  
+    .email-reveal.visible {
+      display: inline-block;
+    }
+  </style>
+  
 </head>
 
 <body>
-    <div class="Screen">
-        <div class="sidebar">
-            <div class="sidebar-logo">
-                <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo">
-            </div>
-            <a href="../advisor/advisor-dashboard.php">Dashboard</a>
-            <a href="../advisor/advisee-dashboard.html">My Advisees</a>
-            <a href="../advisor/calendar.html">Academic Calendar</a>
-            <a href="../advisor/program-guide.html">Program Guide</a>
-            <a href="../advisor/advisor-profile.html">My Profile</a>
-        </div>
-
-        <div class="header">
-            <div class="header-left"></div>
-            <div class="header-right"></div>
-            <div class="search-container">
-                <input type="text" class="search-bar" placeholder="Search...">
-            </div>
-            <div>
-                <button class="logout-btn" onclick="openLogoutModal()">Logout</button>
-            </div>
-
-            <div id="logoutModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeLogoutModal()">&times;</span>
-                    <h2>Are you sure you want to logout?</h2>
-                    <div class="logout-actions">
-                        <button onclick="confirmLogout()" class="confirm-btn">Yes, Logout</button>
-                        <button onclick="closeLogoutModal()" class="cancel-btn">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer class="footer">
-            <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d" target="_blank">Account FAQs</a>
-            <a href="https://ucalgary.service-now.com/it?id=contact_and_help" target="_blank">Contact Support</a>
-            <div class="copyright">
-                © <script>document.write(new Date().getFullYear());</script> University of Calgary
-            </div>
-        </footer>
-
-        <div class="main-body">
-            <div class="main-content">
-                <h1>Advisor Profile</h1>
-                <div class="info-note">
-                    📌 <strong>You can view and update your contact details such as address, phone number, and personal email.</strong>
-                </div>
-
-                <div class="profile-section">
-                    <div class="profile-left">
-                        <div class="profile-primary">
-                            <div class="profile-image">
-                                <img src="../../images/user image.png" alt="Profile Photo" class="profile-photo">
-                            </div>
-
-                            <div class="profile-info" id="advisorProfileInfo">
-                                <h3>Loading...</h3>
-                            </div>
-                        </div>
-
-                        <div class="profile-secondary">
-                            <p><strong>UofC Email:</strong> <span id="uofcEmail">-</span></p>
-                            <p><strong>Personal Email:</strong> <span id="personalEmail">-</span></p>
-                            <p><strong>Phone(s):</strong>
-                                <ul id="phoneList" class="dynamic-list"></ul>
-                            </p>
-                            <p><strong>Address:</strong>
-                                <span id="addressDisplay">-</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="profile-right">
-                        <div class="update-card">
-                            <label for="address">Add/Update Address</label>
-                            <textarea id="addressInput" rows="2"></textarea>
-                            <button onclick="addAddress()">Add Address</button>
-                        </div>
-                        <div class="update-card">
-                            <label for="phone">Add/Update Phone Number</label>
-                            <input type="tel" id="phoneInput">
-                            <button onclick="addPhone()">Add Phone</button>
-                        </div>
-                        <div class="update-card">
-                            <label for="email">Add/Update Personal Email</label>
-                            <input type="email" id="emailInput">
-                            <button onclick="updateEmail()">Update Email</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="screen">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <img src="../../images/UniversityOfCalgaryLogo.png" alt="University Logo" class="logo" />
+      </div>
+      <a href="../advisor/advisor-dashboard.php">Dashboard</a>
+      <a href="../advisor/advisee-dashboard.html">My Advisees</a>
+      <a href="../advisor/calendar.php">Academic Calendar</a>
+      <a href="../advisor/program-guide.html">Program Guide</a>
+      <a href="../advisor/advisor-profile.html">My Profile</a>
     </div>
 
-    <script>
-    let addressExists = false;
-    let phoneNumbers = [];
-    let personalEmail = "";
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left"></div>
+      <div class="header-right"></div>
+      <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search..." />
+      </div>
+      <div>
+        <button class="logout-btn" onclick="openLogoutModal()">Logout</button>
+      </div>
+      <div id="logoutModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeLogoutModal()">&times;</span>
+          <h2>Are you sure you want to logout?</h2>
+          <div class="logout-actions">
+            <button onclick="confirmLogout()" class="confirm-btn">Yes, Logout</button>
+            <button onclick="closeLogoutModal()" class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+      <a href="https://ucalgary.service-now.com/it?id=kb_article&amp;sys_id=e86c4d3913b93ec06f3afbb2e144b03d" target="_blank">Account FAQs</a>
+      <a href="https://ucalgary.service-now.com/it?id=contact_and_help" target="_blank">Contact Support</a>
+      <div class="copyright">
+        © <script>document.write(new Date().getFullYear());</script> University of Calgary
+      </div>
+    </footer>
+
+    <!-- Main Content -->
+    <div class="main-body">
+      <div class="main-content">
+        <h1>My Advisees</h1>
+        <div class="table-container">
+          <table class="advisor-student-table" id="adviseeTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Major / Minor</th>
+                <th>Email</th>
+                <th>GPA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="5">Loading advisees...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
     window.addEventListener("DOMContentLoaded", () => {
-        fetch("/Backend/PHP/advisor-info.php")
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) return console.error(data.error);
-                const p = data.profile;
+      fetch("/Backend/PHP/advisee-info.php")
+        .then(res => res.json())
+        .then(data => {
+          const students = Array.isArray(data.students) ? data.students : data;
+          if (!Array.isArray(students)) {
+            console.error("Expected students array, got:", data);
+            return;
+          }
 
-                const container = document.getElementById("advisorProfileInfo");
-                container.innerHTML = `
-                    <h3>${p.FirstName} ${p.LastName}</h3>
-                    <p><strong>Advisor ID:</strong> ${p.AdvisorID}</p>
-                    <p><strong>Department:</strong> ${p.Department}</p>
-                    <p><strong>Sex:</strong> ${p.Sex || "Not specified"}</p>
-                    <p><strong>Birth-date:</strong> ${p.BirthDate}</p>
-                    <p><strong>SIN:</strong> ***-***-${p.SIN.slice(-3)}</p>
-                    <p><strong>Nationality:</strong> ${p.Nationality || "Canadian"}</p>
-                    <p><strong>Permanent Address:</strong> ${p.Address}</p>
-                    <p><strong>Phone Number:</strong> ${p.PhoneNumber}</p>
-                `;
+          const tbody = document.querySelector("#adviseeTable tbody");
+          tbody.innerHTML = "";
 
-                document.getElementById("uofcEmail").textContent = p.Email;
-            })
-            .catch(err => console.error("Failed to load profile", err));
+          students.forEach(s => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${s.FirstName} ${s.LastName}</td>
+              <td>${s.StudentID}</td>
+              <td>${s.MajorMinor}</td>
+              <td>${s.Email}</td>
+              <td>${s.GPA ?? "-"}</td>
+            `;
+            tbody.appendChild(row);
+          });
+        })
+        .catch(err => {
+          console.error("Failed to fetch advisees:", err);
+        });
     });
 
-    function addAddress() {
-        const input = document.getElementById('addressInput');
-        const display = document.getElementById('addressDisplay');
-        if (addressExists) {
-            alert("You already have an address. Delete it first to add a new one.");
-            return;
-        }
-        if (input.value.trim() === "") {
-            alert("Please enter a valid address.");
-            return;
-        }
-        display.innerText = input.value;
-        addressExists = true;
-        display.innerHTML += ` <button onclick="deleteAddress()">Delete</button>`;
-        input.value = "";
-    }
-
-    function deleteAddress() {
-        document.getElementById('addressDisplay').innerText = "-";
-        addressExists = false;
-    }
-
-    function addPhone() {
-        const input = document.getElementById('phoneInput');
-        const phone = input.value.trim();
-        const list = document.getElementById('phoneList');
-
-        if (!phone) {
-            alert("Enter a valid phone number.");
-            return;
-        }
-        if (phoneNumbers.length >= 1) {
-            alert("Maximum 1 alternative phone number is allowed.");
-            return;
-        }
-
-        phoneNumbers.push(phone);
-        const li = document.createElement('li');
-        li.innerHTML = `${phone} <button onclick="removePhone(this, '${phone}')">Delete</button>`;
-        list.appendChild(li);
-        input.value = "";
-    }
-
-    function removePhone(btn, phone) {
-        phoneNumbers = phoneNumbers.filter(p => p !== phone);
-        btn.parentElement.remove();
-    }
-
-    function updateEmail() {
-        const input = document.getElementById('emailInput');
-        const email = input.value.trim();
-        const span = document.getElementById('personalEmail');
-
-        if (!email || !email.includes('@') || email.endsWith('@ucalgary.ca')) {
-            alert("Enter a valid personal (non-UofC) email.");
-            return;
-        }
-
-        personalEmail = email;
-        span.innerHTML = `${email} <button onclick="clearPersonalEmail()">Delete</button>`;
-        input.value = "";
-    }
-
-    function clearPersonalEmail() {
-        personalEmail = "";
-        document.getElementById('personalEmail').innerText = "-";
-    }
-
     function openLogoutModal() {
-        document.getElementById("logoutModal").style.display = "flex";
+      document.getElementById("logoutModal").style.display = "flex";
     }
 
     function closeLogoutModal() {
-        document.getElementById("logoutModal").style.display = "none";
+      document.getElementById("logoutModal").style.display = "none";
     }
 
     function confirmLogout() {
-        fetch("/Backend/PHP/logout.php")
-            .then(() => {
-                window.location.href = "/Frontend/html/joint/login.html";
-            })
-            .catch(() => {
-                alert("Logout failed. Try again.");
-            });
+      fetch("/Backend/PHP/logout.php")
+        .then(() => {
+          window.location.href = "/Frontend/html/joint/login.html";
+        })
+        .catch(() => {
+          alert("Logout failed. Try again.");
+        });
     }
-    </script>
+  </script>
 </body>
 </html>

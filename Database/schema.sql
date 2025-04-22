@@ -134,6 +134,22 @@ CREATE TABLE Meetings (
 -- ========================
 -- SEED DATA
 -- ========================
+-- Insert Advisors
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES 
+('Alex', 'Johnson', 'advisor@email.com', '403-555-1212', '789 Maple St', '1979-06-10', '123456789', 'advisor', 'advisor123', 'advisor');
+SET @advisor_id = LAST_INSERT_ID();
+
+INSERT INTO Advisors (AdvisorID, Department, Notes)
+VALUES (@advisor_id, 'Computer Science', 'Specializes in AI');
+
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES 
+('Emily', 'Wong', 'ewong@email.com', '403-555-3333', '891 Mountain Ave, Calgary', '1982-01-20', '741852963', 'ewong', 'advisorpass', 'advisor');
+SET @advisor_id_2 = LAST_INSERT_ID();
+
+INSERT INTO Advisors (AdvisorID, Department, Notes)
+VALUES (@advisor_id_2, 'Electrical & Software Engineering', 'Cybersecurity specialist');
 
 -- Insert Students
 INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
@@ -152,22 +168,77 @@ SET @student_id_2 = LAST_INSERT_ID();
 INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
 VALUES (@student_id_2, 'Software Engineering', 3.6, 2);
 
--- Insert Advisors
+
+-- === New Students for Alex Johnson (AdvisorID = 3) ===
 INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
 VALUES 
-('Alex', 'Johnson', 'advisor@email.com', '403-555-1212', '789 Maple St', '1979-06-10', '123456789', 'advisor', 'advisor123', 'advisor');
-SET @advisor_id = LAST_INSERT_ID();
+('Liam', 'Turner', 'liamturner@email.com', '403-555-4444', '321 Oak St', '2001-11-05', '159357258', 'liamt', 'liam123', 'student');
+SET @s1 = LAST_INSERT_ID();
 
-INSERT INTO Advisors (AdvisorID, Department, Notes)
-VALUES (@advisor_id, 'Computer Science', 'Specializes in AI');
+INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
+VALUES (@s1, 'Mathematics / Statistics', 3.7, 4);
+
+INSERT INTO Advisees (AdvisorID, StudentID)
+VALUES (3, @s1);
 
 INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
 VALUES 
-('Emily', 'Wong', 'ewong@email.com', '403-555-3333', '891 Mountain Ave, Calgary', '1982-01-20', '741852963', 'ewong', 'advisorpass', 'advisor');
-SET @advisor_id_2 = LAST_INSERT_ID();
+('Sophia', 'Lee', 'sophialee@email.com', '403-555-5555', '456 River Dr', '2002-03-19', '456123789', 'sophial', 'sophia456', 'student');
+SET @s2 = LAST_INSERT_ID();
 
-INSERT INTO Advisors (AdvisorID, Department, Notes)
-VALUES (@advisor_id_2, 'Electrical & Software Engineering', 'Cybersecurity specialist');
+INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
+VALUES (@s2, 'Data Science / Philosophy', 3.9, 3);
+
+INSERT INTO Advisees (AdvisorID, StudentID)
+VALUES (3, @s2);
+
+-- === New Students for Emily Wong (AdvisorID = 4) ===
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES 
+('Noah', 'Patel', 'noahpatel@email.com', '403-555-6666', '678 Sunridge Blvd', '2001-08-30', '852963741', 'noahp', 'noahpass', 'student');
+SET @s3 = LAST_INSERT_ID();
+
+INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
+VALUES (@s3, 'Electrical Engineering / Robotics', 3.5, 2);
+
+INSERT INTO Advisees (AdvisorID, StudentID)
+VALUES (4, @s3);
+
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES 
+('Ava', 'Chen', 'avachen@email.com', '403-555-7777', '123 Lakeview Cres', '2000-12-25', '321654987', 'avac', 'avapass', 'student');
+SET @s4 = LAST_INSERT_ID();
+
+INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
+VALUES (@s4, 'Software Engineering / Business', 3.85, 4);
+
+INSERT INTO Advisees (AdvisorID, StudentID)
+VALUES (4, @s4);
+
+-- Student 1
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES ('Ethan', 'Zhao', 'ethanzhao@email.com', '403-555-8888', '234 Birch St, Calgary', '2002-04-12', '789123456', 'ethanz', 'ethanpass', 'student');
+SET @s5 = LAST_INSERT_ID();
+INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
+VALUES (@s5, 'Electrical Engineering / AI', 3.75, 3);
+INSERT INTO Advisees (AdvisorID, StudentID) VALUES (4, @s5);
+
+-- Student 2
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES ('Maya', 'Singh', 'mayasingh@email.com', '403-555-9999', '678 Willow Way, Calgary', '2003-05-18', '963852741', 'mayas', 'mayapass', 'student');
+SET @s6 = LAST_INSERT_ID();
+INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
+VALUES (@s6, 'Software Engineering / Psychology', 3.65, 2);
+INSERT INTO Advisees (AdvisorID, StudentID) VALUES (4, @s6);
+
+-- Student 3
+INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, Address, BirthDate, SIN, Username, Password, Role)
+VALUES ('Leo', 'Martinez', 'leom@email.com', '403-555-1010', '101 Pine Ct, Calgary', '2001-09-03', '951753852', 'leom', 'leopass', 'student');
+SET @s7 = LAST_INSERT_ID();
+INSERT INTO Students (StudentID, MajorMinor, GPA, Course_year)
+VALUES (@s7, 'Computer Engineering / Economics', 3.92, 4);
+INSERT INTO Advisees (AdvisorID, StudentID) VALUES (4, @s7);
+
 
 -- Insert Degree and Courses
 INSERT INTO Degrees (DegreeName, Faculty, CreditsRequired)
@@ -193,7 +264,8 @@ VALUES
 (2, 1, 1, 1);
 
 
--- Associate Students with Advisors
-INSERT INTO Advisees (AdvisorID, StudentID) VALUES
-(3, 1),  -- Alex Johnson advises Jane Smith
-(4, 2);  -- Emily Wong advises David Nguyen
+-- Associate Students with Advisors (using IDs retrieved earlier)
+INSERT INTO Advisees (AdvisorID, StudentID)
+VALUES
+(@advisor_id, 1),       -- Alex Johnson advises Jane Smith
+(@advisor_id_2, 2);     -- Emily Wong advises David Nguyen

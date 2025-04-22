@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-* body {
-    color: #333;
-}
-
+/* Reset and base */
 html, body {
     margin: 0;
     font-family: museo-slab, "Proxima Nova", Arial, sans-serif;
     background-color: #f2f2f2;
     color: #333;
     overflow-x: hidden;
+}
+
+/* Fix invalid universal selector */
+body {
+    color: #333;
 }
 
 .screen {
@@ -23,14 +25,16 @@ html, body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
-    padding: 0 20px;
+    padding: 15px;
     background-color: white;
     height: 100vh;
-    padding: 15px 15px 15px 15px;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* allow scrolling if content is wide */
 }
 
+/* Section styling */
+.section,
 .section-advisor-info {
     background-color: #ffffff;
     border-radius: 10px;
@@ -38,54 +42,43 @@ html, body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, .15);
     display: flex;
     flex-direction: column;
-}
-
-.section-advisor-info h2 {
-    padding-bottom: 5px;
-    border-bottom: 2px solid #e0e0e0;
-    font-size: 1.3rem;
-    margin: 0px 0px 15px 0px;
-    color: #b00;
-}
-
-.section {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 24px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, .15);
-    display: flex;
-    flex-direction: column;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 .section:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Headings */
-.section h2 {
+.section h2,
+.section-advisor-info h2 {
     padding-bottom: 5px;
     border-bottom: 2px solid #e0e0e0;
     font-size: 1.3rem;
-    margin: 0px 0px 15px 0px;
+    margin-bottom: 15px;
     color: #d6001c;
 }
 
-/* Advisor Info */
-.advisor-info p {
-    margin: 0.4rem 0;
-    font-size: 15px;
+.section-advisor-info h2 {
+    color: #b00;
+}
+
+/* Table wrapper for responsive horizontal scrolling */
+.advisee-table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+    width: 100%;
+    padding-bottom: 10px;
 }
 
 /* Table styles */
 .advisor-student-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed; /* Prevent overflow from long content */
+    word-wrap: break-word;
+    font-size: 13px;
     margin-top: 10px;
-    font-size: 14px;
-}
-
-th {
-    background: #f1f1f1;
 }
 
 .advisor-student-table th,
@@ -95,11 +88,36 @@ th {
     border-bottom: 1px solid #e0e0e0;
 }
 
+.advisor-student-table th {
+    background: #f1f1f1;
+}
+
+/* Email reveal styling */
+.email-reveal {
+    display: none;
+    margin-top: 4px;
+    background-color: #f9f9f9;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 13px;
+    width: fit-content;
+    white-space: nowrap;
+    cursor: text;
+    user-select: all;
+}
+
+.email-reveal.visible {
+    display: inline-block;
+}
+
+/* Forms and inputs */
 form {
     display: flex;
-    font-size: 14px;
     flex-direction: column;
     gap: 12px;
+    font-size: 14px;
 }
 
 form input,
@@ -110,6 +128,7 @@ form select {
     border: 1px solid #ccc;
 }
 
+/* Buttons */
 button {
     background-color: #d6001c;
     font-weight: bold;
@@ -126,16 +145,19 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Advisor info text */
 .advisor-info p {
     margin: 6px 0;
     font-size: 15px;
 }
 
+/* GPA Filter */
 #gpaFilter {
     margin-top: 6px;
     max-width: 80px;
 }
 
+/* Meeting list */
 #meetingList {
     margin-top: 10px;
     padding-left: 20px;
@@ -144,10 +166,31 @@ a:hover {
 #meetingList li {
     margin-bottom: 8px;
     font-weight: bold;
-    font-size: 14;
+    font-size: 14px;
     color: #333;
 }
 
 #Upcoming-meetings {
     padding-top: 30px;
 }
+.advisor-student-table th:nth-child(2),
+.advisor-student-table td:nth-child(2) {
+  min-width: 120px; /* Student ID */
+  word-break: break-word;
+}
+
+.advisor-student-table th:nth-child(3),
+.advisor-student-table td:nth-child(3) {
+  min-width: 160px; /* Major */
+  word-break: break-word;
+}
+
+.advisor-student-table {
+    width: 100%;
+    table-layout: auto; /* allows natural width allocation */
+  }
+  
+.advisor-student-table td {
+    vertical-align: top;
+  }
+  

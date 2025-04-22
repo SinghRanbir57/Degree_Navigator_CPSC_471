@@ -1,9 +1,0 @@
-
-
-Student ID: 1
-Semester: Fall 2025
-Courses:
- - CPSC 319
- - CPSC 471
- - CPSC 457
-
