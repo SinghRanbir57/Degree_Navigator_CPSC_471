@@ -1,4 +1,19 @@
-# Degree_Navigator_CPSC_471
+##### Degree_Navigator_CPSC_471 #####
+
+# Introduction
+A Degree Navigator is an online course planning tool that helps Computer Science students at UofC track their academic progress by selecting and managing courses, viewing degree requirements, and receiving suggested future courses based on prerequisites. The system provides real-time insights to help students efficiently plan their course load.
+
+# Problem Summary
+University students often face frustration and delays when trying to track their degree progress. Relying on outdated tools, spreadsheets or frequent advisory meetings, the current Academic Requirements (AR) Tool needs some significant upgrading to keep up with the ever increasing student pool and demand for efficiency. A more user-friendly and feature-rich system is needed to streamline academic planning and give students the necessary guidance to make more informed decisions over their future academic endeavors.
+
+# Solution Summary
+Unlike the AR Tool, our Degree Navigator will provide real-time updates on degree progress. Features like standalone, interactive, progress bars will all be a part of our solution. The final product will be simple to use and have a user-friendly dashboard as well as, faculty advising notes, automated prerequisite validation, and possible course recommendations for specific career paths. It will be web based ensuring cross platform availability allowing for different devices to run seamlessly on our platform.
+
+# Motivation
+This project aims to replace the inefficient AR tool with an intuitive, responsive, and personalized system, helping Computer Science students to manage their degree progress effectively and reducing their reliance on manual tracking and meetings with advisors.
+
+
+
 A web-based degree navigation interface that helps students track their academic progress, view and update profile information, and manage their academic plans efficiently. This project was built as part of the CPSC 471 (Database Management Systems) course at the University of Calgary.
 
 _____________________________________________________________________________________________________________________________
@@ -52,11 +67,6 @@ https://github.com/SinghRanbir57/Degree_Navigator_CPSC_471.git
 
 _____________________________________________________________________________________________________________________________
 
-🧑‍💻 Contributors
-Ranbir – Backend development, database design, project architecture
-
-_____________________________________________________________________________________________________________________________
-
 📚 License
 MIT License
 
@@ -79,3 +89,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
